@@ -1,0 +1,17 @@
+<div class="mv-sidebar__backdrop" *ngIf="hasBackdrop()" (click)="close()"></div>
+<div class="mv-sidebar__wrapper">
+  <mv-toolbar *ngIf="hasTitle()">
+    <mv-row class="has-fill">
+      <mv-col class="is-fill">
+        <mv-icon class="mv-sidebar__icon" *ngIf="hasIcon()" [name]="icon"></mv-icon>
+        <span class="mv-sidebar__title">{{title}}</span>
+      </mv-col>
+      <mv-col *ngIf="isOpen">
+        <button class="mv-btn mv-sidebar__close" (click)="close()">&#10006;</button>
+      </mv-col>
+    </mv-row>
+  </mv-toolbar>
+  <div class="mv-sidebar__content">
+    <ng-content></ng-content>
+  </div>
+</div>

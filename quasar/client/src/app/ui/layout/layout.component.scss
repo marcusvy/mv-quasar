@@ -1,0 +1,70 @@
+/**
+ * Layout
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Layout
+ * @subpackage Layout
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+ @import "../variables";
+ @import "../shared/mixins";
+
+ /**
+  * @section Configuration
+  */
+ $mv-layout-content-padding: $mv-sidebar-width;
+
+ /**
+  * @section Style
+  */
+
+:host {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+  align-content: stretch;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+:host([chain]),
+:host(.is-chained) {
+  position: static;
+}
+
+:host /deep/ {
+
+  @include from($mv-device--tablet) {
+    mv-sidebar:not([right])[opened] ~ .mv-layout__content,
+    mv-sidebar:not([right])[flex].is-open ~ .mv-layout__content,
+    mv-sidebar[flex].is-open ~ .mv-layout__content {
+      padding-left: $mv-layout-content-padding;
+    }
+    mv-sidebar[right][opened] ~ .mv-layout__content,
+    mv-sidebar[right][flex].is-open ~ .mv-layout__content {
+      padding-right: $mv-layout-content-padding;
+    }
+  }
+
+  //@todo: colocar aqui o visible on tablet
+}
+
+.mv-layout__content {
+  margin: 0 auto;
+  transition: padding ease 300ms;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: stretch;
+}

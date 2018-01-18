@@ -1,0 +1,24 @@
+<mv-loadbar class="mv-bahamut__loadbar"></mv-loadbar>
+
+<mv-tab-group #tabs class="has-responsive-icons no-gap">
+  <!-- <mv-tab label="Resumo"
+    icon="dashboard"
+    slug="dashboard"
+    (onSelect)="onSelectTabDashboard()">
+    <ng-content select="mv-bahamut-dashboard"></ng-content>
+  </mv-tab> -->
+  <mv-tab label="Listar" class="is-flat"
+    icon="list"
+    [active]="true"
+    slug="list"
+    (onSelect)="onSelectTabList()">
+    <ng-content select="mv-bahamut-collection"></ng-content>
+  </mv-tab>
+  <mv-tab [label]="tabFormLabel"
+    [icon]="tabFormIcon"
+    slug="form"
+    (onSelect)="onSelectTabForm()">
+    <ng-content select="mv-bahamut-form"></ng-content>
+  </mv-tab>
+</mv-tab-group>
+<ng-content></ng-content>

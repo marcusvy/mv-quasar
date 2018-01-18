@@ -1,0 +1,16 @@
+<mv-row class="login-header is-align-middle">
+  <mv-col class="is-align-center">
+    <h1 class="login-title">Ativação</h1>
+  </mv-col>
+</mv-row>
+<mv-row>
+  <mv-col>
+    <!-- Usuário -->
+    <h3 class="is-align-center">{{message}}</h3>
+  </mv-col>
+</mv-row>
+<mv-row *ngIf="success">
+  <mv-col class="is-align-end">
+    <button type="button" class="mv-btn is-raised" (click)="back()">Entrar</button>
+  </mv-col>
+</mv-row>

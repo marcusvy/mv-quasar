@@ -1,0 +1,45 @@
+<mv-row class="login-header is-align-middle">
+  <mv-col class="is-align-center">
+    <h1 class="login-title">Cadastro</h1>
+  </mv-col>
+</mv-row>
+<form mvForm [formGroup]="form" (submit)="signin()">
+  <mv-row>
+    <mv-col>
+      <!-- Nome -->
+      <mv-control>
+        <label for="input-name">Nome</label>
+        <input id="input-name" type="text" name="name" formControlName="name" mvInputMask="alpha" />
+      </mv-control>
+
+      <!-- Usuário -->
+      <mv-control>
+        <label for="input-credential">Usuário</label>
+        <input id="input-credential" type="text" name="credential" formControlName="credential"/>
+      </mv-control>
+
+      <!-- E-mail -->
+      <mv-control>
+        <label for="input-email">E-mail</label>
+        <input id="input-email" type="email" name="email" formControlName="email" />
+      </mv-control>
+
+      <!-- Senha -->
+      <mv-control>
+        <label for="input-senha">Senha</label>
+        <input id="input-senha" type="password" name="password" formControlName="password" />
+      </mv-control>
+
+      <p class="is-align-center">{{message}}</p>
+    </mv-col>
+  </mv-row>
+  <mv-row class="is-align-middle">
+    <mv-col>
+      <a [routerLink]="['..']">Já estou cadastrado</a>
+    </mv-col>
+    <mv-col class="is-align-end no-flex">
+      <mv-icon name="spinner" class="fa-spin" *ngIf="loading"></mv-icon>
+      <button type="submit" class="mv-btn is-raised" [disabled]="form.invalid" *ngIf="!send">Cadastrar</button>
+    </mv-col>
+  </mv-row>
+</form>

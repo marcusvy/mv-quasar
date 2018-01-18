@@ -1,0 +1,41 @@
+/**
+ * Scroller
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Utils
+ * @subpackage Scroller
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$scroller--padding: 0.5rem;
+
+
+/**
+ * @section Style
+ */
+:host {
+    display: block;
+    transition: all 300ms ease;
+}
+
+:host /deep/ [mvScroller].is-scroller-on {}
+:host /deep/ [mvScroller].is-scroller-off {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6000;
+}

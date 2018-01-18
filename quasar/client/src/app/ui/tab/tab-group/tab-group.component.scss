@@ -1,0 +1,47 @@
+/**
+ * Tab
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Layout
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+@import "../../variables";
+@import "../../shared/mixins";
+
+/**
+ * @section Style
+ */
+
+:host {
+  display: block;
+  // position: relative;
+}
+.mv-tab-group__control {
+  // padding: 0.5rem;
+  border-bottom: 0.2rem solid $mv-color--secondary;
+}
+
+.mv-tab-group__tab {
+  flex-grow: 0;
+  // margin-bottom: -(0.5rem + 0.2rem);
+}
+
+:host(.no-gap) /deep/ .mv-tab-group__control mv-col {
+  padding: 0;
+}
+
+@include mobile() {
+  :host(.has-responsive-icons) /deep/ {
+    .mv-tab-group__tab .mv-btn__label {
+      display: none;
+    }
+  }
+}

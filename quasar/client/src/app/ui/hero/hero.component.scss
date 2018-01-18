@@ -1,0 +1,79 @@
+/**
+ * hero
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Components
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Style
+ */
+
+ :host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.mv-hero__background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.8;
+}
+
+.mv-hero__content {
+  display: flex;
+  flex: 1;
+  position: relative;
+  padding: $mv-grid--gutter;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+
+  @include tablet { max-width: 60%; }
+}
+
+.mv-hero__button-area {
+  display: flex;
+  justify-content: center;
+}
+
+/**
+ * Modificadores
+ */
+
+:host(.is-fixed) {
+  background-attachment: fixed;
+}
+
+@include tablet {
+   :host {
+    min-height: 24rem;
+  }
+}
+
+@include desktop {
+   :host {
+    min-height: 30rem;
+  }
+}

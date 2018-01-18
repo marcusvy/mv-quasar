@@ -1,0 +1,59 @@
+/**
+ * Control
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Form
+ * @subpackage Control
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../../../variables";
+@import "../../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$control-container--border-radius: 0 !default;
+
+/**
+ * @section Style
+ */
+:host {
+    display: block;
+    position: relative;
+}
+
+:host /deep/ {
+    .selectable {
+        user-select: text !important;
+    }
+
+    .ql-container {
+        font-family: $mv-font--family-sans;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .ql-editor {
+        min-height: 200px;
+        padding-bottom: 1rem;
+        font-size: 1rem;
+        font-family: inherit;
+        word-wrap: break-word;
+        word-break: break-all;
+        border-bottom-width: 2px;
+        border-style: solid;
+        border-radius: $control-container--border-radius;
+    }
+
+    mv-control-editor-area {
+        display: block;
+    }
+}

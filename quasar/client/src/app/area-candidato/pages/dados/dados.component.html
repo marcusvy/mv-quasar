@@ -1,0 +1,686 @@
+<mv-row>
+  <mv-col>
+    <h2>
+      <mv-icon name="id-badge"></mv-icon>
+      <span>Dados Pessoais</span>
+    </h2>
+  </mv-col>
+  <mv-col class="is-mobile-12 is-tablet-12">
+    <mv-card>
+      <mv-card-body class="is-align-center">
+        <p>Prezado candidato, sempre mantenha seus dados atualizados.</p>
+        <p class="is-color-danger">Campos com <strong>*</strong> são obrigatórios</p>
+        <!-- <p class="is-color-danger">Após inscrito em um concurso você não poderá mais atualizar esses dados.</p> -->
+      </mv-card-body>
+    </mv-card>
+  </mv-col>
+</mv-row>
+
+
+<form mvForm [formGroup]="form">
+
+  <mv-row>
+    <mv-col>
+      <h4>Documentação</h4>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-cpf">CPF<span class="asterisc">*</span></label>
+        <input id="input-cpf" type="text" name="cpf" formControlName="cpf" mvInputMask="cpf" />
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-8">
+      <mv-control>
+        <label for="input-nome">Nome Completo<span class="asterisc">*</span></label>
+        <input id="input-nome" type="text" name="nome" formControlName="nome" mvInputMask="alpha" />
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-4">
+      <mv-control>
+        <label for="input-datanascimento">Data de Nascimento<span class="asterisc">*</span></label>
+        <input id="input-datanascimento" type="date" name="datanascimento" formControlName="datanascimento" placeholder="dd/mm/aaaa"/>
+      </mv-control>
+    </mv-col>
+
+    <!-- <mv-col class="is-mobile-12 is-tablet-12">
+          <mv-control>
+          <label for="input-numfilhos">Nº de Filhos</label>
+          <input id="input-numfilhos" type="text" name="numfilhos"  mvInputMask="alpha" />
+        </mv-control> -->
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-nomemae">Nome da mãe<span class="asterisc">*</span></label>
+        <input id="input-nomemae" type="text" name="nomemae" formControlName="nomemae" mvInputMask="alpha" />
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-nomepai">Nome do pai</label>
+        <input id="input-nomepai" type="text" name="nomepai" formControlName="nomepai" mvInputMask="alpha" />
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="select-tipodocumento">Tipo de Documento<span class="asterisc">*</span></label>
+        <select name="tipodocumento" id="select-tipodocumento" formControlName="tipodocumento">
+          <option value="1">Cart. de Trabalho</option>
+          <option value="2">Carteira de Identidade Profissional</option>
+          <option value="3">Cert. de Nascimento</option>
+          <option value="4">Carteira de Identidade</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-3">
+      <mv-control>
+        <label for="input-numdocumento">Nº do Documento<span class="asterisc">*</span></label>
+        <input id="input-numdocumento" type="number" name="numdocumento" formControlName="numdocumento" mvInputMask="number" />
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-3">
+      <mv-control>
+        <label for="select-orgaodocumento">Órgão Emissor<span class="asterisc">*</span></label>
+        <select id="select-orgaodocumento" name="orgaodocumento" formControlName="orgaodocumento">
+          <option value="">Selecione</option>
+          <option selected="selected" value="SSP">SSP - Secretaria de Segurança Pública</option>
+          <option value="PM">PM - Polícia Militar</option>
+          <option value="PC">PC - Policia Civil</option>
+          <option value="CNH">CNH - Carteira Nacional de Habilitação</option>
+          <option value="DIC">DIC - Diretoria de Identificação Civil</option>
+          <option value="CTPS">CTPS - Carteira de Trabaho e Previdência Social</option>
+          <option value="IFP">IFP - Instituto Félix Pacheco</option>
+          <option value="IPF">IPF - Instituto Pereira Faustino</option>
+          <option value="IML">IML - Instituto Médico-Legal</option>
+          <option value="MTE">MTE - Ministério do Trabalho e Emprego</option>
+          <option value="MMA">MMA - Ministério da Marinha</option>
+          <option value="MAE">MAE - Ministério da Aeronáutica</option>
+          <option value="MEX">MEX - Ministério do Exército</option>
+          <option value="POF">POF - Polícia Federal</option>
+          <option value="POM">POM - Polícia Militar</option>
+          <option value="SES">SES - Carteira de Estrangeiro</option>
+          <option value="SJS">SJS - Secretaria da Justiça e Segurança</option>
+          <option value="SJTS">SJTS - Secretaria da Justiça do Trabalho e Segurança</option>
+          <option value="ZZZ">ZZZ - Outros (inclusive exterior)</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-3">
+      <mv-control>
+        <label for="select-ufdocumento">UF do Órgão Emissor<span class="asterisc">*</span></label>
+        <select id="select-ufdocumento" name="ufdocumento" formControlName="ufdocumento">
+          <option value="">Selecione</option>
+          <option value="AC">AC</option>
+          <option value="AL">AL</option>
+          <option value="AP">AP</option>
+          <option value="AM">AM</option>
+          <option value="BA">BA</option>
+          <option value="CE">CE</option>
+          <option value="DF">DF</option>
+          <option value="ES">ES</option>
+          <option value="GO">GO</option>
+          <option value="MA">MA</option>
+          <option value="MT">MT</option>
+          <option value="MS">MS</option>
+          <option value="MG">MG</option>
+          <option value="PA">PA</option>
+          <option value="PB">PB</option>
+          <option value="PR">PR</option>
+          <option value="PE">PE</option>
+          <option value="PI">PI</option>
+          <option value="RJ">RJ</option>
+          <option value="RN">RN</option>
+          <option value="RS">RS</option>
+          <option value="RO">RO</option>
+          <option value="RR">RR</option>
+          <option value="SC">SC</option>
+          <option value="SP">SP</option>
+          <option value="SE">SE</option>
+          <option value="TO">TO</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-3">
+      <mv-control>
+        <label for="input-dataemissaodocumento">Data de Emissão<span class="asterisc">*</span></label>
+        <input id="input-dataemissaodocumento" type="date" name="dataemissaodocumento" formControlName="dataemissaodocumento" placeholder="dd/mm/aaaa"/>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="select-nacionalidade">Nacionalidade<span class="asterisc">*</span></label>
+        <select id="select-nacionalidade" name="nacionalidade" formControlName="nacionalidade">
+          <option value="">Selecione</option>
+          <option value="Brasileira">Brasileira</option>
+          <option value="Estrangeira">Estrangeira</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="select-naturalidade">Naturalidade<span class="asterisc">*</span></label>
+        <select id="select-naturalidade" name="naturalidade" formControlName="naturalidade">
+          <option value="">Selecione</option>
+          <option value="AC">AC</option>
+          <option value="AL">AL</option>
+          <option value="AP">AP</option>
+          <option value="AM">AM</option>
+          <option value="BA">BA</option>
+          <option value="CE">CE</option>
+          <option value="DF">DF</option>
+          <option value="ES">ES</option>
+          <option value="GO">GO</option>
+          <option value="MA">MA</option>
+          <option value="MT">MT</option>
+          <option value="MS">MS</option>
+          <option value="MG">MG</option>
+          <option value="PA">PA</option>
+          <option value="PB">PB</option>
+          <option value="PR">PR</option>
+          <option value="PE">PE</option>
+          <option value="PI">PI</option>
+          <option value="RJ">RJ</option>
+          <option value="RN">RN</option>
+          <option value="RS">RS</option>
+          <option value="RO">RO</option>
+          <option value="RR">RR</option>
+          <option value="SC">SC</option>
+          <option value="SP">SP</option>
+          <option value="SE">SE</option>
+          <option value="TO">TO</option>
+          <option value="OT">Outros (inclusive exterior)</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="select-sexo">Sexo<span class="asterisc">*</span></label>
+        <select id="select-sexo" name="sexo" formControlName="sexo">
+          <option value="">Selecione</option>
+          <option value="F">Feminino</option>
+          <option value="M">Masculino</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="select-estadocivil">Estado Civil<span class="asterisc">*</span></label>
+        <select id="select-estadocivil" name="estadocivil" formControlName="estadocivil">
+          <option value="">Selecione</option>
+          <option value="C">Casado</option>
+          <option value="D">Divorciado</option>
+          <option value="E">Separado</option>
+          <option value="S">Solteiro</option>
+          <option value="V">Viúvo</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+
+    <!-- =Cor/Raça
+          <select class="form-control">
+            <option value="">Selecione</option>
+            <option value="Amarela">Amarela</option>
+            <option selected="selected" value="Branca">Branca</option>
+            <option value="Indigena">Indígena</option>
+            <option value="Parda">Parda</option>
+            <option value="Preta">Preta</option>
+          </select> -->
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="select-nivelescolar">Nível de Escolaridade<span class="asterisc">*</span></label>
+        <select id="select-nivelescolar" name="nivelescolar" formControlName="nivelescolar">
+          <option value="">Selecione</option>
+          <option value="1">Analfabeto</option>
+          <option value="2">Até O 5º Ano Incompleto do Ensino Fundamental</option>
+          <option value="3">5º Ano Completo do Ensino Fundamental</option>
+          <option value="4">Do 6º Ao 9º Ano do Ensino Fundamental</option>
+          <option value="5">Nível Fundamental (1º Grau)</option>
+          <option value="6">Ensino Médio Incompleto</option>
+          <option value="7">Nível Médio (2º Grau)</option>
+          <option value="11">Nível Superior Incompleto</option>
+          <option selected="selected" value="12">Nível Superior Completo</option>
+          <option value="13">Pós Grad. Incompleto</option>
+          <option value="14">Pós-graduação</option>
+          <option value="15">Mestrado Incompleto</option>
+          <option value="16">Mestrado</option>
+          <option value="17">Doutorado Incompleto</option>
+          <option value="18">Doutorado</option>
+          <option value="19">Pós Dout.incompleto</option>
+          <option value="20">Pós Dout.completo</option>
+          <option value="21">Ensino Médio Técnico</option>
+          <option value="23">Ensino Fundamental Incompleto</option>
+          <option value="24">Ensino Medio Magisterio</option>
+          <option value="25">Estudante do penúltimo período</option>
+          <option value="26">Estudante do último período</option>
+          <option value="27">Estudante do último ano</option>
+          <option value="28">Bacharel em direito</option>
+          <option value="29">Especialização</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+
+    <!-- =Área de formação
+          <select class="form-control">
+            <option selected="selected" value="">Selecione</option>
+            <option value="1">Administração</option>
+            <option value="2">Administração pública</option>
+            <option value="3">Agronegócio (tecnologia)</option>
+            <option value="4">Agronomia (ou Engenharia Agronômica)</option>
+            <option value="5">Alimentos (tecnologia)</option>
+            <option value="6">Análise de Sistemas &amp; Tecnologia da Informação (ou Análise e desenvolvimento de sistemas [tecnologia] ou simplesmente
+              Análise de sistemas )</option>
+            <option value="7">Antropologia</option>
+            <option value="8">Aqüicultura</option>
+            <option value="9">Arqueologia</option>
+            <option value="10">Arquitetura</option>
+            <option value="11">Arquivologia</option>
+            <option value="12">Artes cênicas</option>
+            <option value="13">Artes plásticas</option>
+            <option value="14">Artes visuais</option>
+            <option value="15">Astronomia</option>
+            <option value="16">Automação de escritório (ou secretariado [tecnologia])</option>
+            <option value="17">Automação Industrial (tecnologia)</option>
+            <option value="18">Biblioteconomia</option>
+            <option value="19">Biocombustíveis</option>
+            <option value="20">Bioenergia sucro-alcooleira (tecnologia)</option>
+            <option value="21">Bioengenharia (ou Engenharia Biológica)</option>
+            <option value="22">Biologia</option>
+            <option value="23">Biologia marinha</option>
+            <option value="24">Biomedicina</option>
+            <option value="25">Biotecnologia</option>
+            <option value="26">Biotecnologia (ou Engenharia Biotecnológica)</option>
+            <option value="27">Botânica</option>
+            <option value="28">Ciência da informação</option>
+            <option value="29">Ciência dos alimentos</option>
+            <option value="30">Ciência dos materiais (tecnologia)</option>
+            <option value="31">Ciência e Tecnologia</option>
+            <option value="32">Ciências ambientais</option>
+            <option value="33">Ciências atuariais</option>
+            <option value="34">Ciências biológicas (ou biologia)</option>
+            <option value="35">Ciências contábeis (ou contabilidade)</option>
+            <option value="36">Ciências da atividade física (licenciatura)</option>
+            <option value="37">Ciências do esporte</option>
+            <option value="38">Ciências econômicas (ou economia)</option>
+            <option value="39">Ciências exatas (licenciatura)</option>
+            <option value="40">Ciências Moleculares (ou Biomoleculares)</option>
+            <option value="41">Ciências Naturais</option>
+            <option value="42">Ciências políticas (ou Ciências do Estado)</option>
+            <option value="43">Ciências sociais (ou sociologia)</option>
+            <option value="44">Cinema</option>
+            <option value="45">Comércio exterior</option>
+            <option value="46">Computação (licenciatura)</option>
+            <option value="47">Computação científica</option>
+            <option value="48">Comunicação social</option>
+            <option value="49">Engenharia Civil (ou Construção Civil [tecnologia])</option>
+            <option value="50">Cooperativismo (ou associativismo em Redes de empresas e no agronegócio [tecnologia])</option>
+            <option value="51">Cosmetologia e Estética ou Estética e Cosmética</option>
+            <option value="52">Dança</option>
+            <option value="53">Defesa e Gestão Estratégica Internacional</option>
+            <option value="54">Desenho industrial (ou Design gráfico)</option>
+            <option value="55">Design</option>
+            <option value="56">Design de interiores</option>
+            <option value="57">Design de jogos digitais</option>
+            <option value="58">Design de moda</option>
+            <option value="59">Direito</option>
+            <option value="60">Ecologia</option>
+            <option value="61">Editoração (ou produção editorial)</option>
+            <option value="62">Educação artística</option>
+            <option value="63">Educação física</option>
+            <option value="64">Educação musical (licenciatura)</option>
+            <option value="65">Eletrônica</option>
+            <option value="66">Eletrônica embarcada (ou Autotrônica [tecnologia])</option>
+            <option value="67">Enfermagem</option>
+            <option value="68">Engenharia Aeroespacial</option>
+            <option value="69">Engenharia Aeronáutica</option>
+            <option value="70">Engenharia Agrícola</option>
+            <option value="71">Engenharia Ambiental</option>
+            <option value="72">Engenharia Biofísica</option>
+            <option value="73">Engenharia Biomédica</option>
+            <option value="74">Engenharia Cartográfica</option>
+            <option value="75">Engenharia da qualidade</option>
+            <option value="76">Engenharia de agrimensura</option>
+            <option value="77">Engenharia de alimentos</option>
+            <option value="78">Engenharia de Áudio</option>
+            <option value="79">Engenharia de computação</option>
+            <option value="80">Engenharia de Controle e Automação</option>
+            <option value="81">Engenharia de informação</option>
+            <option value="82">Engenharia de instrumentação</option>
+            <option value="83">Engenharia de instrumentação (ou Engenharia de Controle e Automação ou Robótica)</option>
+            <option value="84">Engenharia de manufatura</option>
+            <option value="85">Engenharia de manutenção</option>
+            <option value="86">Engenharia de materiais</option>
+            <option value="87">Engenharia de minas</option>
+            <option value="88">Engenharia de pesca</option>
+            <option value="89">Engenharia de petróleo</option>
+            <option value="90">Engenharia de produção</option>
+            <option value="91">Engenharia de serviços</option>
+            <option value="92">Engenharia de sistemas</option>
+            <option value="93">Engenharia de sistemas eletrônicos</option>
+            <option value="94">Engenharia de software</option>
+            <option value="95">Engenharia de tecidos</option>
+            <option value="96">Engenharia de telecomunicações</option>
+            <option value="97">Engenharia de transportes</option>
+            <option value="98">Engenharia Econômica</option>
+            <option value="99">Engenharia Elétrica (ou Engenharia Energética, ou ainda Engenharia de Energia )</option>
+            <option value="100">Engenharia Eletrônica</option>
+            <option value="101">Engenharia Estrutural</option>
+            <option value="102">Engenharia Física</option>
+            <option value="103">Engenharia Florestal</option>
+            <option value="104">Engenharia Geográfica</option>
+            <option value="105">Engenharia Geológica</option>
+            <option value="106">Engenharia Hidráulica</option>
+            <option value="107">Engenharia Humana</option>
+            <option value="108">Engenharia Industrial</option>
+            <option value="109">Engenharia Industrial Madeireira</option>
+            <option value="110">Engenharia mecânica</option>
+            <option value="111">Engenharia mecatrônica</option>
+            <option value="112">Engenharia metalúrgica</option>
+            <option value="113">Engenharia militar</option>
+            <option value="114">Engenharia multimídia</option>
+            <option value="115">Engenharia naval e oceânica</option>
+            <option value="116">Engenharia nuclear</option>
+            <option value="117">Engenharia óptica</option>
+            <option value="118">Engenharia química</option>
+            <option value="119">Engenharia sanitária</option>
+            <option value="120">Engenharia têxtil</option>
+            <option value="121">Engenharia Urbana</option>
+            <option value="122">Escultura</option>
+            <option value="123">Esportes</option>
+            <option value="124">Estatística</option>
+            <option value="125">Estudos literários</option>
+            <option value="126">Eventos (tecnologia)</option>
+            <option value="127">Farmacêutica (ou Farmácia ou ainda Bioquímica)</option>
+            <option value="128">Filosofia</option>
+            <option value="129">Física</option>
+            <option value="130">Física biológica</option>
+            <option value="131">Física computacional</option>
+            <option value="132">Física médica</option>
+            <option value="133">Fisioterapia</option>
+            <option value="134">Fonoaudiologia</option>
+            <option value="135">Fotografia (ou Gravura)</option>
+            <option value="136">Gastronomia</option>
+            <option value="137">Geociências (ou Ciências da Terra)</option>
+            <option value="138">Geofísica</option>
+            <option value="139">Geografia</option>
+            <option value="140">Geologia</option>
+            <option value="141">Gerontologia</option>
+            <option value="142">Gestão ambiental (tecnologia)]</option>
+            <option value="143">Gestão da produção de calçados (tecnologia)</option>
+            <option value="144">Gestão da Qualidade (tecnologia)</option>
+            <option value="145">Gestão de comércio internacional</option>
+            <option value="146">Gestão de empresas</option>
+            <option value="147">Gestão de políticas públicas</option>
+            <option value="148">Gestão empresarial (tecnologia)</option>
+            <option value="149">História</option>
+            <option value="150">História da arte</option>
+            <option value="151">Hotelaria</option>
+            <option value="152">Informática (ou Ciência da Computação)</option>
+            <option value="153">Informática biomédica</option>
+            <option value="154">Jornalismo</option>
+            <option value="155">Lazer</option>
+            <option value="156">Letras</option>
+            <option value="157">Linguística</option>
+            <option value="158">Logística (tecnologia)</option>
+            <option value="159">Logística aeroportuária (tecnologia)</option>
+            <option value="160">Logística e transportes (tecnologia)</option>
+            <option value="161">Manutenção Industrial (tecnologia)</option>
+            <option value="162">Marketing (ou propaganda)</option>
+            <option value="163">Matemática</option>
+            <option value="164">Matemática Aplicada</option>
+            <option value="165">Matemática Computacional</option>
+            <option value="166">Mecânica - processos de produção (tecnologia)</option>
+            <option value="167">Mecânica de precisão (ou Mecatrônica [tecnologia])</option>
+            <option value="168">Medicina</option>
+            <option value="169">Medicina veterinária</option>
+            <option value="170">Meio ambiente e recursos hídricos (tecnologia)</option>
+            <option value="171">Metalurgia (tecnologia)</option>
+            <option value="172">Meteorologia</option>
+            <option value="173">Microbiologia (ou imunologia)</option>
+            <option value="174">Museologia</option>
+            <option value="175">Música</option>
+            <option value="176">Nutrição</option>
+            <option value="177">Obstetrícia</option>
+            <option value="178">Oceanografia (ou oceanologia ou ainda Ciência dos Mares)</option>
+            <option value="179">Odontologia</option>
+            <option value="180">Paisagismo</option>
+            <option value="181">Pedagogia</option>
+            <option value="182">Pintura</option>
+            <option value="183">Processamento de dados</option>
+            <option value="184">Processos Gerenciais (tecnologia)</option>
+            <option value="185">Produção (tecnologia)</option>
+            <option value="186">Produção de materiais plásticos (tecnologia)</option>
+            <option value="187">Produção Fonográfica</option>
+            <option value="188">Produção Têxtil</option>
+            <option value="189">Prospecção Geofísica</option>
+            <option value="190">Psicologia</option>
+            <option value="191">Psicopedagogia</option>
+            <option value="192">Publicidade</option>
+            <option value="193">Química</option>
+            <option value="194">Química Ambiental</option>
+            <option value="195">Química Industrial</option>
+            <option value="196">Radialismo (ou Rádio &amp; TV, ou ainda Audiovisual)</option>
+            <option value="197">Radiologia (tecnologia)</option>
+            <option value="198">Recursos humanos</option>
+            <option value="199">Relações internacionais (ou Diplomacia)</option>
+            <option value="200">Relações públicas</option>
+            <option value="201">Saneamento (tecnologia)</option>
+            <option value="202">Saúde - projetos, manutenção e operação de aparelhos médico-hospitalares (tecnologia)</option>
+            <option value="203">Secretariado (tecnologia)</option>
+            <option value="204">Segurança da informação (tecnologia)</option>
+            <option value="205">Serviço social</option>
+            <option value="206">Silvicultura (tecnologia)</option>
+            <option value="207">Sistemas de informação</option>
+            <option value="208">Teatro</option>
+            <option value="209">Tecnologia da informação (licenciatura)</option>
+            <option value="210">Tecnologias em saúde - oftálmica e radiológica</option>
+            <option value="211">Telecomunicações</option>
+            <option value="212">Telemática (tecnologia)</option>
+            <option value="213">Teologia</option>
+            <option value="214">Terapia ocupacional</option>
+            <option value="215">Transporte Hidroviário (ou Transporte Marítimo [tecnologia])</option>
+            <option value="216">Turismologia</option>
+            <option value="217">Urbanismo</option>
+            <option value="218">Zootecnia</option>
+            <option value="0">OUTRO</option>
+          </select> -->
+
+    <!-- (não vai)Considerando a possibilidade de alguma das etapas serem realizadas em um dia de sábado, informe aqui caso seja membro
+          de grupo Adventista do Sétimo Dia
+          <select name="ctl00$ContentPlaceHolder1$ddlReligiao" id="ContentPlaceHolder1_ddlReligiao" class="form-control">
+            <option value="">Selecione</option>
+            <option value="4">Sim</option>
+            <option selected="selected" value="5">Não</option>
+          </select> -->
+
+    <mv-col>
+      <h4>Endereço</h4>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-cep">CEP<span class="asterisc">*</span></label>
+        <input id="input-cep" type="text" name="cep" formControlName="cep" />
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-2">
+      <mv-control>
+        <label for="select-tipologradouro">Tipo do Logradouro<span class="asterisc">*</span></label>
+        <select id="select-tipologradouro" name="tipologradouro" formControlName="tipologradouro">
+
+          <option value="">Selecione</option>
+          <option value="Outro">Outro</option>
+          <option value="Aeroporto">Aeroporto</option>
+          <option value="Alameda">Alameda</option>
+          <option value="Área">Área</option>
+          <option value="Avenida">Avenida</option>
+          <option value="Beco">Beco</option>
+          <option value="Campo">Campo</option>
+          <option value="Chácara">Chácara</option>
+          <option value="Colônia">Colônia</option>
+          <option value="Condomínio">Condomínio</option>
+          <option value="Conjunto">Conjunto</option>
+          <option value="Distrito">Distrito</option>
+          <option value="Esplanada">Esplanada</option>
+          <option value="Estação">Estação</option>
+          <option value="Estrada">Estrada</option>
+          <option value="Favela">Favela</option>
+          <option value="Fazenda">Fazenda</option>
+          <option value="Feira">Feira</option>
+          <option value="Jardim">Jardim</option>
+          <option value="Ladeira">Ladeira</option>
+          <option value="Lago">Lago</option>
+          <option value="Lagoa">Lagoa</option>
+          <option value="Largo">Largo</option>
+          <option value="Loteamento">Loteamento</option>
+          <option value="Morro">Morro</option>
+          <option value="Núcleo">Núcleo</option>
+          <option value="Parque">Parque</option>
+          <option value="Passagem">Passagem</option>
+          <option value="Passarela">Passarela</option>
+          <option value="Pátio">Pátio</option>
+          <option value="Praça">Praça</option>
+          <option value="Quadra">Quadra</option>
+          <option value="Recanto">Recanto</option>
+          <option value="Residencial">Residencial</option>
+          <option value="Rodovia">Rodovia</option>
+          <option selected="selected" value="Rua">Rua</option>
+          <option value="Servidão">Servidão</option>
+          <option value="Setor">Setor</option>
+          <option value="Sítio">Sítio</option>
+          <option value="Travessa">Travessa</option>
+          <option value="Trecho">Trecho</option>
+          <option value="Trevo">Trevo</option>
+          <option value="Vale">Vale</option>
+          <option value="Vereda">Vereda</option>
+          <option value="Via">Via</option>
+          <option value="Viaduto">Viaduto</option>
+          <option value="Viela">Viela</option>
+          <option value="Vila">Vila</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-8">
+      <mv-control>
+        <label for="input-endereco">Endereço<span class="asterisc">*</span></label>
+        <input id="input-endereco" type="text" name="endereco" formControlName="endereco" />
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-2">
+      <mv-control>
+        <label for="input-endereconumero">Número<span class="asterisc">*</span></label>
+        <input id="input-endereconumero" type="text" name="endereconumero" formControlName="endereconumero" />
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-enderecobairro">Bairro<span class="asterisc">*</span></label>
+        <input id="input-enderecobairro" type="text" name="enderecobairro" formControlName="enderecobairro" />
+      </mv-control>
+    </mv-col>
+
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="select-enderecouf">UF<span class="asterisc">*</span></label>
+        <select id="select-enderecouf" name="enderecouf" formControlName="enderecouf">
+          <option value="">Selecione</option>
+          <option value="AC">AC</option>
+          <option value="AL">AL</option>
+          <option value="AP">AP</option>
+          <option value="AM">AM</option>
+          <option value="BA">BA</option>
+          <option value="CE">CE</option>
+          <option value="DF">DF</option>
+          <option value="ES">ES</option>
+          <option value="GO">GO</option>
+          <option value="MA">MA</option>
+          <option value="MT">MT</option>
+          <option value="MS">MS</option>
+          <option value="MG">MG</option>
+          <option value="PA">PA</option>
+          <option value="PB">PB</option>
+          <option value="PR">PR</option>
+          <option value="PE">PE</option>
+          <option value="PI">PI</option>
+          <option value="RJ">RJ</option>
+          <option value="RN">RN</option>
+          <option value="RS">RS</option>
+          <option value="RO">RO</option>
+          <option value="RR">RR</option>
+          <option value="SC">SC</option>
+          <option value="SP">SP</option>
+          <option value="SE">SE</option>
+          <option value="TO">TO</option>
+          <option value="OT">Outros (inclusive exterior)</option>
+        </select>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-enderecomunicipio">Município<span class="asterisc">*</span></label>
+        <input id="input-enderecomunicipio" type="text" name="enderecomunicipio" formControlName="enderecomunicipio" />
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-tel1">DDD Telefone 1<span class="asterisc">*</span></label>
+        <input id="input-tel1" type="text" name="tel1" formControlName="tel1"  mvInputMask="phone"/>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-tel2">DDD Telefone 2</label>
+        <input id="input-tel2" type="text" name="tel2" formControlName="tel2"  mvInputMask="phone"/>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-tel3">DDD Telefone 3</label>
+        <input id="input-tel3" type="text" name="tel3" formControlName="tel3"  mvInputMask="phone"/>
+      </mv-control>
+    </mv-col>
+
+    <mv-col class="is-mobile-12 is-tablet-12">
+      <mv-control>
+        <label for="input-email">E-mail</label>
+        <input id="input-email" type="text" name="email" formControlName="email" />
+      </mv-control>
+    </mv-col>
+
+    <!-- Agende de Endemias: a microregião/microárea não obrigatória -->
+
+  </mv-row>
+
+  <mv-section>
+    <mv-row>
+      <mv-col class="is-align-center">
+        <button type="button" class="mv-btn is-raised" (click)="autoDigitar()">Preencher</button>
+        <button type="button" class="mv-btn is-raised is-secondary" (click)="updatePersonalData()">Atualizar dados Cadastrais</button>
+      </mv-col>
+    </mv-row>
+  </mv-section>
+
+</form>

@@ -1,0 +1,77 @@
+/**
+ * Visibilidade
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Color
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Mixins
+ */
+@mixin hidden() {
+  display: none !important;
+}
+
+/*
+ * @section Style
+ */
+
+.is-hidden {
+  @include hidden();
+}
+
+/*
+ * @section Devices
+ */
+
+@include mobile() {
+  .is-hidden--mobile {
+    @include hidden();
+  }
+}
+
+@include tablet {
+  .is-hidden-tablet {
+    @include hidden();
+  }
+}
+
+@include tablet-only {
+  .is-hidden-tablet-only {
+    @include hidden();
+  }
+}
+
+@include desktop {
+  .is-hidden-desktop {
+    @include hidden();
+  }
+}
+
+@include desktop-only {
+  .is-hidden-desktop-only {
+    @include hidden();
+  }
+}
+
+@include widescreen {
+  .is-hidden-widescreen {
+    @include hidden();
+  }
+}
+
+@include widescreen-only {
+  .is-hidden-widescreen-only {
+    @include hidden();
+  }
+}
+
+@include fullhd {
+  .is-hidden-fullhd {
+    @include hidden();
+  }
+}
+

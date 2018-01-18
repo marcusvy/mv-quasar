@@ -1,0 +1,86 @@
+/**
+ * Container
+ *
+ * based https://raw.githubusercontent.com/kristoferjoseph/flexboxgrid/master/src/css/flexboxgrid.css
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Layout
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * <mv-container>
+ *   <mv-row>
+ *     <mv-col>1</mv-col>
+ *     <mv-col>2</mv-col>
+ *   </mv-row>
+ * </mv-container>
+ *
+ * @section Imports
+ */
+
+@import "../../variables";
+@import "../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$gutter-width: $mv-grid--gutter;
+$outer-margin: $mv-grid--outer-margin;
+$gutter-compensation: ($gutter-width * 0.5) * -1;
+$half-gutter-width: ($gutter-width * 0.5);
+$mobile-min: $mv-device--mobile;
+$tablet-min: $mv-device--tablet;
+$desktop-min: $mv-device--desktop;
+$widescreen-min: $mv-device--widescreen;
+$fullhd-min: $mv-device--fullhd;
+$screen-mobile-min: $mobile-min;
+$screen-sm-min: $tablet-min;
+$screen-md-min: $desktop-min;
+$screen-widescreen-min: $widescreen-min;
+$container-tablet: $tablet-min+$gutter-width;
+$container-desktop: $desktop-min+$gutter-width;
+$container-widescreen: $widescreen-min+$gutter-width;
+$container-fullhd: $fullhd-min+$gutter-width;
+
+/**
+ * @section Mixins
+ */
+
+@mixin setupContainer($width) {
+  max-width: ($width - $gutter-width) !important; //46rem
+}
+
+
+/**
+ * @section Container
+ */
+
+:host {
+  width: 100%;
+  flex-basis: 100%;
+  box-sizing: border-box;
+}
+
+:host(.is-max) {
+  height: 100%;
+}
+
+:host(.is-limited) {
+  margin: 0 auto;
+  flex-basis: auto;
+  @include tablet() {
+    @include setupContainer($container-tablet);
+  } // Desktop
+  @include desktop() {
+    @include setupContainer($container-desktop);
+  } // Widescreen
+  @include widescreen() {
+    @include setupContainer($container-widescreen);
+  } // Fullhd
+  // @include fullhd() {
+  //   @include setupContainer($container-fullhd);
+  // }
+}

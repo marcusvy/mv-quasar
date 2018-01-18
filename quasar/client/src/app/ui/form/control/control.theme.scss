@@ -1,0 +1,78 @@
+/**
+ * Control
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Form
+ * @subpackage Control
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../../variables";
+@import "../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$control--border-bottom-color: $mv-color--light !default;
+$control-input-focus--color: $mv-color--primary !default;
+$control-input-focus--background-color: $mv-color--light !default;
+$control-input-focus--border-color: $control-input-focus--color !default;
+$control-container--background-color: transparent !default;
+$control-container--border-color: $mv-color--light !default;
+$control-container_focus--border-color: $mv-color--primary !default;
+$control-value--color: $mv-color--grey !default;
+
+
+/**
+ * @section Style
+ */
+
+:host /deep/ {
+
+  input:not([type="radio"]):not([type="checkbox"]) {
+    background-color: $control-container--background-color;
+    border-color: $control-container--border-color;
+
+    // &::selection {
+    //   color: $control-input-focus--color;
+    //   background-color: $control-input-focus--background-color;
+    // }
+
+    &:focus {
+      color: $control-input-focus--color;
+      background-color: $control-input-focus--background-color;
+      border-color: $control-input-focus--border-color;
+    }
+  }
+
+  input:focus {
+    border-bottom-color: $control-container_focus--border-color;
+  }
+
+  mv-control-value {
+    color: $control-value--color;
+  }
+}
+
+
+/**
+ * @section Validation
+ */
+
+:host(.ng-dirty.ng-invalid) /deep/ input,
+:host /deep/ input.ng-dirty.ng-invalid,
+:host(.ng-touched.ng-invalid)/deep/ input,
+:host /deep/ input.ng-touched.ng-invalid,
+{
+  border-bottom-color: $mv-color--danger;
+  &:focus {
+    border-bottom-color: $mv-color--danger;
+  }
+}

@@ -1,0 +1,41 @@
+:host /deep/ mv-hero {
+  min-height: 45vh;
+  color: #fff;
+  background-color: #004678;
+  // color: #004678;
+  // background-color: #f5f5f5;
+
+
+  .mv-hero__content {
+    color: inherit;
+  }
+}
+
+
+.is-section-concurso {
+  min-height: 30vh;
+  background-color: #eeeeee;
+  background-image: url('/assets/img/background/circles-and-roundabouts.png');
+
+}
+
+.is-section-footer {
+  // min-height: 25vh;
+  padding-top: 3rem;
+}
+
+.the_logo {
+  max-height: 200px;
+}
+
+mv-list-item {
+  &:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: #004678;
+    border-radius: 5px;
+    p, strong{
+      color: inherit;
+    }
+  }
+}

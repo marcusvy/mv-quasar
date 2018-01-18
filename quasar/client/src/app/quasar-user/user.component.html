@@ -1,0 +1,29 @@
+<mv-toolbar>
+  <mv-container class="is-limited">
+    <mv-row>
+      <mv-col>
+        <h4>
+          <mv-icon name="user"></mv-icon>
+          <span>Usuários</span>
+        </h4>
+      </mv-col>
+
+      <mv-col class="is-align-end">
+        <mv-menu-dropdown origin-right>
+          <button mvMenuBtn class="mv-btn mv-btn-icon">
+            <mv-icon name="chevron-down"></mv-icon>
+          </button>
+          <mv-menu>
+            <mv-menu-item [routerLink]="['.','dashboard']" routerLinkActive="is-active">Dashboard</mv-menu-item>
+            <mv-menu-item [routerLink]="['.','manager']" routerLinkActive="is-active">Gerenciar</mv-menu-item>
+            <mv-menu-item [routerLink]="['.','manager-role']" routerLinkActive="is-active">Roles</mv-menu-item>
+          </mv-menu>
+        </mv-menu-dropdown>
+        <!-- <button class="mv-btn" [routerLink]="['.','dashboard']" routerLinkActive="is-active">Dashboard</button>
+        <button class="mv-btn" [routerLink]="['.','manager']" routerLinkActive="is-active">Gerenciar</button>
+        <button class="mv-btn" [routerLink]="['.','manager-role']" routerLinkActive="is-active">Roles</button> -->
+      </mv-col>
+    </mv-row>
+  </mv-container>
+</mv-toolbar>
+<router-outlet></router-outlet>

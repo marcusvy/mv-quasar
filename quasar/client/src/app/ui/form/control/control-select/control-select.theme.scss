@@ -1,0 +1,39 @@
+/**
+ * Control
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Form
+ * @subpackage Control
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+@import "../../../variables";
+@import "../../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$control-container--background-color: transparent;
+$control-container--border-color: $mv-color--grey;
+$control-container_focus--border-color: $mv-color--primary;
+
+/**
+ * @section Style
+ */
+:host {
+
+  select {
+    background-color: $control-container--background-color;
+    border-color: $control-container--border-color;
+  }
+
+  select:focus {
+    border-bottom-color: $control-container_focus--border-color;
+  }
+}

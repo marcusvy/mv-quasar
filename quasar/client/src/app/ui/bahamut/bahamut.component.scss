@@ -1,0 +1,42 @@
+/**
+ * Button
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Button
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Import
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+
+/**
+ * @section Mixins
+ */
+
+
+/**
+ * @section Style
+ */
+
+:host {
+  display: block;
+}
+
+.mv-bahamut__loadbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}

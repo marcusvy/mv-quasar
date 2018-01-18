@@ -1,0 +1,14 @@
+:host() {
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  page-break-after: always;
+}
+
+@media screen {
+  :host {
+    font-size: 0.8em;
+  }
+}

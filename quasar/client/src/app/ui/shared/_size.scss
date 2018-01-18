@@ -1,0 +1,39 @@
+/**
+ * Sizes
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Size
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+@import '../variables';
+
+/**
+ * @section Mixis
+ */
+
+@mixin size($name, $value) {
+  .is-size-#{$name} {
+    height: $value;
+  }
+}
+
+
+/**
+ * @section Size
+ */
+@each $name, $value in $mv-sizes {
+  @include size($name, $value);
+}
+
+@each $size in $mv-font-sizes {
+  $i: index($mv-font-sizes, $size);
+  .is-display-#{$i} {
+    font-size: $size;
+  }
+}

@@ -1,0 +1,23 @@
+<mv-toolbar class="is-secondary">
+  <mv-row>
+    <mv-col>
+      <mv-bahamut-paginator></mv-bahamut-paginator>
+    </mv-col>
+    <mv-col class="is-align-end">
+      <ng-container *ngIf="mode.edit">
+        <button class="mv-btn is-icon-mobile" (click)="formMode()">
+          <mv-icon name="plus"></mv-icon>
+          <span>Adicionar</span>
+        </button>
+      </ng-container>
+      <button class="mv-btn is-icon-mobile" [class.is-theme-secondary]="mode.search" (click)="toggleSearchMode()">
+        <mv-icon name="search"></mv-icon>
+        <span>Pesquisar</span>
+      </button>
+      <button class="mv-btn is-icon-mobile" [class.is-theme-danger]="mode.delete" (click)="toggleDeleteMode()">
+        <mv-icon name="trash"></mv-icon>
+        <span>Remover</span>
+      </button>
+    </mv-col>
+  </mv-row>
+</mv-toolbar>

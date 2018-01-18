@@ -1,0 +1,73 @@
+/**
+ * Card
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Card
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$card-border-color: transparent;
+
+/**
+ * @section Style
+ */
+
+:host {
+  background-color: $mv-color__light;
+  border-color: $mv-color--light;
+}
+
+.card__header {
+}
+
+.card__header.has-img {
+  /deep/ mv-card-title {
+    border-color: transparent;
+  }
+}
+
+:host /deep/ mv-card-title {
+  color: $mv-color__light;
+  border-color: $card-border-color;
+
+  .is-title {
+    color: $mv-color__light;
+  }
+  .is-subtitle {
+    color: $mv-color__light;
+  }
+}
+
+:host /deep/ mv-card-action {
+  background-color: rgba(0, 0, 0, 0);
+  border-color: $card-border-color;
+}
+
+:host /deep/ mv-card-text {
+  color: $mv-color__primary;
+}
+
+/**
+ * Modificadores
+ */
+
+:host(.has-bg) {
+  /deep/ .is-title,
+  /deep/ .is-subtitle {
+    background-color: rgba($mv-color__dark, .8);
+  }
+}

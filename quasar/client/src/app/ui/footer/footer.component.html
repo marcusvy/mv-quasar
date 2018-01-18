@@ -1,0 +1,12 @@
+<mv-grid>
+  <ng-content></ng-content>
+</mv-grid>
+<!---->
+<mv-grid class="mv-footer__end">
+  <mv-row>
+    <mv-col>
+      <img class="mv-footer__logo" [src]="logo" alt="" *ngIf="hasLogo()" />
+      <ng-content select="mv-footer-about"></ng-content>
+    </mv-col>
+  </mv-row>
+</mv-grid>

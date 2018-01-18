@@ -1,0 +1,61 @@
+/**
+ *  Menu Item
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Menu
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+@import "../../variables";
+
+/**
+ * @section Style
+ */
+
+:host {
+  display: flex;
+  flex: 1;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+
+  &:hover,
+  &.mv-menu-item--active {
+    cursor: pointer;
+  }
+  mv-badge {
+    float: right;
+  }
+}
+
+.mv-menu-item {
+
+  &__link {
+    padding: 0.25rem ($mv-grid--gutter/2);
+    line-height: 2rem;
+    display: flex;
+    flex: 1;
+    text-decoration: none;
+  }
+
+  &__icon {
+    padding-right: 0.5rem;
+  }
+
+  &__text {
+    display: flex;
+    flex: 1;
+    pointer-events: none;
+  }
+
+  &__secondary {
+    display: flex;
+    flex-grow: 0;
+    align-self: flex-end;
+  }
+}

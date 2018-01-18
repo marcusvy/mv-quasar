@@ -1,0 +1,34 @@
+/**
+ * Tab
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Layout
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+@import "../variables";
+
+/**
+ * @section Style
+ */
+:host {
+  // position: absolute;
+  // display: block;
+  padding: 1em 0;
+  width: 100%;
+}
+
+:host .mv-tab__grid {
+  padding-left:0;
+  padding-right:0;
+}
+
+:host(.is-flat) {
+  padding:0;
+}

@@ -1,0 +1,33 @@
+/**
+ * Footer
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Components
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+@import "../../variables";
+
+/**
+ * @section Style
+ */
+
+:host {
+  display: block;
+
+  & /deep/ a {
+    text-decoration: none;
+  }
+}
+
+.mv-footer-dev__logo {
+  max-height: 2rem;
+  vertical-align: middle;
+  display: inline-block;
+}

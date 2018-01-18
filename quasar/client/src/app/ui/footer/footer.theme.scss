@@ -1,0 +1,36 @@
+/**
+ * Footer
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Components
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+@import "../variables";
+
+/**
+ * @section Style
+ */
+
+:host {
+  background-color: $mv-color--light;
+}
+
+:host /deep/ {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a {
+    color: inherit;
+  }
+}

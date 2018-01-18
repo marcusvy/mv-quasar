@@ -1,0 +1,77 @@
+<im-header></im-header>
+<mv-hero>
+  <img class="the_logo" src="/assets/img/logo-multtask.svg" alt="">
+  <div>
+    <h1> Multtask Informática</h1>
+  </div>
+</mv-hero>
+
+<mv-section class="is-section-concurso is-align-middle">
+  <mv-container class="is-limited">
+    <mv-row class="is-align-center">
+      <mv-col>
+        <h2 class="is-section-title"> Concursos </h2>
+      </mv-col>
+    </mv-row>
+    <mv-row>
+      <mv-col class="is-align-center is-mobile-12 is-tablet-4">
+        <button routerLink="/area-candidato" class="mv-btn is-raised">Área do Candidato</button>
+      </mv-col>
+      <mv-col class="is-mobile-12 is-tablet-4">
+        <h3 class="is-align-center">Abertos</h3>
+        <mv-list>
+          <mv-list-item class="is-align-middle" [routerLink]="['.','concurso']">
+            <mv-list-item-primary>
+              <mv-avatar src="/local/0012017/profile/avatar.png" class="is-circle"></mv-avatar>
+            </mv-list-item-primary>
+            <p><strong>Prefeitura do Município de Humaitá</strong></p>
+            <p>
+              Edital de Abertura nº 001/2017
+            </p>
+          </mv-list-item>
+        </mv-list>
+      </mv-col>
+      <mv-col class="is-mobile-12 is-tablet-4">
+        <h3 class="is-align-center">Realizados</h3>
+        <mv-list>
+          <mv-list-item class="is-align-middle">
+            <mv-list-item-primary>
+              <mv-avatar src="/assets/img/background/ep_naturalwhite.png" class="is-circle"></mv-avatar>
+            </mv-list-item-primary>
+            <p>
+              <strong>Exame de Seleção do Ensino Médio</strong>
+            </p>
+            <p>
+              Vestibular
+            </p>
+          </mv-list-item>
+          <mv-list-item class="is-align-middle">
+            <mv-list-item-primary>
+              <mv-avatar src="/assets/img/background/ep_naturalwhite.png" class="is-circle"></mv-avatar>
+            </mv-list-item-primary>
+            <p>
+              <strong>Curso Relações Interpessoais</strong>
+            </p>
+            <p>
+              Curso
+            </p>
+          </mv-list-item>
+
+        </mv-list>
+      </mv-col>
+    </mv-row>
+  </mv-container>
+</mv-section>
+
+
+<mv-grid class="is-section is-section-footer">
+  <mv-container class="is-limited">
+    <mv-row>
+      <mv-col class="is-align-center">
+        <p><strong>concursos@multtask.com.br</strong></p>
+        <p>© Copyright Multtask</p>
+        <p>Todos os direitos reservados</p>
+      </mv-col>
+    </mv-row>
+  </mv-container>
+</mv-grid>

@@ -1,0 +1,15 @@
+<?php
+
+return [
+    'mail' => [
+        'options' => [
+            'name'              => 'localhost',
+            'host'              => 'smtp.domain.com',
+            'connection_class'  => 'login',
+            'connection_config' => [
+                'username' => '',
+                'password' => ''
+            ]
+        ]
+    ],
+];

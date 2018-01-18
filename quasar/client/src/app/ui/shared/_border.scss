@@ -1,0 +1,25 @@
+/**
+ * Border
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Border
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+@import "../variables";
+
+/**
+ * @section Color
+ */
+.is-border-circle {
+  border-radius: 50%;
+}
+
+.is-border-rounded{
+  border-radius: $mv-border-radius;
+}

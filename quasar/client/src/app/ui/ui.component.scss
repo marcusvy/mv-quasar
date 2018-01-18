@@ -1,0 +1,42 @@
+/**
+ * Core
+ *
+ * @project mv-ui
+ * @version 1.0
+ * @package Core
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+@import "variables";
+@import "shared/mixins";
+/**
+  * Base
+  */
+@import "shared/resets/resets";
+/**
+* Color
+*/
+@import "shared/color";
+
+/**
+* Utils
+*/
+@import "shared/animation";
+@import "shared/border";
+@import "shared/img";
+@import "shared/shadow";
+@import "shared/size";
+@import "shared/utils";
+@import "shared/visibility";
+/**
+ * Default
+ */
+ @import "shared/typography";
+/**
+ * Elements
+ */
+
+

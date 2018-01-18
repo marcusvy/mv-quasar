@@ -1,0 +1,11 @@
+<a class="mv-menu-item__link" [attr.href]="href" (click)="onClick($event)">
+  <span class="mv-menu-item__icon" *ngIf="icon">
+    <mv-icon [name]="icon"></mv-icon>
+  </span>
+  <span class="mv-menu-item__text">
+    <ng-content></ng-content>
+  </span>
+  <span class="mv-menu-item__secondary">
+    <ng-content select="mv-menu-item-secondary"></ng-content>
+  </span>
+</a>

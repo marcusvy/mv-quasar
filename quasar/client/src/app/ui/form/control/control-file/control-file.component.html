@@ -1,0 +1,29 @@
+<mv-row>
+  <mv-col>
+    <label>
+      <ng-content select="[mvControlLabel],mv-control-label"></ng-content>
+    </label>
+    <input #formControl
+      type="file"
+      [id]="id"
+      [multiple]="multiple"
+      [accept]="accept"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [required]="required"
+      [attr.aria-describedby]="ariaDescribedby"
+      [attr.aria-invalid]="errorInvalid"
+      [attr.aria-labelledby]="ariaLabelledby"
+      (blur)="onFocus(false)"
+      (focus)="onFocus(true)"
+      (change)="onChange($event)">
+  </mv-col>
+</mv-row>
+<mv-row>
+  <mv-col>
+    <mv-control-file-area
+      [files]="files"
+      (onClick)="onClick()"
+      (onDrag)="onUpload()"></mv-control-file-area>
+  </mv-col>
+</mv-row>

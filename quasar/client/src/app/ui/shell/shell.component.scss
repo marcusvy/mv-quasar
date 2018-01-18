@@ -1,0 +1,75 @@
+/**
+ * Shell
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Layout
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Import
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$mv-aside--width: 20%;
+$mv-shell__menu--color: $mv-color--primary;
+$mv-shell__menu--background-color: $mv-color--white;
+
+/**
+ * @section Style
+ */
+
+:host {
+  min-height: 100vh;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+  align-content: stretch; // overflow: hidden;
+}
+
+:host /deep/ {
+  mv-shell-header,
+  mv-shell-left,
+  mv-shell-right {
+    display: flex;
+    position: relative;
+  }
+}
+
+.mv-shell__loadbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+@include mobile {
+  .mv-shell__left-button {
+    display: block;
+  }
+}
+
+@include from($mv-device--tablet) {
+  .mv-shell__left-button {
+    display: none;
+  }
+
+}
+
+
+
+
+

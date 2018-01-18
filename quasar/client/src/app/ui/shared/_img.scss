@@ -1,0 +1,25 @@
+/**
+ * Imagens
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Imagem
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+@import "../variables";
+
+/**
+ * @section Style
+ */
+.is-rounded {
+  border-radius: $mv-border-radius;
+}
+.is-circle {
+  border-radius: 50%;
+}

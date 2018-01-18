@@ -1,0 +1,111 @@
+/**
+ * Control
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Form
+ * @subpackage Control
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../../variables";
+@import "../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$control--padding: 0.5rem;
+$control-container--border-radius: $mv-border-radius;
+
+/**
+ * @section Style
+ */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding-top: $control--padding;
+  padding-bottom: $control--padding;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.mv-control__icon {
+  padding: 0;
+}
+
+.mv-control__icon.has-icon {
+  padding: 0 $mv-grid--column-gutter;
+  width: 2rem;
+}
+
+:host /deep/ {
+
+  input + span {
+    padding: 0 0.25rem;
+  }
+
+  input:not([type="radio"]):not([type="checkbox"]) {
+    display: block;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: $control-container--border-radius;
+    border: none;
+    border-width: 0 0 2px 0;
+    border-style: solid;
+    transition: padding 300ms ease, color 300ms ease, border-color 300ms ease;
+
+    &:focus {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      outline: none;
+    }
+  }
+
+  select {
+    width: 100%;
+  }
+
+  mv-control-row {
+    display: flex;
+    height: 2rem;
+    align-items: center;
+  }
+
+  mv-control-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 0;
+    label {
+      line-height: 1.2rem;
+    }
+  }
+
+  mv-control-value {
+    display: flex;
+    flex-direction: column;
+    height: 2rem;
+    line-height: 2rem;
+  }
+}
+
+
+/**
+ * @section Validation
+ */
+
+:host(.ng-untouched) /deep/ mv-control-error {
+  display: none;
+}
+
+:host(.ng-touched) /deep/ mv-control-error {
+  display: flex;
+}

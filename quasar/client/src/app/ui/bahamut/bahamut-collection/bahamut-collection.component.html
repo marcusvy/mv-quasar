@@ -1,0 +1,57 @@
+<!-- Pagination -->
+<mv-bahamut-collection-control></mv-bahamut-collection-control>
+
+<!-- Search -->
+<mv-bahamut-collection-search (onSearch)="onSearchFor($event)"></mv-bahamut-collection-search>
+
+<!-- Collection List -->
+<mv-list class="mv-collection__list">
+  <ng-container *ngFor="let model of collectionChanges | async; let i = index">
+    <mv-list-item>
+      <mv-list-item-primary>
+        <button class="mv-btn is-icon" (click)="onSelectItem(model)">
+          <mv-icon name="folder-o"></mv-icon>
+        </button>
+      </mv-list-item-primary>
+      <mv-list-item-secondary>
+        <ng-container *ngIf="mode?.delete; else deleteModeButton">
+          <button class="mv-btn is-icon" (click)="onSelectDelete(model)" [class.is-bg-danger]="mode.delete">
+            <mv-icon name="trash"></mv-icon>
+          </button>
+        </ng-container>
+        <ng-template #deleteModeButton>
+          <button class="mv-btn is-icon" (click)="onSelectItemEdit(model)">
+            <mv-icon name="pencil"></mv-icon>
+          </button>
+        </ng-template>
+      </mv-list-item-secondary>
+      <ng-container [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{$implicit:model, index: i}"></ng-container>
+    </mv-list-item>
+  </ng-container>
+</mv-list>
+
+
+<!--Modal:Confirmation  -->
+<ng-container *ngIf="mode?.delete">
+  <mv-modal #modalDelete title="Deseja remover?" class="is-small">
+    <mv-modal-body>
+      <ng-container [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{$implicit:selected}"></ng-container>
+    </mv-modal-body>
+    <mv-modal-footer class="is-align-end">
+      <button class="mv-btn" (click)="modalDelete.close()">Cancelar</button>
+      <button class="mv-btn" (click)="onConfirmDelete()">Remover</button>
+    </mv-modal-footer>
+  </mv-modal>
+</ng-container>
+
+<!--Modal:Alert  -->
+<mv-modal #modalAlert class="is-small">
+  <mv-modal-body class="is-align-center">
+    <h1>
+      <mv-icon name="check"></mv-icon>
+    </h1>
+  </mv-modal-body>
+  <mv-modal-footer class="is-align-end">
+    <button class="mv-btn" (click)="modalAlert.close()">Ok</button>
+  </mv-modal-footer> -->
+</mv-modal>

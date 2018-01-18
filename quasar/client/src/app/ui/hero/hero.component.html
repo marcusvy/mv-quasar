@@ -1,0 +1,11 @@
+<ng-container *ngIf="hasFilter()">
+  <div class="mv-hero__background" [ngStyle]="getFilterStyle()"></div>
+</ng-container>
+ <div class="mv-hero__content">
+  <ng-content select="h1"></ng-content>
+  <ng-content select="h2"></ng-content>
+  <ng-content></ng-content>
+  <div class="mv-hero__button-area">
+    <ng-content select="button.mv-btn"></ng-content>
+  </div>
+</div>

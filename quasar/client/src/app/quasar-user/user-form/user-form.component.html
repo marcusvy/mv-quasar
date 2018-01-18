@@ -1,0 +1,31 @@
+<mv-form [formGroup]="form">
+  <h2>Conta</h2>
+  <mv-control>
+    <label>Nome <sup>*</sup></label>
+    <input type="text" formControlName="credencial">
+    <mv-control-error [for]="form.get('credencial').invalid">Obrigatório</mv-control-error>
+  </mv-control>
+
+  <mv-control>
+    <label>E-mail</label>
+    <input type="email" formControlName="email">
+    <mv-control-error [for]="form.get('email').invalid">E-mail inválido</mv-control-error>
+  </mv-control>
+
+  <mv-control>
+    <label>Senha</label>
+    <input type="password" formControlName="password">
+  </mv-control>
+
+  <mv-control>
+    <label>Status</label>
+    <input type="text" formControlName="status">
+  </mv-control>
+
+  <mv-control>
+    <label>Ativo</label>
+    <input type="checkbox" formControlName="active">
+  </mv-control>
+
+  <button class="mv-btn" (click)="save()">Salvar</button>
+</mv-form>

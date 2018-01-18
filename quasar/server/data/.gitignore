@@ -1,0 +1,8 @@
+*
+!.gitignore
+!cache/
+cache/*
+!log/
+log/*
+!migrations
+migrations/*

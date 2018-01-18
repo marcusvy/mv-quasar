@@ -1,0 +1,36 @@
+/**
+ * Control
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Form
+ * @subpackage Form
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+/**
+ * @section Style
+ */
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+:host(.is-normal) /deep/ {
+  .mv-control__icon:not(.has-icon) {
+    padding: 0 $mv-grid--column-gutter;
+    min-width: 2rem;
+  }
+}

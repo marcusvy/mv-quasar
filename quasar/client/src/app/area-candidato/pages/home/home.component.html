@@ -1,0 +1,55 @@
+<mv-hero>
+  <h1>Seja bem vindo</h1>
+  <p>Prezado candidato, tenha sempre seus <a [routerLink]="['.','dados-pessoais']">dados pessoais</a> atualizados.</p>
+  <button class="mv-btn" routerLink="/imc">Voltar a navegar no site</button>
+</mv-hero>
+<mv-row>
+  <mv-col class="is-mobile-12 is-tablet-12 is-desktop-4">
+    <mv-card>
+      <mv-card-body class="is-align-center">
+        <h2><mv-icon name="id-badge"></mv-icon> <span>Dados Pessoais</span></h2>
+        <p>Adicione seus dados pessoais</p>
+      </mv-card-body>
+      <mv-card-action class="is-align-center">
+        <button class="mv-btn" [routerLink]="['.','dados-pessoais']">
+          <mv-icon name="pencil"></mv-icon>
+          <span>Atualizar meus dados pessoais</span>
+        </button>
+      </mv-card-action>
+    </mv-card>
+  </mv-col>
+
+  <mv-col class="is-mobile-12 is-tablet-12 is-desktop-4">
+    <mv-card>
+      <mv-card-body class="is-align-center">
+        <h2><mv-icon name="file-text-o"></mv-icon> <span>Inscrição</span></h2>
+        <p>Inscreva-se em seus concursos</p>
+      </mv-card-body>
+      <mv-card-action class="is-align-center">
+        <button class="mv-btn" [routerLink]="['.','inscricao']">
+          <mv-icon name="pencil"></mv-icon>
+          <span>Fazer minha inscrição</span>
+        </button>
+      </mv-card-action>
+    </mv-card>
+  </mv-col>
+
+  <mv-col class="is-mobile-12 is-tablet-12 is-desktop-4">
+    <mv-card>
+      <mv-card-body class="is-align-center">
+        <h2>
+          <mv-icon name="list"></mv-icon>
+          <span>Concursos</span>
+        </h2>
+        <p>Veja seus concursos inscritos</p>
+      </mv-card-body>
+      <mv-card-action class="is-align-center">
+        <button class="mv-btn" [routerLink]="['.','concursos']">
+          <mv-icon name="pencil"></mv-icon>
+          <span>Conferir meus concursos</span>
+        </button>
+      </mv-card-action>
+    </mv-card>
+  </mv-col>
+
+</mv-row>

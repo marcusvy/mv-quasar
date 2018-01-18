@@ -1,0 +1,102 @@
+/**
+ * Calendar
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Button
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Import
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+* @section Mixins
+*/
+
+@import "./shared/scss/mixins";
+
+/**
+  * @section Configuration
+  */
+
+:host {
+  @include container;
+}
+
+.calendar_header {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center; // justify-content: center;
+}
+
+.calendar_header /deep/ .mv-btn {
+  @include day;
+}
+.calendar_control {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.calendar_action {
+  display: flex;
+  flex-grow: 0;
+  align-items: center;
+}
+
+.calendar_month {
+  // display: block;
+  // text-align: center;
+  // font-weight: bold;
+}
+
+.calendar_separator {
+  font-weight: bold;
+}
+
+.calendar_year {}
+
+:host /deep/ .calendar_container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  list-style: none;
+  border-width: 2px 1px;
+  border-style: solid;
+  border-color: $mv-color--light;
+}
+
+:host /deep/ .calendar_container .mv-btn {
+  position: relative;
+  display: block;
+  height: inherit;
+  width: 100%;
+  min-width: 2.75rem;
+  margin: 0;
+  padding-top: 10%;
+  padding-bottom: 10%;
+
+}
+:host /deep/ .mv-btn.is-selected {
+  color: $mv-color--light;
+  background-color: $mv-color--primary;
+  border-color: $mv-color--primary;
+}
+.is-mode {
+  display: none;
+}
+
+.is-mode.is-active {
+  display: block;
+}

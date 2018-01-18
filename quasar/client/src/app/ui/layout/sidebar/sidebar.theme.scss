@@ -1,0 +1,43 @@
+/**
+ * Layout Sidebar
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Layout
+ * @subpackage Sidebar
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../../variables";
+@import "../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+
+/**
+  * @section Style
+  */
+:host /deep/ p, strong, span {
+  color: inherit;
+}
+
+ .mv-sidebar__title {
+  // color: $mv-color--grey;
+}
+
+.mv-sidebar__wrapper {
+  // box-shadow: 3px 0 3px 0 rgba(0, 0, 0, 0.2);
+  color: $mv-color--light;
+  background-color: $mv-color--primary;
+}
+
+.mv-sidebar__backdrop {
+  background-color: rgba(0, 0, 0, 0.1);
+}

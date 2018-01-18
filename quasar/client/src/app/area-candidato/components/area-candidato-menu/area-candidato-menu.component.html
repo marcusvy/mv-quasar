@@ -1,0 +1,10 @@
+<mv-menu>
+  <mv-menu-item icon="home" [routerLink]="['.']">Início</mv-menu-item>
+  <mv-menu-item icon="id-badge" [routerLink]="['.','dados-pessoais']" routerLinkActive="is-active">Dados Pessoais</mv-menu-item>
+  <mv-menu-item icon="file-text-o" [routerLink]="['.','inscricao']" routerLinkActive="is-active">Inscrição</mv-menu-item>
+  <mv-menu-item icon="list" [routerLink]="['.','concursos']" routerLinkActive="is-active">Concursos</mv-menu-item>
+  <mv-menu-header>Perfil</mv-menu-header>
+  <mv-menu-item icon="sign-out" (click)="logout()">Sair</mv-menu-item>
+</mv-menu>
+
+

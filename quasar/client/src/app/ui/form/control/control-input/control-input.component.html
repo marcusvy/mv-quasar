@@ -1,0 +1,21 @@
+<mv-row>
+  <mv-col>
+    <label [for]="id">
+      <ng-content select="[mvControlLabel],mv-control-label"></ng-content>
+    </label>
+    <input #formControl
+      [type]="type"
+      [id]="id"
+      [value]="value"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [required]="required"
+      [attr.aria-describedby]="ariaDescribedby"
+      [attr.aria-invalid]="errorInvalid"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [attr.class]="classCss"
+      (blur)="onFocus(false)"
+      (focus)="onFocus(true)"
+      (input)="onInput($event)">
+  </mv-col>
+</mv-row>

@@ -1,0 +1,15 @@
+{
+    "crane.ignoredPaths": [
+        "**/.git",
+        "**/.svn",
+        "**/.hg",
+        "**/CVS",
+        "**/.DS_Store",
+        "**/node_modules/**",
+        "**/root/database",
+        "**/root/pwa",
+        "/archives",
+        "/automation",
+        "/deploy"
+    ],
+}

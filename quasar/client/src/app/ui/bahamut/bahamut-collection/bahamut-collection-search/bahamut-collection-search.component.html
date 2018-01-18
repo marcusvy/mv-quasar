@@ -1,0 +1,16 @@
+<ng-container *ngIf="mode?.search">
+  <mv-toolbar class="is-secondary is-form">
+    <mv-row>
+      <mv-col class="no-grow">
+        <mv-icon name="search"></mv-icon>
+      </mv-col>
+      <mv-col>
+        <form [formGroup]="form">
+          <mv-control>
+            <input type="type" formControlName="search" (keyup)="search()">
+          </mv-control>
+        </form>
+      </mv-col>
+    </mv-row>
+  </mv-toolbar>
+</ng-container>

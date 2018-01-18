@@ -1,0 +1,58 @@
+/**
+ * Toolbar
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage grid
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+@import "../variables";
+
+/**
+ * @section Style
+ */
+
+:host {
+  color: inherit;
+  background-color: inherit;
+  box-sizing: border-box;
+}
+
+:host /deep/ {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: inherit;
+  }
+  h1,
+  h2 {
+  }
+
+  button.mv-btn {
+    color: inherit;
+  }
+  button.mv-btn:hover {
+    color: $mv-color--primary;
+  }
+}
+
+:host(.is-secondary) {
+  color: $mv-color--primary;
+  background-color: $mv-color--light;
+}
+
+:host(.is-form) {
+  & /deep/ mv-control input {
+    background-color: darken($mv-color--light,5%) !important;
+  }
+}

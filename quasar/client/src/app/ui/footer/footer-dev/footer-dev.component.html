@@ -1,0 +1,13 @@
+<mv-toolbar>
+  <mv-row class="is-align-middle">
+    <mv-col class="is-align-end">
+      <span>2013 - {{today | date:'y'}}</span>
+    </mv-col>
+    <mv-col class="is-align-center no-grow" *ngIf="hasLogo()">
+      <mv-avatar class="mv-footer-dev__logo" [src]="logo"></mv-avatar>
+    </mv-col>
+    <mv-col class="is-align-start">
+      <a [href]="website" target="_blank">{{name}}</a>
+    </mv-col>
+  </mv-row>
+</mv-toolbar>

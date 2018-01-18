@@ -1,0 +1,160 @@
+/**
+ * Variables
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Variables
+ */
+
+
+/**
+ * @subsection Color
+ * generators:
+ * http://mcg.mbitson.com/#/ : default
+ * http://knizia.biz/mcg/#/ : dark correction
+ */
+
+$mv-color--white: hsl(0, 0%, 100%) !default;
+$mv-color--light: hsl(0, 0%, 96%) !default;
+$mv-color--grey-lighter: hsl(0, 0%, 86%) !default;
+$mv-color--grey-light: hsl(0, 0%, 71%) !default;
+$mv-color--grey: hsl(0, 0%, 48%) !default;
+$mv-color--grey-dark: hsl(0, 0%, 29%) !default;
+$mv-color--grey-darker: hsl(0, 0%, 21%) !default;
+$mv-color--dark: hsl(0, 0%, 13%) !default;
+$mv-color--black: hsl(0, 0%, 4%) !default;
+$mv-color--marine: hsl(206, 30%, 20%) !default;
+$mv-color--marine: hsl(206, 30%, 20%) !default;
+$mv-color--leaf: hsl(80, 75%, 60%) !default;
+$mv-color--blue: hsl(206, 75%, 60%) !default;
+$mv-color--red: hsl(13, 75%, 55%) !default;
+$mv-color--yellow: hsl(50, 100%, 60%) !default;
+$mv-color--green: hsl(115, 55%, 60%) !default;
+$mv-color--blue-invert: $mv-color--marine !default;
+$mv-color--leaf-invert: hsl(80, 75%, 10%) !default;
+$mv-color--red-invert: hsl(13, 75%, 15%) !default;
+$mv-color--yellow-invert: hsl(47, 75%, 35%) !default;
+$mv-color--green-invert: hsl(133, 75%, 8%) !default;
+$mv-color--primary: $mv-color--marine;
+$mv-color--secondary: $mv-color--leaf;
+$mv-color--info: $mv-color--blue;
+$mv-color--success: $mv-color--green;
+$mv-color--warning: $mv-color--yellow;
+$mv-color--danger: $mv-color--red;
+$mv-colors: (
+  "white": ($mv-color--white, $mv-color--black),
+  "black": ($mv-color--black, $mv-color--white),
+  "light": ($mv-color--light, $mv-color--dark),
+  "dark": ($mv-color--dark, $mv-color--light),
+  "primary": ($mv-color--marine, $mv-color--blue),
+  "secondary": ($mv-color--leaf, $mv-color--leaf-invert),
+  "info": ($mv-color--blue, $mv-color--blue-invert),
+  "success": ($mv-color--green, $mv-color--green-invert),
+  "warning": ($mv-color--yellow, $mv-color--yellow-invert),
+  "danger": ($mv-color--red, $mv-color--red-invert)) !default;
+
+/**
+ * @subsection Grid
+ */
+
+$mv-grid--columns: 12 !default;
+$mv-grid--gutter: 1rem !default;
+$mv-grid--column-gutter: ($mv-grid--gutter * 0.5) !default;
+$mv-grid--gutter-compensation: ($mv-grid--gutter * 0.5) * -1 !default;
+$mv-grid--outer-margin: $mv-grid--gutter/2 !default;
+
+/**
+ * @subsection Sizes
+ */
+
+$mv-size--1: 8rem !default;
+$mv-size--2: 4rem !default;
+$mv-size--3: 2rem !default;
+$mv-size--4: 1.5rem !default;
+$mv-size--5: 1.25rem !default;
+$mv-size--6: 1rem !default;
+$mv-size--7: 0.8rem !default;
+// $mv-size--1: 3em !default;
+// $mv-size--2: 2.5rem !default;
+// $mv-size--3: 2rem !default;
+// $mv-size--4: 1.5rem !default;
+// $mv-size--5: 1.25rem !default;
+// $mv-size--6: 1rem !default;
+// $mv-size--7: 0.75rem !default;
+$mv-size--height: $mv-size--3 !default;
+$mv-size--small: $mv-size--4 !default;
+$mv-size--normal: $mv-size--3 !default;
+$mv-size--medium: $mv-size--2 !default;
+$mv-size--large: $mv-size--1 !default;
+$mv-sizes: ( "small": $mv-size--small, "normal": $mv-size--normal, "medium": $mv-size--medium, "large": $mv-size--large, ) !default;
+
+/**
+ * @subsection Screen
+ * 960, 1152, and 1344 are divisible by both 12 and 16
+ */
+
+$mv-device--mobile: 30rem !default; // 480 px
+$mv-device--tablet: 48rem !default; // 768 px
+$mv-device--desktop: 60rem !default; // 960 px
+$mv-device--widescreen: 72rem !default; // 1152 px
+$mv-device--fullhd: 84rem !default; // 1344 px
+$mv-device--tablet-min: $mv-device--mobile + 0.0625rem;
+$mv-device--desktop-min: $mv-device--tablet;
+$mv-device--widescreen-min: $mv-device--desktop;
+$mv-device--fullhd-min: $mv-device--widescreen;
+$mv-device--mobile--max: $mv-device--tablet - 0.0625rem;
+$mv-device--tablet--max: $mv-device--desktop - 0.0625rem;
+$mv-device--desktop--max: $mv-device--widescreen - 0.0625rem;
+$mv-device--widescreen--max: $mv-device--fullhd - 0.0625rem;
+
+/**
+ * @subsection Typography
+ */
+
+$mv-font--default: "Roboto" !default;
+$mv-font--mono: "Consolas" !default;
+$mv-font--size: 16px !default;
+$mv-font--line-height: 1.25 !default; // 24/16
+$mv-font--family-sans: $mv-font--default,"BlinkMacSystemFont",-apple-system,"Segoe UI","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Helvetica","Arial",sans-serif !default;
+$mv-font--family-mono: $mv-font--mono,Menlo,Monaco,Consolas,"Courier New",monospace !default;
+$mv-font--render-mode: optimizeLegibility !default;
+$mv-font--color: $mv-color--dark !default;
+$mv-font-sizes: $mv-size--1 $mv-size--2 $mv-size--3 $mv-size--4 $mv-size--5 $mv-size--6 $mv-size--7;
+$mv-font-weight--thin: 100 !default;
+$mv-font-weight--light: 300 !default;
+$mv-font-weight--normal: 400 !default;
+$mv-font-weight--semibold: 500 !default;
+$mv-font-weight--bold: 700 !default;
+$mv-font-weight--ultrabold: 700 !default;
+$mv-background--document: #fff !default;
+
+/**
+ * @subsection Radius
+ */
+
+$mv-border--radius-small: 2px !default;
+$mv-border-radius: 3px !default;
+$mv-border-radius-large: 5px !default;
+
+/**
+ * @Animation
+ */
+
+$mv-speed: 300ms !default;
+$mv-speed--slow: 500ms !default;
+$mv-speed--fast: 86ms !default;
+$mv-easing: ease-out !default;
+$mv-animation-curve-fast-out-slow-in: cubic-bezier(0.4, 0, 0.2, 1) !default;
+$mv-animation-curve-linear-out-slow-in: cubic-bezier(0, 0, 0.2, 1) !default;
+$mv-animation-curve-fast-out-linear-in: cubic-bezier(0.4, 0, 1, 1) !default;
+$mv-animation-curve-default: $mv-animation-curve-fast-out-slow-in !default;
+
+/**
+ * @Sidebar
+ */
+$mv-sidebar-width: 18rem;

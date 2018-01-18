@@ -1,0 +1,84 @@
+/**
+ * List item
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage List
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../../variables";
+
+/**
+ * @section Style
+ */
+
+:host {
+  position: relative; // margin: 0 ($mv-grid--gutter/2)*-1;
+  margin: 0;
+  padding: ($mv-grid--gutter/2) 0;
+  min-height: 2rem;
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-grow: 1;
+}
+
+:host /deep/ {
+  & mv-col:first-child {
+    padding-left: 0;
+  }
+  & mv-col:last-child {
+    padding-right: 0;
+  }
+  & .mv-btn.is-icon {
+    width: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 1rem;
+  }
+  mv-list-item-action,
+  mv-list-item-primary,
+  mv-list-item-secondary {
+    display: flex;
+    flex: 0 1 auto;
+    text-align: center;
+    justify-content: center;
+  }
+  .mv-list-item {
+    &__action,
+    &__primary,
+    &__secondary {
+      min-width: $mv-size__height;
+      max-width: $mv-size__height;
+      justify-content: center;
+    }
+    &__content {
+      &-title,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0 0 0.2rem;
+        font-size: $mv-size--3;
+      }
+      &-text,
+      p {
+        max-height: $mv-font--size * 2.5;
+        overflow: hidden;
+        text-overflow-multiline: ellipsis;
+        margin: 0;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,51 @@
+/**
+ * Header
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Components
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Style
+ */
+
+:host {
+  display: flex;
+  position: relative;
+  flex: 1;
+  flex-direction: column;
+}
+
+:host(.is-float) {
+  /deep/ mv-toolbar {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: auto;
+    z-index: 100;
+
+    mv-col:first-child {
+      padding-left: $mv-grid--outer-margin;
+    }
+
+    mv-col:last-child {
+      padding-right: $mv-grid--outer-margin;
+    }
+  }
+
+  /deep/ mv-hero {
+    padding-top: $mv-size--height + $mv-grid--outer-margin;
+  }
+}

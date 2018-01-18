@@ -1,0 +1,17 @@
+<mv-row>
+  <mv-col class="mv-control__icon no-grow is-align-center" [class.has-icon]="hasIcon()">
+    <mv-icon [name]="icon"></mv-icon>
+  </mv-col>
+  <mv-col>
+    <mv-control-container>
+      <ng-content></ng-content>
+      <ng-content select="mv-control-error"></ng-content>
+    </mv-control-container>
+  </mv-col>
+  <ng-content select="mv-control-action"></ng-content>
+</mv-row>
+<mv-row>
+  <mv-col>
+    <ng-content select="mv-control-setup"></ng-content>
+  </mv-col>
+</mv-row>

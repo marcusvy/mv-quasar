@@ -1,0 +1,41 @@
+/**
+ * Control
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Form
+ * @subpackage Control
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+@import "../../../variables";
+@import "../../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$control-container--border-radius: 0;
+
+/**
+ * @section Style
+ */
+:host {
+  display: block;
+  position: relative;
+
+  select {
+    display: block;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: $control-container--border-radius;
+    border: none;
+    border-bottom-width: 2px;
+    border-style: solid;
+  }
+}

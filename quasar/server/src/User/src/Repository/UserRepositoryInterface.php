@@ -1,0 +1,15 @@
+<?php
+namespace User\Repository;
+
+interface UserRepositoryInterface
+{
+
+  /**
+   * Validation for authentication
+   *
+   * @param string $credential
+   * @param string $password
+   * @return bool
+   */
+    public function checkAuthenticationData($credential, $password);
+}

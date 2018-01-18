@@ -1,0 +1,165 @@
+/**
+ * Shadow FX
+ * Based on https://paulund.co.uk/learn-css-box-shadow
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Color
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+/**
+ * @section Style
+ * Tipos:
+ * default
+ * double
+ * left
+ * right
+ * up
+ * vertical
+ * horizontal
+ */
+
+.is-shadow {
+  &--default {
+    box-shadow: 0 10px 6px -6px rgba(0,0,0,.2);
+  }
+  &--disabled {
+    box-shadow: 0 1px 1px 0 #C7C7C7 inset;
+    background: none repeat scroll 0 0 #E9E9E9;
+  }
+  &--box {
+    box-shadow: 0 0 5px 1px #d3d3d3;
+  }
+  &--double {
+    position: relative;
+  }
+  &--double:before {
+    z-index: -1;
+    position: absolute;
+    content: "";
+    bottom: 15px;
+    width: 50%;
+    top: 80%;
+    max-width: 300px;
+    background: #777;
+    box-shadow: 0 15px 10px #777;
+    left: 10px;
+    transform: rotate(-3deg);
+  }
+  &--double:after {
+    z-index: -1;
+    position: absolute;
+    content: "";
+    bottom: 15px;
+    width: 50%;
+    top: 80%;
+    max-width: 300px;
+    background: #777;
+    box-shadow: 0 15px 10px #777;
+    right: 10px;
+    transform: rotate(3deg);
+  }
+  &--left {
+    position: relative;
+  }
+  &--left:before {
+    z-index: -1;
+    position: absolute;
+    content: "";
+    bottom: 15px;
+    width: 50%;
+    top: 80%;
+    max-width: 300px;
+    background: #777;
+    box-shadow: 0 15px 10px #777;
+    left: 10px;
+    transform: rotate(-3deg);
+  }
+  &--right {
+    position: relative;
+  }
+  &--right:after {
+    z-index: -1;
+    position: absolute;
+    content: "";
+    bottom: 15px;
+    width: 50%;
+    top: 80%;
+    max-width: 300px;
+    background: #777;
+    box-shadow: 0 15px 10px #777;
+    right: 10px;
+    transform: rotate(3deg);
+  }
+
+  &--up {
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  }
+  &--up:after,
+  &--up:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    top: 50%;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    border-radius: 100px / 10px;
+  }
+  &--up:after {
+    right: 10px;
+    left: auto;
+    transform: skew(8deg) rotate(3deg);
+  }
+  &--vertical {
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+    0 0 16px rgba(0, 0, 0, 0.1) inset;
+  }
+  &--vertical:after,
+  &--vertical:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    border-radius: 10px / 10px;
+  }
+  &--vertical:after {
+    right: 10px;
+    left: auto;
+    transform: skew(8deg) rotate(3deg);
+  }
+  &--horizontal {
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  }
+  &--horizontal:after,
+  &--horizontal:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    top: 10px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    border-radius: 10px / 10px;
+  }
+  &--horizontal:after {
+    right: 10px;
+    left: auto;
+    transform: skew(8deg) rotate(3deg);
+  }
+}

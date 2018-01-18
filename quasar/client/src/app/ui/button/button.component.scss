@@ -1,0 +1,154 @@
+/**
+ * Button
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Button
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Import
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$button-disabled-shadow: none !default;
+$button-disabled-opacity: 1 !default;
+
+/**
+ * @section Mixins
+ */
+
+@mixin button-small {
+  border-radius: $mv-border--radius-small;
+  font-size: $mv-size--small;
+}
+
+@mixin button-medium {
+  font-size: $mv-size--medium;
+}
+
+@mixin button-large {
+  font-size: $mv-size--large;
+}
+
+
+/**
+ * @section Style
+ */
+
+:host {
+  position: relative;
+  display: inline-block;
+  // margin-bottom: 0.5rem;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  height: $mv-size--normal;
+  font-size: $mv-font--size;
+  font-weight: $mv-font-weight--bold;
+  line-height: $mv-size--normal;
+  text-align: center;
+  text-transform: uppercase;
+  justify-content: center;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  border-width: 0;
+  border-style: solid;
+  border-radius: $mv-border-radius;
+  will-change: box-shadow;
+  transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1),
+              background-color .2s cubic-bezier(.4, 0, .2, 1),
+              color .2s cubic-bezier(.4, 0, .2, 1);
+  vertical-align: middle;
+  outline: none;
+  letter-spacing: 0;
+  &:focus {
+    z-index: 998;
+  }
+}
+
+:host(.is-tab) {
+  display: flex;
+  flex-basis: 0;
+  margin: 0;
+  min-width: 3rem;
+  border-width: 0;
+  border-radius: 0;
+  height: $mv-size--normal + ($mv-grid--outer-margin * 2);
+  &:focus {
+    z-index: initial;
+  }
+}
+
+:host(.is-tab.is-bordered) {
+  border-radius: $mv-border-radius $mv-border-radius 0 0;
+}
+
+:host([disabled]) {
+  cursor: default;
+  opacity: $button-disabled-opacity;
+}
+
+:host(.is-fullwidth) {
+  display: flex;
+  width: 100%;
+}
+
+:host(.is-loading) {
+  pointer-events: none;
+  &:after {
+    @include loader;
+    @include center(1em);
+    position: absolute !important;
+  }
+}
+
+:host([top]) {
+  position: fixed;
+  cursor: pointer;
+  outline: none;
+  bottom: 6%;
+  right: 0;
+  text-decoration: none;
+  border-radius: $mv-border-radius 0 0 $mv-border-radius;
+  z-index: 1000;
+}
+
+@include mobile() {
+   :host(.is-icon-mobile) .mv-btn__label {
+    display: none;
+  }
+}
+
+@include tablet() {
+   :host(.is-icon-tablet) .mv-btn__label {
+    display: none;
+  }
+}
+
+@include desktop() {
+   :host(.is-icon-desktop) .mv-btn__label {
+    display: none;
+  }
+}
+
+@include widescreen() {
+   :host(.is-icon-widescreen) .mv-btn__label {
+    display: none;
+  }
+}
+
+@include fullhd {
+   :host(.is-icon-fullhd) .mv-btn__label {
+    display: none;
+  }
+}

@@ -1,0 +1,142 @@
+/**
+ * Typography
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Typography
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+@import "../variables";
+
+/*
+ * @section Mixin
+ */
+
+@import "mixins";
+
+/*
+ * @section Align
+ */
+
+.is-text-left {
+  text-align: left;
+}
+
+.is-text-right {
+  text-align: right;
+}
+
+.is-text-center {
+  text-align: center;
+}
+
+.is-text-justify {
+  text-align: justify;
+}
+
+.is-text-nowrap {
+  white-space: nowrap;
+}
+
+
+/*
+ * @section Transformation
+ */
+
+.is-text-lowercase {
+  text-transform: lowercase;
+}
+
+.is-text-uppercase {
+  text-transform: uppercase;
+}
+
+.is-text-capitalize {
+  text-transform: capitalize;
+}
+
+.is-text-muted {
+  color: $mv-color--grey;
+}
+
+
+/*
+ * @section Lists
+ */
+
+.no-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.is-inline {
+  @extend .no-list;
+  margin-left: -5px;
+  &>li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+$title-color: $mv-color--grey-darker !default;
+$title-size: $mv-size--3 !default;
+$title-weight: $mv-font-weight--semibold !default;
+$title-strong-color: inherit !default;
+$title-strong-weight: inherit !default;
+$subtitle-color: $mv-color--grey-dark !default;
+$subtitle-size: $mv-size--5 !default;
+$subtitle-weight: $mv-font-weight--normal !default;
+$subtitle-strong-color: $mv-color--grey-darker !default;
+$subtitle-strong-weight: $mv-font-weight--semibold !default;
+.title,
+.subtitle {
+  margin-bottom: 1.5rem;
+  word-break: keep-all;
+  word-wrap: break-word;
+  em,
+  span {
+    font-weight: inherit;
+  }
+  .tag {
+    vertical-align: middle;
+  }
+}
+
+.title {
+  color: $title-color;
+  font-size: $title-size;
+  font-weight: $title-weight;
+  line-height: 1.125;
+  strong {
+    color: $title-strong-color;
+    font-weight: $title-strong-weight;
+  }
+  &+.highlight {
+    margin-top: -0.75rem;
+  }
+  &:not(.is-spaced)+.subtitle {
+    margin-top: -1.5rem;
+  }
+}
+
+.subtitle {
+  color: $subtitle-color;
+  font-size: $subtitle-size;
+  font-weight: $subtitle-weight;
+  line-height: 1.25;
+  strong {
+    color: $subtitle-strong-color;
+    font-weight: $subtitle-strong-weight;
+  }
+  &:not(.is-spaced)+.title {
+    margin-top: -1.5rem;
+  } // Sizes
+}

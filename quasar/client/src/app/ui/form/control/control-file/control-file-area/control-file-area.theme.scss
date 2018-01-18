@@ -1,0 +1,52 @@
+/**
+ * Control
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Form
+ * @subpackage Control
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../../../../variables";
+@import "../../../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$contol-file-area--color: $mv-color--grey;
+$contol-file-area--background-color: $mv-color--light;
+$contol-file-area__message_hover--background-color: darken($contol-file-area--background-color, 3%);
+$contol-file-area__dot-area--border-color: darken($mv-color--light, 10%);
+
+/**
+ * @section Style
+ */
+
+:host {
+  color: $contol-file-area--color;
+  background-color: $contol-file-area--background-color;
+}
+
+:host /deep/ {
+  mv-control-file-item {
+    border-color: #ccc;
+  }
+
+}
+
+.mv-control-file-area__content {
+  border-color: $contol-file-area__dot-area--border-color;
+}
+
+.mv-control-file-area__message {
+  &:hover {
+    background-color: $contol-file-area__message_hover--background-color;
+  }
+}

@@ -1,0 +1,14 @@
+<mv-shell
+  [leftOptions]="leftSidebarOptions"
+  [rightOptions]="rightSidebarOptions">
+  <mv-shell-header>
+    <h1>Quasar</h1>
+  </mv-shell-header>
+  <mv-shell-left>
+    <app-quasar-menu></app-quasar-menu>
+  </mv-shell-left>
+  <mv-shell-right>
+    <app-auth-profile-menu></app-auth-profile-menu>
+  </mv-shell-right>
+  <router-outlet></router-outlet>
+</mv-shell>

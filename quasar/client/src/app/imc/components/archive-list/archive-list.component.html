@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th colspan="2">Arquivos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Data mais recente no topo -->
+    <tr *ngFor="let archive of archives">
+      <td>{{archive.publicadoEm | date:'shortDate'}}</td>
+      <td>
+        <a [href]="archive.local" target="_blank">{{archive.nome}}</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

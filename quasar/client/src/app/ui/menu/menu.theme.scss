@@ -1,0 +1,30 @@
+/**
+ *  Menu
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Menu
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+@import "../variables";
+
+/**
+ * @section Style
+ */
+
+:host /deep/ {
+
+  mv-menu-header {
+    color: $mv-color--grey; //border-bottom: 1px solid $mv-color__primary;
+  }
+
+  mv-menu-divisor {
+    border-color: mv-color--grey;
+  }
+}

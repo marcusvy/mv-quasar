@@ -1,0 +1,45 @@
+/**
+ * Calendar Mixins
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Button
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Import
+ */
+
+
+/**
+  * @section Mixins
+  */
+
+@mixin container() {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 19.5rem;
+  position: relative;
+}
+
+@mixin item() {
+  margin: 0;
+  display: block;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px 0 0 0;
+  border-style: solid;
+  border-color: $mv-color--light;
+}
+
+@mixin day() {
+  display: block;
+  margin: 0;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+}

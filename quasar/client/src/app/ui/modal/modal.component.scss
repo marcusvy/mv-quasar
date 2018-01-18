@@ -1,0 +1,119 @@
+/**
+ *  Janela Modal
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Modal
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Style
+ */
+
+:host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  pointer-events: inherit;
+  z-index: 1000;
+}
+
+:host /deep/ {
+  mv-modal-body {
+    padding: $mv-grid--gutter;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  mv-modal-footer {
+    display: flex;
+    flex: 1;
+    padding: $mv-grid--outer-margin;
+    width: 100%;
+    min-height: $mv-size--normal + ($mv-grid--outer-margin * 2);
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    align-items: center;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    [mv-btn] {
+      display: inline-flex;
+    }
+  }
+}
+
+.mv-modal {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  width: 95%;
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: $mv-border-radius;
+
+  @include desktop() {
+    max-height: 100vh;
+  }
+  &__title {
+    margin: 0 0 1rem;
+    font-size: $mv-size--3;
+  }
+  &__backdrop {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    cursor: pointer;
+  }
+}
+
+:host(.is-flat) /deep/ {
+  mv-modal-body {
+    padding: 0;
+  }
+}
+
+:host(.is-relative) {
+  position: absolute;
+}
+
+@include until($mv-device--mobile) {
+   :host(.is-small) {
+    .mv-modal {
+      max-height: 100vh !important;
+    }
+  }
+}
+
+@include from($mv-device--mobile) {
+   :host(.is-small) {
+    .mv-modal {
+      max-width: 50% !important;
+      max-height: 300px !important;
+    }
+  }
+}

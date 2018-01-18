@@ -1,0 +1,40 @@
+<mv-hero class="the_hero is-full" img="/assets/img/background/surface_pattern.jpg">
+  <h1>
+    <mv-icon name="cloud"></mv-icon>
+    <span>Mídia</span>
+  </h1>
+</mv-hero>
+
+<mv-container class="is-limited">
+  <ng-container *ngIf="enabledFastUpload">
+    <app-midia-uploader></app-midia-uploader>
+  </ng-container>
+
+  <!-- Ações de configuração do módulo -->
+  <mv-list class="is-bordered">
+    <mv-list-item>
+      <h2>Upload</h2>
+      <p>Adicionar de modo fácil um arquivo</p>
+      <mv-list-item-secondary>
+        <button class="mv-btn" [class.is-active]="enabledFastUpload" (click)="enabledFastUpload=!enabledFastUpload">
+          {{(enabledFastUpload) ? '✖' : 'Upload'}}
+        </button>
+      </mv-list-item-secondary>
+    </mv-list-item>
+    <mv-list-item>
+      <h2>Estatísticas</h2>
+      <p>Visualizar estatísticas dos arquivos</p>
+      <mv-list-item-secondary>
+        <button class="mv-btn" [class.is-active]="enabledStats" (click)="enabledStats=!enabledStats">
+          Visualizar
+        </button>
+      </mv-list-item-secondary>
+    </mv-list-item>
+  </mv-list>
+
+  <!-- Resumo geral -->
+
+  <ng-container *ngIf="enabledStats">
+    <app-midia-stats [canLoad]="enabledStats"></app-midia-stats>
+  </ng-container>
+</mv-container>

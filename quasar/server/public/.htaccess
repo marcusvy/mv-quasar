@@ -1,0 +1,189 @@
+# Apache Server Configs v2.11.0 | MIT License
+# https://github.com/h5bp/server-configs-apache
+
+# (!) Using `.htaccess` files slows down Apache, therefore, if you have
+# access to the main server configuration file (which is usually called
+# `httpd.conf`), you should add this logic there.
+#
+# https://httpd.apache.org/docs/current/howto/htaccess.html.
+
+# ######################################################################
+# # CROSS-ORIGIN                                                       #
+# ######################################################################
+
+# ----------------------------------------------------------------------
+# | Cross-origin requests                                              |
+# ----------------------------------------------------------------------
+
+# Allow cross-origin requests.
+#
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+# http://enable-cors.org/
+# http://www.w3.org/TR/cors/
+
+<IfModule mod_headers.c>
+
+  # (1) Disable
+  # Header set Access-Control-Allow-Origin "*"
+
+  # (2) Enable especifc
+#   Header Set Access-Control-Allow-Origin "https://api.mviniciusconsultoria.com.br"
+
+  # (3) Allow Methods
+#   Header Set Access-Control-Allow-Methods "HEAD, GET, POST, PUT, OPTIONS, DELETE"
+
+  # (4) Allow Headers
+#   Header Set Access-Control-Allow-Headers "Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Accept,Authorization"
+
+  # (5) Expose Headers
+  # Header Set Access-Control-Expose-Headers "Date,Etag,Content-Type,Authorization,X-RateLimit-Limit,X-RateLimit-Remaining,X-RateLimit-Reset"
+
+  # (6) Cache: Max age in seconds
+#   Header Set Access-Control-Max-Age "7200"
+
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Cross-origin resource timing                                       |
+# ----------------------------------------------------------------------
+
+# Allow cross-origin access to the timing information for all resources.
+#
+# If a resource isn't served with a `Timing-Allow-Origin` header that
+# would allow its timing information to be shared with the document,
+# some of the attributes of the `PerformanceResourceTiming` object will
+# be set to zero.
+#
+# http://www.w3.org/TR/resource-timing/
+# http://www.stevesouders.com/blog/2014/08/21/resource-timing-practical-tips/
+
+# <IfModule mod_headers.c>
+#     Header set Timing-Allow-Origin: "*"
+# </IfModule>
+
+
+# ######################################################################
+# # REWRITES                                                           #
+# ######################################################################
+
+# ----------------------------------------------------------------------
+# | Rewrite engine                                                     |
+# ----------------------------------------------------------------------
+
+# (1) Turn on the rewrite engine (this is necessary in order for
+#     the `RewriteRule` directives to work).
+#
+#     https://httpd.apache.org/docs/current/mod/mod_rewrite.html#RewriteEngine
+#
+# (2) Enable the `FollowSymLinks` option if it isn't already.
+#
+#     https://httpd.apache.org/docs/current/mod/core.html#options
+#
+# (3) If your web host doesn't allow the `FollowSymlinks` option,
+#     you need to comment it out or remove it, and then uncomment
+#     the `Options +SymLinksIfOwnerMatch` line (4), but be aware
+#     of the performance impact.
+#
+#     https://httpd.apache.org/docs/current/misc/perf-tuning.html#symlinks
+#
+# (4) Some cloud hosting services will require you set `RewriteBase`.
+#
+#     http://www.rackspace.com/knowledge_center/frequently-asked-question/why-is-modrewrite-not-working-on-my-site
+#     https://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
+#
+# (5) Depending on how your server is set up, you may also need to
+#     use the `RewriteOptions` directive to enable some options for
+#     the rewrite engine.
+#
+#     https://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewriteoptions
+
+<IfModule mod_rewrite.c>
+
+    # (1)
+    RewriteEngine On
+
+    # (2)
+    # Options +FollowSymlinks
+
+    # (3)
+    # Options +SymLinksIfOwnerMatch
+
+    # (4)
+    # RewriteBase /
+
+    # (5)
+    # RewriteOptions <options>
+
+    # The following rule tells Apache that if the requested filename
+    # exists, simply serve it.
+    RewriteCond %{REQUEST_FILENAME} -s [OR]
+    RewriteCond %{REQUEST_FILENAME} -l [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^.*$ - [NC,L]
+
+    # The following rewrites all other queries to index.php. The
+    # condition ensures that if you are using Apache aliases to do
+    # mass virtual hosting, the base path will be prepended to
+    # allow proper resolution of the index.php file; it will work
+    # in non-aliased environments as well, providing a safe, one-size
+    # fits all solution.
+    RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
+    RewriteRule ^(.*) - [E=BASE:%1]
+    RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]
+
+
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Forcing `https://`                                                 |
+# ----------------------------------------------------------------------
+
+# Redirect from the `http://` to the `https://` version of the URL.
+# https://wiki.apache.org/httpd/RewriteHTTPToHTTPS
+
+<IfModule mod_rewrite.c>
+   RewriteEngine On
+   RewriteCond %{HTTPS} !=on
+   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Suppressing / Forcing the `www.` at the beginning of URLs          |
+# ----------------------------------------------------------------------
+
+# The same content should never be available under two different
+# URLs, especially not with and without `www.` at the beginning.
+# This can cause SEO problems (duplicate content), and therefore,
+# you should choose one of the alternatives and redirect the other
+# one.
+#
+# By default `Option 1` (no `www.`) is activated.
+# http://no-www.org/faq.php?q=class_b
+#
+# If you would prefer to use `Option 2`, just comment out all the
+# lines from `Option 1` and uncomment the ones from `Option 2`.
+#
+# (!) NEVER USE BOTH RULES AT THE SAME TIME!
+
+# Block access to all hidden files and directories with the exception of
+# the visible content from within the `/.well-known/` hidden directory.
+#
+# These types of files usually contain user preferences or the preserved
+# state of an utility, and can include rather private places like, for
+# example, the `.git` or `.svn` directories.
+#
+# The `/.well-known/` directory represents the standard (RFC 5785) path
+# prefix for "well-known locations" (e.g.: `/.well-known/manifest.json`,
+# `/.well-known/keybase.txt`), and therefore, access to its visible
+# content should not be blocked.
+#
+# https://www.mnot.net/blog/2010/04/07/well-known
+# https://tools.ietf.org/html/rfc5785
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} "!(^|/)\.well-known/([^./]+./?)+$" [NC]
+    RewriteCond %{SCRIPT_FILENAME} -d [OR]
+    RewriteCond %{SCRIPT_FILENAME} -f
+    RewriteRule "(^|/)\." - [F]
+</IfModule>

@@ -1,0 +1,11 @@
+<mv-row>
+  <mv-col>
+    <label (click)="onFocus($event)">
+      <ng-content select="[mvControlLabel],mv-control-label"></ng-content>
+    </label>
+    <div class="has-invalid-options" *ngIf="!isCanInitialized">{{invalidOptionsMessage}}</div>
+    <mv-control-editor-area>
+      <div class="mv-control-editor__area" #controlEditorArea></div>
+    </mv-control-editor-area>
+  </mv-col>
+</mv-row>

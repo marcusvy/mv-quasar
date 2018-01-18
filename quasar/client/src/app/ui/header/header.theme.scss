@@ -1,0 +1,30 @@
+/**
+ * Header
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Components
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Style
+ */
+
+:host {
+  // color: $mv-color--secondary;
+}
+
+:host(.is-float) /deep/ mv-toolbar {
+  color: inherit;
+  background-color: transparent;
+}

@@ -1,0 +1,16 @@
+<mv-shell
+  [leftOptions]="leftSidebarOptions"
+  [rightOptions]="rightSidebarOptions"
+  [isFullContainer]="true">
+  <mv-shell-header>
+    <h1>Área do Candidato</h1>
+  </mv-shell-header>
+  <mv-shell-left>
+    <im-area-candidato-menu></im-area-candidato-menu>
+  </mv-shell-left>
+  <mv-grid>
+    <mv-container class="is-limited">
+      <router-outlet></router-outlet>
+    </mv-container>
+  </mv-grid>
+</mv-shell>

@@ -1,0 +1,11 @@
+<mv-form [formGroup]="form">
+  <mv-control>
+    <label>Nome <sup>*</sup></label>
+    <input type="text" formControlName="name">
+    <mv-control-error [for]="form.get('name').invalid">Obrigatório</mv-control-error>
+  </mv-control>
+
+  <button class="mv-btn" (click)="save()">Salvar</button>
+</mv-form>
+
+

@@ -1,0 +1,98 @@
+/**
+ * Grid
+ *
+ * based https://raw.githubusercontent.com/kristoferjoseph/flexboxgrid/master/src/css/flexboxgrid.css
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Layout
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ *
+ * <mv-grid>
+ *    <mv-row>
+ *      <mv-col>1</mv-col>
+ *      <mv-col>2</mv-col>
+ *    </mv-row>
+ * </mv-grid>
+ * <mv-grid>
+ *    <mv-container>
+ *      <mv-row>
+ *        <mv-col>1</mv-col>
+ *        <mv-col>2</mv-col>
+ *      </mv-row>
+ *    </mv-container>
+ * </mv-grid>
+ *
+ * @section Imports
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+  * @section Configuration
+  */
+
+$outer-margin: $mv-grid--outer-margin;
+
+/**
+ * @section Mixins
+ */
+
+
+/**
+  * @section Grid
+  */
+
+:host,
+:host /deep/ mv-container {
+  display: block;
+  flex-basis: 100%;
+  // margin-right: auto;
+  // margin-left: auto;
+}
+
+:host {
+  box-sizing: border-box;
+  padding-right: $outer-margin; //Fix container on small width
+  padding-left: $outer-margin; //Fix container on small width
+}
+
+:host /deep/ mv-grid {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+
+/**
+ * @section Modifiers
+ */
+
+:host(.is-fullscreen) {
+  @include full();
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  & /deep/ mv-container {
+    max-width: inherit !important;
+  }
+}
+
+
+/**
+ * @section Utils
+ */
+
+:host(.is-max) {
+  height: 100vh;
+}

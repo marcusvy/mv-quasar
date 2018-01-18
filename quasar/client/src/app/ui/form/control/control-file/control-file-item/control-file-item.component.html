@@ -1,0 +1,28 @@
+<mv-row class="is-align-middle">
+  <mv-col class="no-flex">
+    <mv-icon [name]="icon"></mv-icon>
+  </mv-col>
+  <mv-col class="no-flex" *ngIf="src!==''">
+    <mv-avatar class="is-circle" [src]="src" (click)="modalPreview.open()"></mv-avatar>
+  </mv-col>
+  <mv-col class="is-align-start">
+    <span>{{file?.name}}</span>
+  </mv-col>
+  <mv-col>
+    <span>{{file?.size | mvBytes}}</span>
+  </mv-col>
+  <mv-col class="no-flex">
+    <button class="mv-btn is-icon" (click)="removeFile()">
+      <mv-icon name="close"></mv-icon>
+    </button>
+  </mv-col>
+</mv-row>
+<mv-modal #modalPreview class="is-medium" title="Prévia">
+  <mv-modal-body>
+    <div>
+      <img class="is-thumbnail" [src]="src" alt="">
+    </div>
+    <p><strong>Nome</strong>: {{file?.name}}</p>
+    <p><strong>Tamanho</strong>: {{file?.size | mvBytes}}</p>
+  </mv-modal-body>
+</mv-modal>

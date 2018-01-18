@@ -1,0 +1,16 @@
+<div class="calendar_header">
+  <div class="calendar_control">
+    <button class="mv-btn" (click)="resetMode()" *ngIf="!isMode('day')"> &laquo; </button>
+    <button class="mv-btn calendar_month" (click)="setMode('month')">{{calendario.date | date:'MMMM' | titlecase}}</button>
+    <!-- <span class="calendar_separator"> - </span> -->
+    <button class="mv-btn calendar_year" (click)="setMode('year')">{{calendario.date | date:'y'}}</button>
+  </div>
+  <div class="calendar_action">
+    <button class="mv-btn" (click)="prev()"> &lt; </button>
+    <button class="mv-btn" (click)="today()"> &#8226; </button>
+    <button class="mv-btn" (click)="next()"> &gt; </button>
+  </div>
+</div>
+<mv-calendar-day class="is-mode" [class.is-active]="isMode('day')"></mv-calendar-day>
+<mv-calendar-month class="is-mode" [class.is-active]="isMode('month')"></mv-calendar-month>
+<mv-calendar-year class="is-mode" [class.is-active]="isMode('year')"></mv-calendar-year>

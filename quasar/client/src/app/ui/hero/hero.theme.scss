@@ -1,0 +1,55 @@
+/**
+ * hero
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Components
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+ * @section Mixins
+ */
+
+
+/**
+ * @section Style
+ */
+
+:host {
+  background-color: $mv-color--light;
+}
+
+.mv-hero__background {
+  background-color: $mv-color--dark;
+}
+
+.mv-hero__content {
+  color: $mv-color--grey-dark;
+}
+
+@mixin theme($name, $font-color) {
+
+  :host(.is-theme-#{$name}) /deep/ {
+    h1,
+    h2,
+    p {
+      color: $font-color;
+    }
+  }
+}
+
+@each $name, $pair in $mv-colors {
+  $color: nth($pair, 1);
+  $font-color: nth($pair, 2);
+  @include theme($name, $font-color);
+}

@@ -1,0 +1,43 @@
+/**
+ *  Janela Modal
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Modal
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../variables";
+@import "../shared/mixins";
+
+/**
+  * @section Style
+  */
+
+ :host {
+  background-color: transparent;
+}
+
+ :host /deep/ {
+  mv-modal-body {
+    background-color: $mv-color--light;
+  }
+  mv-modal-footer {
+    border-color: $mv-color--grey-light;
+  }
+}
+
+.mv-modal {
+  background: $mv-color--light;
+  box-shadow: 0 5px 5px -2px rgba($mv-color--dark, 0.3);
+
+  &__backdrop {
+    background-color: rgba(#000, .8);
+  }
+}

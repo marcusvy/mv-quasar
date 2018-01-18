@@ -1,0 +1,20 @@
+<mv-grid>
+  <mv-container class="is-limited">
+    <mv-row>
+      <mv-col>
+        <mv-bahamut #bahamutManager>
+          <mv-bahamut-collection [template]="templateItem" (onDelete)="onDelete($event)"></mv-bahamut-collection>
+          <mv-bahamut-form [template]="templateForm"></mv-bahamut-form>
+        </mv-bahamut>
+      </mv-col>
+    </mv-row>
+  </mv-container>
+</mv-grid>
+
+<ng-template #templateItem let-model>
+  <app-user-role-item [model]="model"></app-user-role-item>
+</ng-template>
+
+<ng-template #templateForm>
+  <app-user-role-form (onSave)="save($event)"></app-user-role-form>
+</ng-template>

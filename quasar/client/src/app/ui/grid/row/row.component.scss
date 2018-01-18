@@ -1,0 +1,84 @@
+/**
+ * Row
+ *
+ * based https://raw.githubusercontent.com/kristoferjoseph/flexboxgrid/master/src/css/flexboxgrid.css
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Layout
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ *
+ * <mv-row>
+ *   <mv-col>1</mv-col>
+ *   <mv-col>2</mv-col>
+ * </mv-row>
+ *
+ * @section Imports
+ */
+
+@import "../../variables";
+@import "../../shared/mixins";
+
+/**
+  * @section Configuration
+  */
+
+$gutter-compensation: ($mv-grid--gutter * 0.5) * -1;
+$half-gutter-width: ($mv-grid--gutter * 0.5);
+
+/**
+ * @section Mixins
+ */
+
+@mixin row {
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+/**
+ * @section Row
+ */
+
+:host {
+  @include row();
+}
+
+:host(.is-reverse) {
+  flex-direction: row-reverse;
+}
+
+:host(.has-fill) /deep/ mv-col:not(.is-fill) {
+  flex-grow: 0;
+}
+
+:host(.no-gap) /deep/ {
+  & > mv-col:not(:first-child):not(:last-child) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+:host(.is-gap) /deep/ {
+  margin-right: $gutter-compensation;
+  margin-left: $gutter-compensation;
+
+  & > mv-col {
+    padding-right: $half-gutter-width;
+    padding-left: $half-gutter-width;
+  }
+  & > mv-col:first-child {
+    padding-right: 0;
+  }
+  & > mv-col:last-child {
+    padding-left: 0;
+  }
+}

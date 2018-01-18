@@ -1,0 +1,15 @@
+<div class="mv-control-file-area__content">
+  <div class="mv-control-file-area__message"
+    *ngIf="files.length === 0; else controlFileList"
+    (dragenter)="onDragEvent($event)"
+    (dragover)="onDragEvent($event)"
+    (drop)="onDropEvent($event)"
+    (click)="onAreaClick()">
+    <mv-icon class="is-element" name="cloud-upload"></mv-icon>
+    <p class="is-element">Clique ou Arrraste arquivos</p>
+  </div>
+  <ng-template #controlFileList>
+    <mv-control-file-item *ngFor="let file of files" [file]="file"
+      (onRemove)="onRemove($event)"></mv-control-file-item>
+  </ng-template>
+</div>

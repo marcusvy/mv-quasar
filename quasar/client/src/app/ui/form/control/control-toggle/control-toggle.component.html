@@ -1,0 +1,21 @@
+<mv-row>
+  <mv-col>
+    <label [for]="id">
+      <ng-content select="mv-control-label,[mvControlLabel]"></ng-content>
+    </label>
+    <input #formControl type="checkbox"
+      [id]="id"
+      [checked]="checked"
+      (blur)="onFocus(false)"
+      (focus)="onFocus(true)"
+      (change)="onChange($event)">
+    <ng-content select="mv-control-value,[mvControlValue]"></ng-content>
+  </mv-col>
+  <mv-col class="no-flex">
+    <button class="mv-btn is-icon"
+      [class.is-active]="checked"
+      (click)="onClick($event)">
+      <mv-icon [name]="icon"></mv-icon>
+    </button>
+  </mv-col>
+</mv-row>

@@ -1,0 +1,35 @@
+/**
+ * Control
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Form
+ * @subpackage Control
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../../../variables";
+@import "../../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+
+/**
+ * @section Style
+ */
+
+:host {
+  input {
+    opacity: 0;
+    z-index: -1;
+    height: 0 !important;
+    line-height: 0 !important;
+  }
+}

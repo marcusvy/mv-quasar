@@ -1,0 +1,22 @@
+<mv-row class="is-align-middle">
+  <mv-col>
+    <label [for]="id">
+      <ng-content select="[mvControlLabel],mv-control-label"></ng-content>
+    </label>
+    <input #formControl
+      type="text"
+      [id]="id"
+      [value]="value"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [required]="required"
+      (blur)="onFocus(false)"
+      (focus)="onFocus(true)"
+      (input)="onInput($event)">
+  </mv-col>
+  <!-- <mv-col class="no-flex">
+    <button class="mv-btn is-icon">
+        <mv-icon name="close"></mv-icon>
+      </button>
+  </mv-col> -->
+</mv-row>

@@ -1,0 +1,33 @@
+/**
+ * Loadbar
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Loadbar
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../variables";
+
+/**
+ * @section Style
+ */
+
+:host {
+  background-color: $mv-color--grey-light;
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, .2);
+}
+
+:host(.is-active) {
+  background-color: $mv-color--secondary;
+}
+
+.mv-loadbar__progress {
+  background-color: $mv-color--light;
+}

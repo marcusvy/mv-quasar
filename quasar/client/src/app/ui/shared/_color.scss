@@ -1,0 +1,41 @@
+/**
+ * Cores
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Color
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Configuration
+ */
+@import '../variables';
+
+
+/**
+ * @section Mixis
+ */
+
+@mixin color($color, $value) {
+  .is-color-#{$color} {
+    color: $value;
+  }
+}
+
+@mixin theme($color, $value, $font-color: #fff) {
+  .is-theme-#{$color} {
+    color: $font-color !important;
+    background-color: $value !important;
+  }
+}
+
+/**
+ * @section Color
+ */
+@each $name, $pair in $mv-colors {
+  $color: nth($pair, 1);
+  @include color($name, $color);
+  @include theme($name, $color, $mv-color--dark);
+}

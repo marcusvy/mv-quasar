@@ -1,0 +1,18 @@
+<mv-toolbar>
+  <mv-container class="is-limited">
+    <mv-row>
+      <mv-col>
+        <h4>
+          <mv-icon name="cloud"></mv-icon>
+          <span>Mídia</span>
+        </h4>
+      </mv-col>
+
+      <mv-col class="is-align-end">
+        <button class="mv-btn" [routerLink]="['.','dashboard']" routerLinkActive="is-active">Dashboard</button>
+        <button class="mv-btn" [routerLink]="['.','manager']" routerLinkActive="is-active">Gerenciar</button>
+      </mv-col>
+    </mv-row>
+  </mv-container>
+</mv-toolbar>
+<router-outlet></router-outlet>

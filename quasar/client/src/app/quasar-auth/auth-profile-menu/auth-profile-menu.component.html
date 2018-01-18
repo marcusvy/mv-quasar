@@ -1,0 +1,21 @@
+<mv-grid class="is-align-center">
+  <mv-row class="is-align-center">
+    <mv-col class="is-6">
+      <img class="img-profile is-circle" src="/assets/local/avatar/profile.png" alt="">
+    </mv-col>
+  </mv-row>
+  <mv-row>
+    <mv-col>
+      <h5>Marcus Vinícius Cardoso</h5>
+      <strong>Administrador</strong>
+    </mv-col>
+  </mv-row>
+</mv-grid>
+<mv-menu>
+  <mv-menu-header>Opções</mv-menu-header>
+  <mv-menu-item routerLink="/quasar/manager/config/activities">Atividades</mv-menu-item>
+  <mv-menu-item routerLink="/quasar/manager/config">Configurações</mv-menu-item>
+  <mv-menu-item routerLink="/quasar/manager/config/profile">Perfil</mv-menu-item>
+  <mv-menu-header>Conta</mv-menu-header>
+  <mv-menu-item icon="sign-out" (click)="logout()">Sair</mv-menu-item>
+</mv-menu>

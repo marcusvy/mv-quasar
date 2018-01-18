@@ -1,0 +1,371 @@
+@import "../../variables";
+@import "../mixins";
+@import "normalize";
+@import "mobile";
+$code-background: $mv-color--dark !default;
+$code-color: $mv-color--light !default;
+$code-padding: 0.25em 0.5em 0.25em 0.25em !default;
+$code-weight: normal !default;
+$code-size: 0.875em !default;
+$hr-background-color: $mv-color--grey !default;
+$hr-height: 1px !default;
+$hr-margin: 1.5rem 0 !default;
+$strong-color: $mv-color--dark !default;
+$strong-weight: $mv-font-weight--bold !default;
+$pre-padding: 1em;
+$pre-color: $mv-color--dark;
+$pre-background: $mv-color--light;
+$blockquote-background-color: $mv-color--grey !default;
+$blockquote-border-left: 5px solid $mv-color--grey !default;
+$blockquote-padding: 1.25em 1.5em !default;
+$table-cell-border: 1px solid $mv-color--grey !default;
+$table-cell-border-width: 0 0 1px !default;
+$table-cell-padding: 0.5em 0.75em !default;
+$table-cell-heading-color: $mv-color--primary !default;
+$table-row-hover-background-color: $mv-color--light !default;
+$table-head-cell-border-width: 0 0 1px !default;
+$table-head-cell-color: $mv-color--primary !default;
+$table-foot-cell-border-width: 1px 0 0 !default;
+$table-foot-cell-color: $mv-color--grey !default;
+::selection {
+  color: $mv-color--primary;
+  background-color: $mv-color--secondary;
+  text-shadow: none;
+}
+
+html {
+  min-width: 300px;
+  width: 100%;
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: $mv-background--document;
+  font-size: $mv-font--size;
+  text-rendering: $mv-font--render-mode;
+  text-size-adjust: 100%;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: $mv-font--default;
+  font-size: inherit;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  color: $mv-color--dark;
+  font-size: $mv-font--size;
+  font-weight: $mv-font-weight--normal;
+  line-height: $mv-font--line-height;
+}
+
+code,
+pre {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  font-family: $mv-font--mono;
+}
+
+
+/*
+ * Main display reset for IE support.
+ * Source: http://weblog.west-wind.com/posts/2015/Jan/12/main-HTML5-Tag-not-working-in-Internet-Explorer-91011
+ */
+
+main {
+  display: block;
+}
+
+article,
+aside,
+figure,
+footer,
+header,
+hgroup,
+section {
+  display: block;
+}
+
+// Inline
+a {
+  color: $mv-color--blue;
+  cursor: pointer;
+  text-decoration: none;
+  strong {
+    color: currentColor;
+  }
+  &:hover {
+    color: inherit;
+  }
+}
+
+code,
+kbd,
+samp {
+  padding: $code-padding;
+  font-size: $code-size;
+  font-weight: $code-weight;
+  color: $code-color;
+  background-color: $code-background;
+  border-radius: $mv-border-radius;
+}
+
+hr {
+  background-color: $hr-background-color;
+  border: none;
+  display: block;
+  height: $hr-height;
+  margin: $hr-margin;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  vertical-align: baseline;
+}
+
+small {
+  font-size: 0.875em;
+}
+
+span {
+  font-style: inherit;
+  font-weight: inherit;
+}
+
+strong {
+  color: inherit;
+  font-weight: $strong-weight;
+}
+
+// Block
+p {
+  margin: 0 0 #{($mv-font--line-height / 2)}rem;
+}
+
+p+p {}
+
+pre {
+  background-color: $pre-background;
+  color: $pre-color;
+  font-size: 0.875em;
+  overflow-x: auto;
+  padding: 1.25rem 1.5rem;
+  white-space: pre;
+  word-wrap: normal;
+  code {
+    background-color: transparent;
+    color: currentColor;
+    font-size: 1em;
+    padding: 0;
+  }
+}
+
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: ($mv-font--line-height / 2);
+  ul,
+  ol {
+    margin-bottom: 0;
+  }
+}
+
+dl {
+  margin-top: 0;
+  margin-bottom: $mv-font--line-height;
+}
+
+dt,
+dd {
+  line-height: $mv-font--line-height;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-left: 0;
+}
+
+dl.is-horizontal {
+  dd {
+    @include clearfix();
+  }
+  @media (min-width: $mv-device--tablet) {
+    dt {
+      display: block;
+      clear: left;
+      text-align: right;
+      @include text-overflow();
+    }
+    dd {
+      margin-left: $mv-size--height;
+    }
+  }
+}
+
+blockquote {
+  background-color: $blockquote-background-color;
+  border-left: $blockquote-border-left;
+  padding: $blockquote-padding;
+}
+
+ol {
+  list-style: decimal outside;
+  margin-left: 2em;
+  margin-top: 1em;
+}
+
+ul {
+  list-style: disc outside;
+  margin-left: 2em;
+  margin-top: 1em;
+  ul {
+    list-style-type: circle;
+    margin-top: 0.5em;
+    ul {
+      list-style-type: square;
+    }
+  }
+}
+
+dd {
+  margin-left: 2em;
+}
+
+figure {
+  margin-left: 2em;
+  margin-right: 2em;
+  text-align: center;
+  &:not(:first-child) {
+    margin-top: 2em;
+  }
+  &:not(:last-child) {
+    margin-bottom: 2em;
+  }
+  img {
+    display: inline-block;
+  }
+  figcaption {
+    font-style: italic;
+  }
+}
+
+pre {
+  @include overflow-touch;
+  overflow-x: auto;
+  padding: $pre-padding; // white-space: pre;
+  // word-wrap: normal;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+sup,
+sub {
+  font-size: 75%;
+}
+
+table {
+  width: 100%;
+  td,
+  th {
+    border: $table-cell-border;
+    border-width: $table-cell-border-width;
+    border-color: $mv-color--grey-light;
+    padding: $table-cell-padding;
+    vertical-align: top;
+  }
+  th {
+    color: $table-cell-heading-color;
+    text-align: left;
+  }
+  tr {
+    &:hover {
+      background-color: $table-row-hover-background-color;
+    }
+  }
+  thead {
+    td,
+    th {
+      border-width: $table-head-cell-border-width;
+      border-color: $mv-color--grey-light;
+      color: $table-head-cell-color;
+    }
+  }
+  tfoot {
+    td,
+    th {
+      border-width: $table-foot-cell-border-width;
+      border-color: $mv-color--grey-light;
+      color: $table-foot-cell-color;
+    }
+  }
+  tbody {
+    tr {
+      &:last-child {
+        td,
+        th {
+          border-bottom-width: 0;
+        }
+      }
+    }
+  }
+}
+
+h1,
+.h1 {
+  font-size: 3em;
+  font-weight: 300;
+} // 48px
+h2,
+.h2 {
+  font-size: 2em;
+  font-weight: 300;
+} // 32px
+h3,
+.h3 {
+  font-size: 1.75em;
+} // 28px
+h4,
+.h4 {
+  font-size: 1.5em;
+} // 24px
+h5,
+.h5 {
+  font-size: 1.25em;
+} // 20px
+h6,
+.h6 {
+  font-size: 1em;
+} // 16px
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  margin-bottom: .5rem;
+}

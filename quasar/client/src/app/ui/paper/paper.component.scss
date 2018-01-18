@@ -1,0 +1,172 @@
+/**
+ * Paper
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Core
+ * @subpackage Paper
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2016 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+ @import "../variables";
+ @import "../shared/mixins";
+
+
+/**
+ * @section Mixins
+ */
+
+@mixin paper-sheet-padding ($size) {
+   :host(.padding-#{$size}mm) /deep/ mv-page {
+    padding: #{$size}mm;
+  }
+}
+
+
+@mixin calc-sizes($width, $height) {
+  $factor:($height/$width);
+  width: #{($width/10)}rem;
+  height: #{($width * $factor /10)}rem;
+  min-width: #{($width/10)}rem;
+  max-width: #{($width/10)}rem;
+}
+
+@mixin page-render($size, $width, $height) {
+  :host(#{$size}) /deep/ mv-page {
+    @include calc-sizes($width, $height);
+  }
+}
+
+@mixin paper-padding-render ($size) {
+  :host(.padding-#{$size}mm) /deep/ mv-page {
+   padding: #{($size/10)}rem;
+ }
+}
+
+/**
+ * @section Default
+ */
+
+@page {
+  margin: 0
+}
+
+:host {
+  display: block;
+  margin: 0 auto;
+}
+
+:host(.no-print) {
+  display: none;
+}
+
+
+/**
+ * Paper sizes
+ */
+
+@media print {
+   :host(.A3) /deep/ mv-page {
+    width: 297mm;
+    height: 419mm;
+  }
+   :host(.A3.landscape) /deep/ mv-page {
+    width: 420mm;
+    height: 296mm;
+  }
+   :host(.A4) /deep/ mv-page {
+    width: 210mm;
+    height: 296mm;
+  }
+   :host(.A4.landscape) /deep/ mv-page {
+    width: 297mm;
+    height: 209mm;
+  }
+   :host(.A5) /deep/ mv-page {
+    width: 148mm;
+    height: 209mm;
+  }
+   :host(.A5.landscape) /deep/ mv-page {
+    width: 210mm;
+    height: 147mm;
+  }
+   :host(.A3.landscape) {
+    width: 420mm;
+  }
+   :host(.A3),
+   :host(.A4.landscape) {
+    width: 297mm;
+  }
+   :host(.A4),
+   :host(.A5.landscape) {
+    width: 210mm;
+  }
+   :host(.A5) {
+    width: 148mm;
+  }
+
+  @include paper-sheet-padding (5);
+  @include paper-sheet-padding (10);
+  @include paper-sheet-padding (15);
+  @include paper-sheet-padding (20);
+  @include paper-sheet-padding (25);
+
+  .mv-paper__control{
+    display: none;
+  }
+}
+
+@media screen {
+   :host {
+     position: fixed;
+     top: 0;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     display: flex;
+     flex-direction: column;
+
+
+    & /deep/ mv-page {
+      flex-grow: 0;
+      font-size: ($mv-font--size/2.4);
+      @include calc-sizes(210,296);
+      transform: scale(0.9);
+      background: white;
+      box-shadow: 0 .5mm 2mm rgba(0, 0, 0, .3);
+    }
+  }
+
+  @include page-render('.A3', 420, 296);
+  @include page-render('.A3.landscape', 296, 420);
+  @include page-render('.A4', 210, 296);
+  @include page-render('.A4.landscape', 297, 209);
+  @include page-render('.A5', 148, 210);
+  @include page-render('.A5.landscape', 210, 148);
+  @include paper-padding-render (5);
+  @include paper-padding-render (10);
+  @include paper-padding-render (15);
+  @include paper-padding-render (20);
+  @include paper-padding-render (25);
+
+  .mv-paper__preview {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: center;
+    background: $mv-color--light;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .mv-paper__control {
+    display: flex;
+    flex-grow: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: $mv-size--height;
+  }
+}

@@ -1,0 +1,36 @@
+/**
+ * Control
+ *
+ *
+ * @project mvComponents
+ * @version 1.0
+ * @package Form
+ * @subpackage Control
+ * @author Marcus Vinícius da Rocha Gouveia Cardoso
+ * @copyright 2017 by author
+ * @licence MIT
+ *
+ * @section Imports
+ */
+
+@import "../../../variables";
+@import "../../../shared/mixins";
+
+/**
+ * @section Configuration
+ */
+
+$control-container--border-color: $mv-color--grey;
+
+/**
+ * @section Style
+ */
+
+:host /deep/ {
+  .ql-editor {
+    border-color: $control-container--border-color;
+  }
+  .has-invalid-options {
+    color: $mv-color--danger;
+  }
+}

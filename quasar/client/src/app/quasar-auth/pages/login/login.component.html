@@ -1,0 +1,32 @@
+<mv-row class="login-header is-align-middle">
+  <mv-col class="is-align-center">
+    <h1 class="login-title">Login</h1>
+  </mv-col>
+</mv-row>
+<form mvForm [formGroup]="form">
+  <mv-row>
+    <mv-col>
+      <!-- Usuário -->
+      <mv-control>
+        <label for="input-user">E-mail</label>
+        <input id="input-user" type="email" name="user" formControlName="user" />
+      </mv-control>
+
+      <!-- Senha -->
+      <mv-control>
+        <label for="input-senha">Senha</label>
+        <input id="input-senha" type="password" name="password" formControlName="password" />
+      </mv-control>
+
+      <p class="is-align-center" *ngIf="showMessage()">{{message}}</p>
+    </mv-col>
+  </mv-row>
+  <mv-row class="is-align-middle">
+    <mv-col>
+      <a [routerLink]="['.','signin']">Quero me cadastrar</a>
+    </mv-col>
+    <mv-col class="is-align-end no-flex">
+      <button type="button" class="mv-btn is-raised" [disabled]="form.invalid" (click)="login()">Entrar</button>
+    </mv-col>
+  </mv-row>
+</form>

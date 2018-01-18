@@ -1,0 +1,34 @@
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .item {
+    display: inline-block;
+    min-height: 3em;
+    line-height: 3em;
+    transition: background-color 300ms ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      color: #01223a;
+      background-color: #91d1ff;
+
+    }
+
+    &.is-active {
+      color: #fff;
+      background-color: #004678;
+
+    }
+  }
+
+  .item-content {
+    display: block;
+    height: 3em;
+    padding: 0 1em;
+    line-height: inherit;
+  }
+
+
+}
