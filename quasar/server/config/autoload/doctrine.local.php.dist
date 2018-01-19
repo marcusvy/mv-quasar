@@ -8,7 +8,7 @@ return [
       'orm_default' => [
         'params' => [
           # 'url' => 'mysql://username:password@localhost/database',
-          'url' => 'mysql://root:deise@db:3306/mvorion',
+          'url' => 'mysql://root:leite@db:3306/mvinicius',
           'driverOptions' => array (
             1002 => 'SET NAMES utf8'
           )

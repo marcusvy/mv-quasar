@@ -13,6 +13,7 @@ class UserServiceFactory
     {
         $entityManager = $container->get(EntityManager::class);
         $perfilService = $container->get(PerfilServiceInterface::class);
+
         return new UserService($entityManager, $perfilService);
     }
 }

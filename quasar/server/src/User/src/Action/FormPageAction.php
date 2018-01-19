@@ -13,6 +13,8 @@ class FormPageAction implements MiddlewareInterface
 {
 
     private $template;
+
+    /** @var \Zend\Form\FormInterface */
     private $form;
 
     public function __construct(TemplateRendererInterface $template = null, $form = null)
@@ -24,7 +26,17 @@ class FormPageAction implements MiddlewareInterface
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
 
-        return new HtmlResponse($this->template->render('user::form-page', ['form' => $this->form]));
+        $data = [];
+        $this->form->setData($request->getParsedBody());
+        if($this->form->isValid()){
+            //autopopulate with filters
+            $data = $this->form->setData($this->form->getData());
+        }
+
+        return new HtmlResponse($this->template->render('user::form-page', [
+            'form' => $this->form,
+            'data' => $data
+        ]));
     }
 }
 

@@ -38,7 +38,7 @@ $app->route('/api/logger[/[{id:\d+}]]', Log\Action\LoggerRestAction::class, ['GE
 /**
  * User Module
  */
-$app->get('/test-form',User\Action\FormPageAction::class,'teste');
+$app->route('/test-form',User\Action\FormPageAction::class,['GET','POST'],'teste');
 $app->route('/login', User\Action\AuthPageAction::class, ['GET', 'POST'], 'auth.login');
 $app->route('/api/user[/{id:\d+}]', User\Action\UserRestAction::class, ['GET', 'POST', 'PUT', 'DELETE'], 'user');
 $app->route('/api/user-perfil[/{id:\d+}]', User\Action\PerfilRestAction::class, ['GET', 'POST', 'PUT', 'DELETE'], 'user.perfil');

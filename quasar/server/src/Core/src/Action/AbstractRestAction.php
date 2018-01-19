@@ -32,7 +32,8 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         Router\RouterInterface $router,
         ServiceInterface $service,
         FormInterface $form = null
-    ) {
+    )
+    {
         $this->router = $router;
         $this->service = $service;
         $this->form = $form;
@@ -53,7 +54,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
                     }
                     return $this->listAction($request, $delegate);
                 }
-                // no break
+            // no break
             case 'POST':
                 return $this->createAction($request, $delegate);
             case 'PUT':
@@ -107,7 +108,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         $interator = $paginator->getIterator();
         $total = $paginator->count();
         $perpage = $interator->count();
-        $pages = ($total > 0) ?  ceil($total/$perpage): 1;
+        $pages = ($total > 0) ? ceil($total / $perpage) : 1;
 
         return new JsonResponse([
             'success' => true,
@@ -152,15 +153,21 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     public function createAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $contentType = $request->getHeader('Content-Type');
-
+        $data = [];
+        $entity = false;
         if ($contentType[0] == 'application/json') {
             $data = Json::decode($request->getBody(), Json::TYPE_ARRAY);
         }
         if ($contentType[0] == 'application/x-www-form-urlencoded') {
             $data = $request->getQueryParams();
         }
-        $entity = $this->service->create($data);
-
+        if (!is_null($this->form)) {
+            $this->form->setData($data);
+        }
+        if ($this->form->isValid()) {
+            $data = $this->form->getData();
+            $entity = $this->service->create($data);
+        }
         if ($entity) {
             return new JsonResponse([
                 'success' => true,
@@ -183,6 +190,8 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     {
         $id = ($request->getAttribute($this->primaryColumn)) ? (int)$request->getAttribute($this->primaryColumn) : 0;
         $contentType = $request->getHeader('Content-Type');
+        $data = [];
+        $entity = false;
         if ($contentType[0] == 'application/json') {
             $data = Json::decode($request->getBody(), Json::TYPE_ARRAY);
         }
@@ -190,7 +199,13 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
             $data = $request->getQueryParams();
         }
         if ($id) {
-            $entity = $this->service->update($id, $data);
+            if (!is_null($this->form)) {
+                $this->form->setData($data);
+            }
+            if ($this->form->isValid()) {
+                $data = $this->form->getData();
+                $entity = $this->service->update($id, $data);
+            }
             if ($entity) {
                 return new JsonResponse([
                     'success' => true,

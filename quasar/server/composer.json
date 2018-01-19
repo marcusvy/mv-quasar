@@ -18,6 +18,7 @@
         "zendframework/zend-authentication": "^2.5",
         "zendframework/zend-barcode": "^2.6",
         "zendframework/zend-component-installer": "^1.0",
+        "zendframework/zend-config": "^3.1",
         "zendframework/zend-config-aggregator": "^1.0",
         "zendframework/zend-crypt": "^3.2",
         "zendframework/zend-expressive": "^2.0.5",
@@ -74,7 +75,7 @@
         "clear-config-cache": "php bin/clear-config-cache.php",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
-        "serve": "php -S 0.0.0.0:8080 -t public public/index.php",
+        "serve": "php -S 0.0.0.0:8080 -t ./public ./public/index.php",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
         "upload-coverage": "coveralls -v"

@@ -6,8 +6,7 @@ use Interop\Container\ContainerInterface;
 use User\Action\UserRestAction;
 use User\Service\UserServiceInterface;
 use Zend\Expressive\Router\RouterInterface;
-use Doctrine\ORM\EntityManager;
-use User\Form\UserForm as UserForm;
+use User\Form\UserForm;
 
 class UserRestFactory
 {

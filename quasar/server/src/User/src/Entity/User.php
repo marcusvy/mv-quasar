@@ -57,7 +57,7 @@ class User extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=80, nullable=false)
+     * @ORM\Column(name="salt", type="string", length=80, nullable=true)
      */
     private $salt;
 
