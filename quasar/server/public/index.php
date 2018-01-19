@@ -8,7 +8,7 @@ if (php_sapi_name() === 'cli-server'
 }
 
 //@todo remove from production
-ini_set('display_errors',E_ALL);
+// ini_set('display_errors',E_ALL);
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';

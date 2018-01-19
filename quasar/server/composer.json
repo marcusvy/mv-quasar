@@ -48,7 +48,8 @@
             "Core\\": "src/Core/src/",
             "Midia\\": "src/Midia/src/",
             "Imc\\": "src/Imc/src/",
-            "Log\\": "src/Log/src/"
+            "Log\\": "src/Log/src/",
+            "Console\\": "src/Console/src/"
         }
     },
     "autoload-dev": {

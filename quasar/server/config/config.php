@@ -21,13 +21,13 @@ $aggregator = new ConfigAggregator([
     \Zend\Validator\ConfigProvider::class,
     \Zend\Hydrator\ConfigProvider::class,
 
-//    \Imc\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
-
     // Default App module config
     App\ConfigProvider::class,
     // Personal
+//    \Imc\ConfigProvider::class,
+    \Console\ConfigProvider::class,
     \Core\ConfigProvider::class,
     \Log\ConfigProvider::class,
     \Midia\ConfigProvider::class,
