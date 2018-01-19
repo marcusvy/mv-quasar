@@ -19,7 +19,7 @@ services:
     container_name: im-quasar-api
     build: docker/php
     volumes:
-      - ./quasar/api/:/var/www/html
+      - ./quasar/server/:/var/www/html
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     ports:
       - 8000:80
@@ -32,4 +32,4 @@ services:
 
 volumes:
     database:
-    api:
+    server:
