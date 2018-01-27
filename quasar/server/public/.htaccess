@@ -102,6 +102,8 @@
     # (1)
     RewriteEngine On
 
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
     # (2)
     # Options +FollowSymlinks
 

@@ -22,6 +22,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates' => $this->getTemplates(),
+            'routes' => $this->getRoutes(),
         ];
     }
 
@@ -36,10 +37,15 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories' => [
+                Action\DoctrineAction::class => Action\DoctrineActionFactory::class,
                 Cors\CorsMiddleware::class => Cors\CorsMiddlewareFactory::class,
                 Mail\MailServiceInterface::class => Mail\MailServiceFactory::class,
+                I18n\I18nMiddleware::class => I18n\I18nMiddlewareFactory::class,
             ],
             'delegators' => [
+//                'MvcTranslator' => [
+//                    Delegator\I18nDelegator::class,
+//                ],
                 'HydratorManager' => [
                     Delegator\HydratorManagerDelegatorFactory::class,
                 ],
@@ -65,6 +71,24 @@ class ConfigProvider
                 'app' => [__DIR__ . '/../templates/app'],
                 'error' => [__DIR__ . '/../templates/error'],
                 'layout' => [__DIR__ . '/../templates/layout'],
+            ],
+        ];
+    }
+
+    public function getRoutes(): array
+    {
+        return [
+            [
+                'path' => '/quasar/core',
+                'middleware' => Action\InstallAction::class,
+                'name' => 'QuasarCoreInstall',
+                'allowed_methods' => ['GET']
+            ],
+            [
+                'path' => '/quasar/core/doctrine',
+                'middleware' => Action\DoctrineAction::class,
+                'name' => 'QuasarCore.Doctrine',
+                'allowed_methods' => ['GET']
             ],
         ];
     }

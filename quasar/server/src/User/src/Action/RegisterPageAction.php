@@ -51,11 +51,9 @@ class RegisterPageAction implements MiddlewareInterface
             $user = $this->service->create($user);
 
             if ($user instanceof User) {
-
                 if ($this->mail($data['name'], $data['email'], $user->getActivationKey())) {
                     return new JsonResponse(['success' => true]);
                 } else {
-
                     return new JsonResponse([
                         'success' => false,
                         'message' => 'Erro ao enviar e-mail. Seu e-mail está correto?',

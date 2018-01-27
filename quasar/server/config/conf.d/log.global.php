@@ -1,4 +1,5 @@
 <?php
+
 return [
     'log' => [
         /**
@@ -21,7 +22,7 @@ return [
                 'format' => "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n",
                 'output_dir' => __DIR__ . '/../../data/log/',
                 'output_file' => 'app.log',
-                'level' => \Monolog\Logger::INFO,
+                'level' => 'info',
                 'bubble' => true,
                 'file_permission' => null,
                 'use_locking' => false,

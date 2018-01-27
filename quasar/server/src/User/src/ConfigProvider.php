@@ -27,6 +27,7 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
             'templates' => $this->getTemplates(),
             'doctrine' => $this->getDoctrine(),
+            'routes' => $this->getRoutes(),
             'form_elements' => $this->getFormElements(),
         ];
     }
@@ -85,6 +86,63 @@ class ConfigProvider
         return [
             'paths' => [
                 'user' => [__DIR__ . '/../templates/user'],
+            ],
+        ];
+    }
+
+    public function getRoutes()
+    {
+        return [
+            [
+                'path' => '/test-form',
+                'middleware' => Action\FormPageAction::class,
+                'name' => 'QuasarUser.teste',
+                'allowed_methods' => ['GET', 'POST']
+            ], [
+                'path' => '/login',
+                'middleware' => Action\AuthPageAction::class,
+                'name' => 'QuasarUser.auth.login',
+                'allowed_methods' => ['GET', 'POST']
+            ],[
+                'path' => '/api/user/list[/{page:\d+}]',
+                'middleware' => Action\UserRestAction::class,
+                'name' => 'QuasarUser.user.pagination',
+                'allowed_methods' => ['GET']
+            ], [
+                'path' => '/api/user[/{id:\d+}]',
+                'middleware' => Action\UserRestAction::class,
+                'name' => 'QuasarUser.user',
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
+            ], [
+                'path' => '/api/user-perfil/list[/{page:\d+}]',
+                'middleware' => Action\PerfilRestAction::class,
+                'name' => 'QuasarUser.user.perfil.pagination',
+                'allowed_methods' => ['GET']
+            ], [
+                'path' => '/api/user-perfil[/{id:\d+}]',
+                'middleware' => Action\PerfilRestAction::class,
+                'name' => 'QuasarUser.user.perfil',
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
+            ], [
+                'path' => '/api/user-role/list[/{page:\d+}]',
+                'middleware' => Action\RoleRestAction::class,
+                'name' => 'QuasarUser.user.role.pagination',
+                'allowed_methods' => ['GET']
+            ], [
+                'path' => '/api/user-role[/[{id:\d+}]]',
+                'middleware' => Action\RoleRestAction::class,
+                'name' => 'QuasarUser.user.role',
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
+            ], [
+                'path' => '/api/user/register',
+                'middleware' => Action\RegisterPageAction::class,
+                'name' => 'QuasarUser.user.register',
+                'allowed_methods' => ['POST']
+            ], [
+                'path' => '/api/user/activate/{id:\d+}/{key}',
+                'middleware' => Action\ActivationPageAction::class,
+                'name' => 'QuasarUser.user.activation',
+                'allowed_methods' => ['GET']
             ],
         ];
     }

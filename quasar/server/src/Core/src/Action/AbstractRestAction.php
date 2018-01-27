@@ -32,8 +32,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         Router\RouterInterface $router,
         ServiceInterface $service,
         FormInterface $form = null
-    )
-    {
+    ) {
         $this->router = $router;
         $this->service = $service;
         $this->form = $form;

@@ -1,8 +1,5 @@
 <?php
 
-use Core\Cors\CorsMiddleware;
-//use User\Middleware\AuthMiddleware;
-use Log\Middleware\LoggerMiddleware;
 use Zend\Expressive\Helper\ServerUrlMiddleware;
 use Zend\Expressive\Helper\UrlHelperMiddleware;
 use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
@@ -10,14 +7,15 @@ use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundHandler;
 use Zend\Stratigility\Middleware\ErrorHandler;
 
-
 /**
  * Setup middleware pipeline:
  */
 
+/** @var \Zend\Expressive\Application $app */
+
 // The error handler should be the first (most outer) middleware to catch
 // all Exceptions.
-$app->pipe(ErrorHandler::class);
+//$app->pipe(ErrorHandler::class);
 $app->pipe(ServerUrlMiddleware::class);
 
 // Pipe more middleware here that you want to execute on every request:
@@ -37,8 +35,6 @@ $app->pipe(ServerUrlMiddleware::class);
 // - $app->pipe('/docs', $apiDocMiddleware);
 // - $app->pipe('/files', $filesMiddleware);
 
-// $app->pipe(Auth::class);
-
 // Register the routing middleware in the middleware pipeline
 $app->pipeRoutingMiddleware();
 $app->pipe(ImplicitHeadMiddleware::class);
@@ -51,14 +47,13 @@ $app->pipe(UrlHelperMiddleware::class);
 // - route-based authentication
 // - route-based validation
 // - etc.
-//$app->pipe(Auth::class);
-// Register the dispatch middleware in the middleware pipeline
-$app->pipe(CorsMiddleware::class);
-$app->pipe(LoggerMiddleware::class);
+$app->pipe(\Core\I18n\I18nMiddleware::class);
+$app->pipe(\Log\Middleware\LoggerMiddleware::class);
 
+// Register the dispatch middleware in the middleware pipeline
 $app->pipeDispatchMiddleware();
 
-// At this point, if no Response is return by any middleware, the
+// At this point, if no Response is returned by any middleware, the
 // NotFoundHandler kicks in; alternately, you can provide other fallback
 // middleware to execute.
 $app->pipe(NotFoundHandler::class);

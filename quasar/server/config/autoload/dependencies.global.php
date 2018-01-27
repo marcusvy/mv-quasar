@@ -5,8 +5,6 @@ use Zend\Expressive\Container;
 use Zend\Expressive\Delegate;
 use Zend\Expressive\Helper;
 use Zend\Expressive\Middleware;
-use ContainerInteropDoctrine\EntityManagerFactory;
-use Doctrine\ORM\EntityManager;
 
 return [
     // Provides application-wide services.
@@ -27,8 +25,6 @@ return [
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories'  => [
-            Application::class                => Container\ApplicationFactory::class,
-            EntityManager::class              => EntityManagerFactory::class,
             Application::class                => Container\ApplicationFactory::class,
             Delegate\NotFoundDelegate::class  => Container\NotFoundDelegateFactory::class,
             Helper\ServerUrlMiddleware::class => Helper\ServerUrlMiddlewareFactory::class,

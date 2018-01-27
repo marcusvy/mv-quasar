@@ -28,7 +28,7 @@ class FormPageAction implements MiddlewareInterface
 
         $data = [];
         $this->form->setData($request->getParsedBody());
-        if($this->form->isValid()){
+        if ($this->form->isValid()) {
             //autopopulate with filters
             $data = $this->form->setData($this->form->getData());
         }
@@ -39,4 +39,3 @@ class FormPageAction implements MiddlewareInterface
         ]));
     }
 }
-

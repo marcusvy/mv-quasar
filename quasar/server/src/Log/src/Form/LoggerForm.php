@@ -2,7 +2,6 @@
 
 namespace Log\Form;
 
-
 use Zend\Filter\StringTrim;
 use Zend\Form\Element\Text;
 use Zend\Form\Form;
@@ -11,7 +10,8 @@ use Zend\Validator;
 
 class LoggerForm extends Form implements InputFilterProviderInterface
 {
-    public function init() {
+    public function init()
+    {
 
         $this->add([
             'name' => 'channel',
@@ -32,7 +32,6 @@ class LoggerForm extends Form implements InputFilterProviderInterface
             'name' => 'time',
             'type' => Text::class
         ]);
-
     }
 
     public function getInputFilterSpecification()
@@ -76,6 +75,4 @@ class LoggerForm extends Form implements InputFilterProviderInterface
             ],
         ];
     }
-
-
 }

@@ -33,7 +33,7 @@ class LoggerMiddleware implements MiddlewareInterface
         $data = ['uri' => $uri, 'method' => $method];
 
         $logger = $this->service->log();
-        $logger->log(Logger::INFO,'access', $data);
+        $logger->log(Logger::INFO, 'access', $data);
         $response = $delegate->process($request);
 
         return $response;

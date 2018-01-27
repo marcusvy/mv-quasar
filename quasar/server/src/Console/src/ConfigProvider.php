@@ -24,7 +24,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'console' => $this->getConsoleCommands(),
-            'doctrine' => $this->getDoctrine(),
+//            'doctrine' => $this->getDoctrine(),
         ];
     }
 
@@ -39,30 +39,17 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
-                Command\ViewUsersCommand::class => Factory\ViewUsersCommandFactory::class,
+                Command\ViewLogsCommand::class => Factory\ViewLogsCommandFactory::class,
             ],
         ];
     }
 
-    public function getConsoleCommands() {
+    public function getConsoleCommands()
+    {
         return [
             'commands'  => [
-                Command\ViewUsersCommand::class
+                Command\ViewLogsCommand::class
             ],
         ];
-    }
-
-    /**
-     * Returns the doctrine configuration
-     *
-     * @return array
-     */
-    public function getDoctrine()
-    {
-        $helper = new ConfigProviderHelper();
-        return $helper->generate(
-            __NAMESPACE__,
-            __DIR__ . '/Entity'
-        );
     }
 }

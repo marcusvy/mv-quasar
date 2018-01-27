@@ -20,6 +20,7 @@ services:
     build: docker/php
     volumes:
       - ./quasar/server/:/var/www/quasar/
+      - ./docker/php/php.ini:/etc/php/7.2/php.ini
       - ./docker/apache/httpd.conf:/etc/apache2/httpd.conf
       - ./docker/apache/conf.d/quasar.conf:/etc/apache2/conf.d/quasar.conf
     ports:

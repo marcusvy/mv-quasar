@@ -25,8 +25,7 @@ class ActivationPageAction implements MiddlewareInterface
     public function __construct(
         ServiceInterface $service,
         MailServiceInterface $mailService
-    )
-    {
+    ) {
         $this->service = $service;
         $this->mailService = $mailService;
     }
@@ -79,4 +78,3 @@ class ActivationPageAction implements MiddlewareInterface
         return $this->mailService->send();
     }
 }
-

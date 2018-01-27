@@ -4,6 +4,7 @@ namespace Core\Service;
 
 use Core\Doctrine\ORM\AbstractEntityRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Zend\Hydrator;
 
 abstract class AbstractService implements ServiceInterface
@@ -11,13 +12,15 @@ abstract class AbstractService implements ServiceInterface
     /**
      * @var EntityManager
      */
-    protected $entityManager;
+    protected $entityManager = null;
 
     protected $entity;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager = null)
     {
-        $this->entityManager = $entityManager;
+        if (!is_null($entityManager)) {
+            $this->entityManager = $entityManager;
+        }
     }
 
     public function setEntityManger(EntityManager $entityManager)
@@ -28,6 +31,11 @@ abstract class AbstractService implements ServiceInterface
     public function getEntityManger()
     {
         return $this->entityManager;
+    }
+
+    public function hasEntityManager()
+    {
+        return !is_null($this->entityManager);
     }
 
     public function get($id)

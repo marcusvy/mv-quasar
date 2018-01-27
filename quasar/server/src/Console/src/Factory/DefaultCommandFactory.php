@@ -13,7 +13,7 @@ class DefaultCommandFactory
         $entityManager = null;
         try {
             $entityManager = $container->get(EntityManager::class);
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             echo $e->getMessage();
         }
 

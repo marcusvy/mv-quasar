@@ -25,6 +25,7 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
             'doctrine' => $this->getDoctrine(),
             'templates'    => $this->getTemplates(),
+            'routes' => $this->getRoutes(),
         ];
     }
 
@@ -37,8 +38,9 @@ class ConfigProvider
     {
         return [
             'invokables' => [
+
             ],
-            'factories'  => [
+            'factories' => [
                 Action\LoggerRestAction::class => Factory\LoggerRestFactory::class,
                 Middleware\LoggerMiddleware::class => Factory\LoggerMiddlewareFactory::class,
                 Service\LogServiceInterface::class => Factory\LogServiceFactory::class,
@@ -56,9 +58,31 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'app'    => [__DIR__ . '/../templates/app'],
-                'error'  => [__DIR__ . '/../templates/error'],
+                'app' => [__DIR__ . '/../templates/app'],
+                'error' => [__DIR__ . '/../templates/error'],
                 'layout' => [__DIR__ . '/../templates/layout'],
+            ],
+        ];
+    }
+
+    public function getRoutes(): array
+    {
+        return [
+            [
+                'path' => '/quasar/log',
+                'middleware' => Action\InstallAction::class,
+                'name' => 'QuasarLogInstall',
+                'allowed_methods' => ['GET']
+            ], [
+                'path' => '/api/logger/list[/{page:\d+}]',
+                'middleware' => Action\LoggerRestAction::class,
+                'name' => 'logger.pagination',
+                'allowed_methods' => ['GET']
+            ], [
+                'path' => '/api/logger[/[{id:\d+}]]',
+                'middleware' => Action\LoggerRestAction::class,
+                'name' => 'logger.role',
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
             ],
         ];
     }
