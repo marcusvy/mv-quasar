@@ -1,9 +1,9 @@
-<button class="mv-btn" (click)="paginationModel.open()">
+<button mv-btn (click)="paginationModel.open()">
   <mv-icon name="filter"></mv-icon>
   <span>{{pagination.total}}</span>
 </button>
 <mv-menu-dropdown origin-center>
-  <button mvMenuBtn class="mv-btn mv-btn-icon">
+  <button mvMenuBtn mv-btn class="is-icon">
     <mv-icon name="file-o"></mv-icon>
     <span title="Página atual">{{pagination.current}}</span>
     <span> / </span>
@@ -14,10 +14,10 @@
       (click)="go(page)">{{page}}</mv-menu-item>
   </mv-menu>
 </mv-menu-dropdown>
-<button class="mv-btn" (click)="prev()" title="Anterior">
+<button mv-btn (click)="prev()" title="Anterior">
   <mv-icon name="angle-left"></mv-icon>
 </button>
-<button class="mv-btn" (click)="next()" title="Próximo">
+<button mv-btn (click)="next()" title="Próximo">
   <mv-icon name="angle-right"></mv-icon>
 </button>
 
@@ -27,30 +27,30 @@
     <mv-list>
       <mv-list-item>
         Total
-        <mv-list-item-secondary>
+        <mv-col class="p-end">
           {{pagination.total}}
-        </mv-list-item-secondary>
+        </mv-col>
       </mv-list-item>
 
       <mv-list-item>
         Página
-        <mv-list-item-secondary>
+        <mv-col class="p-end">
           {{pagination.current}} de {{pagination.pages}}
-        </mv-list-item-secondary>
+        </mv-col>
       </mv-list-item>
 
       <mv-list-item>
         <span>Navegar:</span>
-        <mv-list-item-action>
-          <button class="mv-btn" (click)="go(1)" title="Primeiro">
+        <mv-col class="p-action">
+          <button mv-btn (click)="go(1)" title="Primeiro">
             <mv-icon name="angle-double-left"></mv-icon>
             <span>Primeira</span>
           </button>
-          <button class="mv-btn" (click)="go(pagination.pages)" title="Última">
+          <button mv-btn (click)="go(pagination.pages)" title="Última">
             <mv-icon name="angle-double-right"></mv-icon>
             <span>Última</span>
           </button>
-        </mv-list-item-action>
+        </mv-col>
       </mv-list-item>
 
       <mv-list-header>Itens por página</mv-list-header>

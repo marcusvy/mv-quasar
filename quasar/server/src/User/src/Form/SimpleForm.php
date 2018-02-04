@@ -30,9 +30,6 @@ class SimpleForm extends Form implements InputFilterProviderInterface
                     (new Filter\StringToLower())->setEncoding('UTF-8'),
                 ],
                 'validators' => [
-//                    (new Validator\NotEmpty())->setMessages([
-//                        Validator\NotEmpty::IS_EMPTY => 'Não pode estar em branco'
-//                    ]),
                     (new Validator\NotEmpty()),
                     (new Validator\StringLength())->setMin(6)->setMax(80)
                 ]

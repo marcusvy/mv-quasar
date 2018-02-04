@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, AfterViewInit, ViewChild, Renderer2, ElementRef } from '@angular/core';
-import { AbstractControl } from '../abstract-control';
+import {Component, Input, OnInit, AfterViewInit, ViewChild, Renderer2, ElementRef} from '@angular/core';
+import {AbstractControl} from '../abstract-control';
 
 @Component({
   selector: 'mv-control-select',
@@ -14,9 +14,9 @@ export class ControlSelectComponent
 
   @ViewChild('formControl') formControl: ElementRef;
   @Input() value = '';
-  @Input() type: string = 'text';
-  @Input('id') _id: string = '';
-  @Input() placeholder: string = '';
+  @Input() type = 'text';
+  @Input('id') _id = '';
+  @Input() placeholder = '';
   @Input() disabled = false;
   @Input() required = false;
   @Input() minlength;
@@ -39,9 +39,7 @@ export class ControlSelectComponent
   }
 
   onChange(event: any) {
-    let element: any = event.target;
-    let value = element.value;
-    this._value.next(value);
+    this._value.next(event.target.value);
     this.errorInvalid = this._control.invalid;
   }
 

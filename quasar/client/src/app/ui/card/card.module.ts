@@ -5,7 +5,6 @@ import { CardTextDirective } from './card-text.directive';
 import { CardActionDirective } from './card-action.directive';
 import { CardMenuDirective } from './card-menu.directive';
 import { CardBodyDirective } from './card-body.directive';
-import { CardContentDirective } from './card-content.directive';
 import { CardTitleDirective } from './card-title.directive';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { CardTitleDirective } from './card-title.directive';
     CardActionDirective,
     CardMenuDirective,
     CardBodyDirective,
-    CardContentDirective,
     CardTitleDirective,
   ],
   exports: [

@@ -25,31 +25,25 @@ class ActivationPageAction implements MiddlewareInterface
     public function __construct(
         ServiceInterface $service,
         MailServiceInterface $mailService
-    ) {
+    )
+    {
         $this->service = $service;
         $this->mailService = $mailService;
     }
 
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-
-        $contentType = $request->getHeader('Content-Type')[0];
-
-        $data = ($contentType == 'application/json')
-            ? Json::decode($request->getBody(), Json::TYPE_ARRAY)
-            : $request->getQueryParams();
+        $credential = $request->getAttribute('credential');
+        $key = $request->getAttribute('key');
 
 //        @todo add form to sanitize
-        if (isset($data['credential']) && isset($data['key'])) {
-            $user = $this->service->findByCredential($data['credential']);
+        if (!is_null($credential) && !is_null($key)) {
 
-            if ($user instanceof User) {
-                if ($this->service->activate($user->getId(), $data['key'])) {
-                    $this->mail($user);
-                    return new JsonResponse([
-                        'success' => true
-                    ]);
-                }
+            if ($this->service->activate($credential, $key)) {
+                $this->mail($this->service->getIdentity());
+                return new JsonResponse([
+                    'success' => true
+                ]);
             }
         }
 
@@ -64,17 +58,18 @@ class ActivationPageAction implements MiddlewareInterface
      * @param User $user
      * @return bool
      */
-    private function mail(User $user)
+    private function mail(User $user=null)
     {
+        if(!is_null($user)){
+            $texto = "<h3>Parabéns, %s!</h3><p>Seu registro foi ativado.</p>";
 
-        $texto = "<h3>Parabéns, %s!</h3><p>Seu registro foi ativado.</p>";
-
-        $this->mailService
-            ->write()
-            ->setSubject('Quasar Platform::Activation')
-            ->setFrom('teste@mviniciusconsultoria.com.br')
-            ->addTo($user->getEmail(), $user->getPerfil()->getName())
-            ->setBody(sprintf($texto, $user->getPerfil()->getName()));
-        return $this->mailService->send();
+            $this->mailService
+                ->write()
+                ->setSubject('Quasar Platform::Activation')
+                ->setFrom('teste@mviniciusconsultoria.com.br')
+                ->addTo($user->getEmail(), $user->getPerfil()->getName())
+                ->setBody(sprintf($texto, $user->getPerfil()->getName()));
+            return $this->mailService->send();
+        }
     }
 }

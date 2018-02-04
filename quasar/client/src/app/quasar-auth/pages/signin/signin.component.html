@@ -39,7 +39,7 @@
     </mv-col>
     <mv-col class="is-align-end no-flex">
       <mv-icon name="spinner" class="fa-spin" *ngIf="loading"></mv-icon>
-      <button type="submit" class="mv-btn is-raised" [disabled]="form.invalid" *ngIf="!send">Cadastrar</button>
+      <button mv-btn type="submit" class="is-raised" [disabled]="form.invalid" *ngIf="!send">Cadastrar</button>
     </mv-col>
   </mv-row>
 </form>

@@ -1,6 +1,8 @@
 <?php
+
 namespace User\Form;
 
+use User\Form\Fieldset\LoginFieldset;
 use Zend\Form\Form;
 
 class LoginForm extends Form
@@ -8,27 +10,8 @@ class LoginForm extends Form
     public function init()
     {
         $this->add([
-        'name' => 'login',
-        'type' => 'User\Form\Fieldset\LoginFieldset',
+            'name' => 'login',
+            'type' => LoginFieldset::class,
         ]);
-
-        $this->add([
-        'name' => 'remember',
-        'type' => 'Checkbox',
-        'options'=>[
-        'label'=>'Lembrar meu registro'
-        ]
-        ]);
-    }
-
-    public function getInputFilterSpecification()
-    {
-        return [
-        'remember' => [
-        'filters' => [
-          ['name' => 'Zend\Filter\Boolean']
-        ]
-        ]
-        ];
     }
 }

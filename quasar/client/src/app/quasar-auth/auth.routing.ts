@@ -8,7 +8,7 @@ import { ActivateComponent } from './pages/activate/activate.component';
 const routes: Routes = [
   { path: '', component: AuthComponent, children: [
     { path: '', component: LoginComponent, pathMatch: 'full' },
-    { path: 'activate/:key', component: ActivateComponent },
+    { path: 'activate/for/:credential/by/:key', component: ActivateComponent },
     { path: 'signin', component: SigninComponent },
   ]}
 ];

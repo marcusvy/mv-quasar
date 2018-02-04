@@ -20,11 +20,11 @@
  * @section Configuration
  */
 
-$button-color: $mv-color--primary !default;
+$button-color: $mv-color--dark !default;
 $button-background-color: transparent !default;
 $button-border-color: transparent !default;
-$button-hover-color: $mv-color--primary !default;
-$button-hover-background-color: $mv-color--secondary !default;
+$button-hover-color: $mv-color--white !default;
+$button-hover-background-color: $mv-color--primary !default;
 $button-hover-border-color: $mv-color--secondary !default;
 $button-focus-color: $mv-color--dark !default;
 $button-focus-border-color: $mv-color--grey-light !default;
@@ -47,8 +47,6 @@ $button-tab-hover-background-color: $mv-color--light !default;
 $button-top-color: $mv-color--dark !default;
 $button-top-background-color: $mv-color--secondary !default;
 
-
-
 /**
  * @section Mixins
  */
@@ -63,30 +61,34 @@ $button-top-background-color: $mv-color--secondary !default;
   background-color: $button-background-color;
   border-color: $button-border-color;
   box-shadow: 0 1px 1.5px 0 transparent, 0 1px 1px 0 transparent;
-  // text-shadow: 1px 1px 0 rgba(0, 0, 0, .1);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .1);
   text-shadow: none;
 
   strong {
     color: inherit;
   }
 
-  &:hover,
-  &.is-active {
+  &:hover {
     color: $button-hover-color;
     background-color: $button-hover-background-color;
     border-color: $button-hover-border-color;
-    // text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
-    // box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-  }
-  &.is-active {
-    color: $mv-color--primary !important;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
   }
   &:active {
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
   }
   &:focus {
-    box-shadow: 0 0 3px rgba(0, 0, 0, .18), 0 3px 6px rgba(0, 0, 0, .36) !important;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .18), 0 3px 3px rgba(0, 0, 0, .36);
   }
+}
+
+:host(.is-active) {
+  color: $button-hover-color;
+  background-color: $button-hover-background-color;
+  border-color: $button-hover-border-color;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 :host(.is-raised) {

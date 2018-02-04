@@ -1,38 +1,77 @@
-<mv-toolbar>
-  <mv-container class="is-limited">
-    <mv-row>
-      <mv-col>
-        <h4>
-          <mv-icon name="dashboard"></mv-icon>
-          <span>Dashboard</span>
-        </h4>
-      </mv-col>
-    </mv-row>
-  </mv-container>
-</mv-toolbar>
+<h2>
+  <mv-icon name="dashboard"></mv-icon>
+  <span>Dashboard</span>
+</h2>
 
-<mv-hero img="/assets/img/background/quasar.jpg" filter="#000" opacity="0.3" class="is-full">
-  <h1>MVinicius Quasar</h1>
-  <h2>Dashboard</h2>
-</mv-hero>
 <mv-grid>
-  <mv-container class="is-limited">
-    <mv-list class="is-bordered">
-      <mv-list-item>
+  <mv-row class="has-gap">
+    <mv-col class="is-tablet-4">
+      <mv-card>
         <h2>Modo de operação</h2>
         <p>Produção</p>
-        <mv-list-item-secondary>
-          <button class="mv-btn">Alterar</button>
-        </mv-list-item-secondary>
-      </mv-list-item>
-      <mv-list-item>
+        <mv-card-action>
+          <button mv-btn>Alterar</button>
+        </mv-card-action>
+      </mv-card>
+    </mv-col>
+
+    <mv-col class="is-tablet-4">
+      <mv-card>
         <h2>Estatísticas</h2>
         <p>Habilitada</p>
-        <mv-list-item-secondary>
-          <button class="mv-btn">Visualizar</button>
-        </mv-list-item-secondary>
-      </mv-list-item>
-    </mv-list>
+        <mv-card-action>
+          <button mv-btn>Visualizar</button>
+        </mv-card-action>
+      </mv-card>
+    </mv-col>
 
-  </mv-container>
+    <mv-col class="is-tablet-4">
+      <mv-card>
+        <h2>Usuários</h2>
+        <mv-list>
+          <mv-list-item>
+            <p>Online</p>
+            <mv-col class="p-end">
+              <strong>2</strong>
+            </mv-col>
+          </mv-list-item>
+          <mv-list-item>
+            <p>Ativos</p>
+            <mv-col class="p-end">
+              <strong>0</strong>
+            </mv-col>
+          </mv-list-item>
+        </mv-list>
+
+        <mv-card-action>
+          <button mv-btn>Visualizar</button>
+          <button mv-btn>Criar</button>
+        </mv-card-action>
+      </mv-card>
+    </mv-col>
+
+    <mv-col class="is-tablet-4">
+      <mv-card>
+        <h2>Erros</h2>
+        <mv-list>
+          <mv-list-item>
+            <p>Monitoramento</p>
+            <mv-col class="p-end">
+              <strong>Habilitado</strong>
+            </mv-col>
+          </mv-list-item>
+          <mv-list-item>
+            <p>Total</p>
+            <mv-col class="p-end">
+              <strong>0</strong>
+            </mv-col>
+          </mv-list-item>
+        </mv-list>
+        <mv-card-action>
+          <button mv-btn>Visualizar</button>
+        </mv-card-action>
+      </mv-card>
+    </mv-col>
+
+  </mv-row>
 </mv-grid>

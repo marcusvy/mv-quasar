@@ -6,16 +6,20 @@ A item element for list with slots.
 
 ```html
 <mv-list-item>
-  <mv-list-item-primary></mv-list-item-primary>
-  <mv-list-item-action></mv-list-item-action>
-  <mv-list-item-secondary></mv-list-item-secondary>
+  <mv-col class="p-start">...</mv-col>
+  <mv-col class="p-end">...</mv-col>
+  <mv-col class="p-action">...</mv-col>
+  <mv-col class="p-before">...</mv-col>
+  <mv-col class="p-after">...</mv-col>
   ...
 </mv-list-item>
 ```
 
 ## Elements
 
-- mv-list-item-primary: Left content on the start of item element. Area before the text.
-- mv-list-item-secondary: Right content on the end of item element. Area after the text.
-- mv-list-item-action: Area for buttons and menus. The content will be place on the end of item element.
+- mv-col.p-start: Left content on the start of item element. Area before the text.
+- mv-col.p-end: Right content on the end of item element. Area after the text.
+- mv-col.p-action: Area for buttons and menus. The content will be place on the end of item element.
+- mv-col.p-before: Area before item element.
+- mv-col.p-after: Area after item element.
 

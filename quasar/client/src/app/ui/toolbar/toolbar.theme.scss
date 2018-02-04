@@ -21,7 +21,6 @@
 
 :host {
   color: inherit;
-  background-color: inherit;
   box-sizing: border-box;
 }
 
@@ -34,16 +33,10 @@
   h6 {
     color: inherit;
   }
-  h1,
-  h2 {
-  }
+}
 
-  button.mv-btn {
-    color: inherit;
-  }
-  button.mv-btn:hover {
-    color: $mv-color--primary;
-  }
+:host(.is-default) {
+   background-color: $mv-color--white;
 }
 
 :host(.is-secondary) {

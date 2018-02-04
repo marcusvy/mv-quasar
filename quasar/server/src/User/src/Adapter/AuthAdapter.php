@@ -40,7 +40,7 @@ class AuthAdapter extends AbstractAdapter implements AdapterInterface
             );
         }
 
-        if ($this->repository->checkAuthenticationData($this->getIdentity(), $this->getCredential())) {
+        if ($this->repository->checkAuthenticationData($this->getCredential(),$this->getIdentity())) {
             return new Result(Result::SUCCESS, $this->getIdentity(), ['success' => true]);
         }
 

@@ -5,16 +5,16 @@
     </mv-col>
     <mv-col class="is-align-end">
       <ng-container *ngIf="mode.edit">
-        <button class="mv-btn is-icon-mobile" (click)="formMode()">
+        <button mv-btn class="is-icon-mobile" (click)="formMode()">
           <mv-icon name="plus"></mv-icon>
           <span>Adicionar</span>
         </button>
       </ng-container>
-      <button class="mv-btn is-icon-mobile" [class.is-theme-secondary]="mode.search" (click)="toggleSearchMode()">
+      <button mv-btn class="is-icon-mobile" [class.is-theme-secondary]="mode.search" (click)="toggleSearchMode()">
         <mv-icon name="search"></mv-icon>
         <span>Pesquisar</span>
       </button>
-      <button class="mv-btn is-icon-mobile" [class.is-theme-danger]="mode.delete" (click)="toggleDeleteMode()">
+      <button mv-btn class="is-icon-mobile" [class.is-theme-danger]="mode.delete" (click)="toggleDeleteMode()">
         <mv-icon name="trash"></mv-icon>
         <span>Remover</span>
       </button>

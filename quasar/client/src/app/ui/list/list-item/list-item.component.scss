@@ -38,28 +38,35 @@
   & mv-col:last-child {
     padding-right: 0;
   }
-  & .mv-btn.is-icon {
-    width: 2rem;
-    padding-left: 0;
-    padding-right: 0;
-    border-radius: 1rem;
-  }
-  mv-list-item-action,
-  mv-list-item-primary,
-  mv-list-item-secondary {
-    display: flex;
-    flex: 0 1 auto;
-    text-align: center;
+  // & button[mv-btn].is-icon {
+  //   width: 2rem;
+  //   padding-left: 0;
+  //   padding-right: 0;
+  //   border-radius: 1rem;
+  // }
+
+  // mv-col {
+  //   display: flex;
+  //   flex: 0 1 auto;
+  //   text-align: center;
+  //   justify-content: center;
+  // }
+  & mv-col.p-start,
+  & mv-col.p-before,
+  & mv-col.p-action,
+  & mv-col.p-end,
+  & mv-col.p-next{
+    // min-width: $mv-size__height;
+    // max-width: $mv-size__height;
     justify-content: center;
   }
+  & mv-col.p-start,
+ & mv-col.p-end{
+   flex-grow: 0;
+ }
+
   .mv-list-item {
-    &__action,
-    &__primary,
-    &__secondary {
-      min-width: $mv-size__height;
-      max-width: $mv-size__height;
-      justify-content: center;
-    }
+
     &__content {
       &-title,
       h1,

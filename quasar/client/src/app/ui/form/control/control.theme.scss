@@ -56,7 +56,7 @@ $control-value--color: $mv-color--grey !default;
     border-bottom-color: $control-container_focus--border-color;
   }
 
-  mv-control-value {
+  [mvControlValue] {
     color: $control-value--color;
   }
 }

@@ -35,15 +35,18 @@ export class AuthService {
   }
 
   authenticate(credential: string, password: string): Observable<Object> {
-    return this._http.post(this._config.api.auth.authenticate, this.protectAuthRequestBody(credential, password));
+    return this._http.post(
+      this._config.api.auth.authenticate,
+      this.protectAuthRequestBody(credential, password)
+    );
   }
 
   signin(data) {
     return this._http.post(this._config.api.auth.signin, data);
   }
 
-  activate(key) {
-    return this._http.get(this._config.api.auth.activate(key))
+  activate(credential, key) {
+    return this._http.get(this._config.api.auth.activate(credential, key))
   }
 
 

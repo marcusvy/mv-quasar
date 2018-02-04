@@ -17,9 +17,9 @@ Define layouts on the view and provide sidebar feature
   </mv-sidebar>
 
   <!-- Any content -->
-  <button class="mv-btn" accesskey="2" (click)="menuSidebar.toggle()">Menu</button>
-  <button class="mv-btn" accesskey="3" (click)="leftSidebar.toggle()">Left</button>
-  <button class="mv-btn" accesskey="4" (click)="rightSidebar.toggle()">Right</button>
+  <button mv-btn accesskey="2" (click)="menuSidebar.toggle()">Menu</button>
+  <button mv-btn accesskey="3" (click)="leftSidebar.toggle()">Left</button>
+  <button mv-btn accesskey="4" (click)="rightSidebar.toggle()">Right</button>
   <!-- Any content -->
 </mv-layout>
 ```

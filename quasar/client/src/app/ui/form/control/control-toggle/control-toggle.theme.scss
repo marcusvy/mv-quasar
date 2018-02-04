@@ -28,7 +28,7 @@
 :host {
 
   & /deep/ .is-active {
-    color: $mv-color--secondary !important;
-    background-color: $mv-color__primary !important;
+    color: $mv-color--light !important;
+    background-color: $mv-color--primary !important;
   }
 }

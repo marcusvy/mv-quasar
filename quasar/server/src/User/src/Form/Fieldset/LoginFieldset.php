@@ -2,14 +2,14 @@
 
 namespace User\Form\Fieldset;
 
+use Zend\Filter;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Hydrator;
 use User\Entity\User;
+use Zend\Validator;
 
-class LoginFieldset extends Fieldset implements ServiceLocatorAwareInterface, InputFilterProviderInterface
+class LoginFieldset extends Fieldset implements InputFilterProviderInterface
 {
     protected $serviceLocator;
 
@@ -48,57 +48,28 @@ class LoginFieldset extends Fieldset implements ServiceLocatorAwareInterface, In
             'credential' => [
                 'required' => true,
                 'filters' => [
-                    ['name' => 'Zend\Filter\StringTrim'],
-                    ['name' => 'Zend\Filter\StripTags'],
-                    ['name' => 'Zend\Filter\StringToLower', 'options' => [
-                        'encoding' => 'UTF-8'
-                    ]],
+                    (new Filter\StringTrim()),
+                    (new Filter\StripTags()),
+                    (new Filter\StringToLower())->setEncoding('UTF-8'),
                 ],
                 'validators' => [
-                    ['name' => 'NotEmpty', 'options' => [
-                        'messages' => [
-                            'isEmpty' => 'Não pode estar em branco'
-                        ]
-                    ]],
-                    ['name' => 'StringLength', 'options' => [
-                        'min' => 6,
-                        'max' => 80
-                    ]],
+                    (new Validator\NotEmpty()),
+                    (new Validator\StringLength())->setMin(6)->setMax(80)
                 ],
             ],
 
             'password' => [
                 'required' => true,
                 'filters' => [
-                    ['name' => 'Zend\Filter\StringTrim'],
-                    ['name' => 'Zend\Filter\StripTags'],
+                    (new Filter\StringTrim()),
+                    (new Filter\StripTags()),
                 ],
                 'validators' => [
-                    ['name' => 'NotEmpty', 'options' => [
-                        'messages' => [
-                            'isEmpty' => 'Não pode estar em branco'
-                        ]
-                    ]],
-                    ['name' => 'StringLength', 'options' => [
-                        'min' => 6,
-                        'max' => 80
-                    ]],
+                    (new Validator\NotEmpty()),
+                    (new Validator\StringLength())->setMin(6)->setMax(80)
                 ],
             ],
 
         ];
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->serviceLocator = $serviceLocator;
-    }
-
-    public function getServiceLocator()
-    {
-        return $this->serviceLocator;
     }
 }

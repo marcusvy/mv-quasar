@@ -6,7 +6,7 @@ A menu component
 
 ```html
 <mv-menu-dropdown>
-  <button mvMenuBtn class="mv-btn">...</button>
+  <button mvMenuBtn mv-btn>...</button>
   <mv-menu>
     <mv-menu-item>Item 1</mv-menu-item>
     <mv-menu-item>Item 2</mv-menu-item>

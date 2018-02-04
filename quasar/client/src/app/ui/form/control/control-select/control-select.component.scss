@@ -34,7 +34,7 @@ $control-container--border-radius: 0;
     height: 2rem;
     line-height: 2rem;
     border-radius: $control-container--border-radius;
-    border: none;
+    border-width: 0;
     border-bottom-width: 2px;
     border-style: solid;
   }

@@ -1,6 +1,30 @@
-<mv-hero class="the_hero is-full" img="/assets/img/background/surface_pattern.jpg">
-  <h1>
-    <mv-icon name="cog"></mv-icon>
-    <span>Configuração</span>
-  </h1>
-</mv-hero>
+<mv-form [formGroup]="form">
+
+  <h3 class="is-subtitle">Manutenção</h3>
+  <mv-control formControlName="fix_mode_enabled">
+    <mv-control-toggle mvControl>
+      <label>Modo de Manutenção</label>
+      <p mvControlValue [for]="form.get('fix_mode_enabled').value">Habilitado</p>
+      <p mvControlValue [for]="!(form.get('fix_mode_enabled').value)">Desabilitado</p>
+    </mv-control-toggle>
+  </mv-control>
+
+  <h3 class="is-subtitle">Monitoramento</h3>
+  <mv-control formControlName="log_mode_enabled">
+    <mv-control-toggle mvControl>
+      <label>Monitoramento do Sistema (Log)</label>
+      <p mvControlValue [for]="form.get('log_mode_enabled').value">Habilitado</p>
+      <p mvControlValue [for]="!(form.get('log_mode_enabled').value)">Desabilitado</p>
+    </mv-control-toggle>
+  </mv-control>
+  <mv-control formControlName="log_level">
+    <mv-control-select mvControl>
+      <label>Nível de monitoramento</label>
+      <option value="1">Suave</option>
+      <option value="2">Normal</option>
+      <option value="3">Completo</option>
+    </mv-control-select>
+  </mv-control>
+
+</mv-form>
+{{form.value | json}}

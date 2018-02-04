@@ -1,17 +1,15 @@
 import {
-  AfterContentInit,
   Component,
   ElementRef,
   HostBinding,
   Input,
-  OnInit,
   ViewChild,
   QueryList,
   Renderer2,
   ContentChildren,
 } from '@angular/core';
-import { ControlValueDirective } from '../control-value.directive';
-import { AbstractControl } from '../abstract-control';
+import {ControlValueDirective} from '../control-value.directive';
+import {AbstractControl} from '../abstract-control';
 
 @Component({
   selector: 'mv-control-toggle',
@@ -23,11 +21,11 @@ import { AbstractControl } from '../abstract-control';
 })
 export class ControlToggleComponent
   extends AbstractControl
-  implements AfterContentInit {
+{
 
   @ViewChild('formControl') formControl: ElementRef;
   @ContentChildren(ControlValueDirective) controlValue: QueryList<ControlValueDirective>;
-  @Input('id') _id: string = '';
+  @Input('id') _id = '';
   @Input() disabled = false;
   @Input() required = false;
   @Input() checked = true;
@@ -36,21 +34,8 @@ export class ControlToggleComponent
     super(_renderer);
   }
 
-  ngAfterContentInit() {
-    this.showControlValue();
-  }
-
   get id() {
     return this._id.concat(this._gen);
-  }
-
-  showControlValue() {
-    if (this.controlValue !== undefined) {
-      this.controlValue
-        .map(control => { control.hidden = true; return control; })
-        .filter(control => control.attrFor === this.checked)
-        .map(control => { control.hidden = false });
-    }
   }
 
   setupInitalValue() {
@@ -58,18 +43,16 @@ export class ControlToggleComponent
   }
 
   onChange(event: any) {
-    let element: any = event.target;
-    this.checked = element.checked;
+    this.checked = event.target.checked;
     this._value.next(this.checked);
-    this.showControlValue();
+
   }
 
   onClick(event) {
-    this.checked = (this.checked) ? false : true;
-    let value = (this.checked) ? 'checked' : null;
+    this.checked = !(this.checked);
+    const value = (this.checked) ? 'checked' : null;
     this._renderer.setAttribute(this.formControl.nativeElement, 'checked', value);
     this._value.next(this.checked);
-    this.showControlValue();
   }
 
   onFocus(result: boolean) {

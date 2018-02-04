@@ -15,15 +15,15 @@
     </mv-row>
     <mv-row>
       <mv-col class="is-align-center is-mobile-12 is-tablet-4">
-        <button routerLink="/area-candidato" class="mv-btn is-raised">Área do Candidato</button>
+        <button mv-btn routerLink="/area-candidato" class="is-raised">Área do Candidato</button>
       </mv-col>
       <mv-col class="is-mobile-12 is-tablet-4">
         <h3 class="is-align-center">Abertos</h3>
         <mv-list>
           <mv-list-item class="is-align-middle" [routerLink]="['.','concurso']">
-            <mv-list-item-primary>
+            <mv-col class="p-start">
               <mv-avatar src="/local/0012017/profile/avatar.png" class="is-circle"></mv-avatar>
-            </mv-list-item-primary>
+            </mv-col>
             <p><strong>Prefeitura do Município de Humaitá</strong></p>
             <p>
               Edital de Abertura nº 001/2017
@@ -35,9 +35,9 @@
         <h3 class="is-align-center">Realizados</h3>
         <mv-list>
           <mv-list-item class="is-align-middle">
-            <mv-list-item-primary>
+            <mv-col class="p-start">
               <mv-avatar src="/assets/img/background/ep_naturalwhite.png" class="is-circle"></mv-avatar>
-            </mv-list-item-primary>
+            </mv-col>
             <p>
               <strong>Exame de Seleção do Ensino Médio</strong>
             </p>
@@ -46,9 +46,9 @@
             </p>
           </mv-list-item>
           <mv-list-item class="is-align-middle">
-            <mv-list-item-primary>
+            <mv-col class="p-start">
               <mv-avatar src="/assets/img/background/ep_naturalwhite.png" class="is-circle"></mv-avatar>
-            </mv-list-item-primary>
+            </mv-col>
             <p>
               <strong>Curso Relações Interpessoais</strong>
             </p>

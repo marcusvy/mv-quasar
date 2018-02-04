@@ -67,7 +67,7 @@ $half-gutter-width: ($mv-grid--gutter * 0.5);
   }
 }
 
-:host(.is-gap) /deep/ {
+:host(.has-gap) /deep/ {
   margin-right: $gutter-compensation;
   margin-left: $gutter-compensation;
 
@@ -75,10 +75,10 @@ $half-gutter-width: ($mv-grid--gutter * 0.5);
     padding-right: $half-gutter-width;
     padding-left: $half-gutter-width;
   }
-  & > mv-col:first-child {
-    padding-right: 0;
-  }
-  & > mv-col:last-child {
-    padding-left: 0;
-  }
+  // & > mv-col:first-child {
+  //   padding-right: 0;
+  // }
+  // & > mv-col:last-child {
+  //   padding-left: 0;
+  // }
 }

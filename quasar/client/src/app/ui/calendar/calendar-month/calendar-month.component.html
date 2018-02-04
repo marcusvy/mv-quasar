@@ -1,6 +1,6 @@
 <ul class="calendar_container">
   <li class="calendar_month" *ngFor="let month of months">
-      <button class="mv-btn" (click)="select(month)"
+      <button mv-btn (click)="select(month)"
       [class.is-selected]="isSelected(month)"
       [class.is-active]="isToday(month) || isSelected(month)">{{month | date:'MMM'}}</button>
   </li>

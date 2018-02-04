@@ -1,21 +1,21 @@
 <ul class="calendar_container">
   <li class="calendar_day calendar--week" *ngFor="let day of weekDays">{{day}}</li>
   <li class="calendar_day calendar--out" *ngFor="let day of daysPrev">
-    <button class="mv-btn" (click)="select(day)"
+    <button mv-btn (click)="select(day)"
       [class.is-selected]="isSelected(day)"
       [class.is-active]="isToday(day) || isSelected(day)">
       {{day | date: 'd'}}
     </button>
   </li>
   <li class="calendar_day" *ngFor="let day of days">
-    <button class="mv-btn" (click)="select(day)"
+    <button mv-btn (click)="select(day)"
       [class.is-selected]="isSelected(day)"
       [class.is-active]="isToday(day) || isSelected(day)">
       {{day | date: 'd'}}
     </button>
   </li>
   <li class="calendar_day calendar--out" *ngFor="let day of daysNext">
-      <button class="mv-btn" (click)="select(day)"
+      <button mv-btn (click)="select(day)"
       [class.is-selected]="isSelected(day)"
       [class.is-active]="isToday(day) || isSelected(day)">
       {{day | date: 'd'}}

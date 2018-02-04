@@ -65,6 +65,14 @@ $card-padding: $mv-grid--gutter/2;
   }
 }
 
+.mv-card__content {
+  padding: 0 $card-padding;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
 :host /deep/ mv-card-title {
   display: flex;
   flex-direction: column;
@@ -91,9 +99,6 @@ $card-padding: $mv-grid--gutter/2;
   }
 }
 
-:host /deep/ mv-card-content {
-  padding: 0 $card-padding;
-}
 
 :host /deep/ mv-card-body,
 :host /deep/ mv-card-action,
@@ -110,8 +115,9 @@ $card-padding: $mv-grid--gutter/2;
 :host /deep/ mv-card-action {
   line-height: normal;
   width: 100%;
-  padding: $card-padding/2 $card-padding 0 $card-padding;
+  padding: $card-padding/2 $card-padding $card-padding/2 $card-padding;
   align-self: flex-end;
+  align-content: flex-end;
   border-width: 1px 0 0 0;
   border-style: solid;
 }

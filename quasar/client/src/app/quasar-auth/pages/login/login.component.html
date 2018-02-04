@@ -8,8 +8,8 @@
     <mv-col>
       <!-- Usuário -->
       <mv-control>
-        <label for="input-user">E-mail</label>
-        <input id="input-user" type="email" name="user" formControlName="user" />
+        <label for="input-user">Usuário</label>
+        <input id="input-user" type="text" name="credential" formControlName="credential" />
       </mv-control>
 
       <!-- Senha -->
@@ -26,7 +26,7 @@
       <a [routerLink]="['.','signin']">Quero me cadastrar</a>
     </mv-col>
     <mv-col class="is-align-end no-flex">
-      <button type="button" class="mv-btn is-raised" [disabled]="form.invalid" (click)="login()">Entrar</button>
+      <button mv-btn type="button" class="is-raised" [disabled]="form.invalid" (click)="login()">Entrar</button>
     </mv-col>
   </mv-row>
 </form>

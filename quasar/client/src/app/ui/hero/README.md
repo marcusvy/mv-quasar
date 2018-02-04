@@ -11,7 +11,7 @@ Modern display on page
   <h2> ... </h2>
   <p> ... </p>
   ...
-  <button class="mv-btn">Do action</button>
+  <button mv-btn>Do action</button>
 </mv-hero>
 ```
 
@@ -56,7 +56,7 @@ Modern display on page
 * h1 : The first line of title
 * h2 : The second line of title
 * p : The paragraph
-* button.mv-btn : The text
+* button[mv-btn] : The text
 
 
 ## Modifiers

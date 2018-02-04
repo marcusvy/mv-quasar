@@ -26,9 +26,10 @@ $mv-size--toolbar: $mv-size--normal + ($mv-grid--outer-margin * 2);
 :host {
   // padding-top: $mv-grid--outer-margin;
   // padding-bottom: $mv-grid--outer-margin;
-  width: 100%;
+  // width: 100%;
   min-height: $mv-size--toolbar;
   display: flex;
+  // flex-basis: 100%;
   flex-direction: row;
   align-items: center;
 }
@@ -61,7 +62,7 @@ $mv-size--toolbar: $mv-size--normal + ($mv-grid--outer-margin * 2);
       padding-right: 0;
     }
   }
-  button.mv-btn {
+  button[mv-btn] {
     margin-bottom: 0;
     border-radius: 0;
     border-width: 0;

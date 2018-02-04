@@ -22,10 +22,11 @@ class UserService extends AbstractService implements UserServiceInterface
     /** @var  \User\Service\PerfilService */
     protected $perfilService;
 
-    /**
-     * @var User
-     */
+    /** @var User */
     protected $identity;
+
+    /** @var User */
+    private $previousValue;
 
     public function __construct(
         EntityManager $entityManager,
@@ -117,19 +118,23 @@ class UserService extends AbstractService implements UserServiceInterface
         return false;
     }
 
-    public function activate($id, $key): bool
+    public function activate($credential, $key): bool
     {
-        if (!is_null($id) && !is_null($key)) {
+        if (!is_null($credential) && !is_null($key)) {
             try {
                 /** @var \User\Entity\user $user */
-                $user = $this->getEntityManger()->getReference($this->entity, $id);
-                if (($user instanceof User)) {
-                    $user->setActive(1);
-                    $user->setActivationKey('');
-                    $this->getEntityManger()->persist($user);
-                    $this->getEntityManger()->flush();
-                    $this->identity = $user;
-                    return true;
+                $repo = $this->getEntityManger()->getRepository($this->entity);
+                $result = $repo->findByCredential($credential);
+                if(count($result)>0){
+                    $user = array_shift($result);
+                    if (($user instanceof User)) {
+                        $user->setActive(1);
+//                    $user->setActivationKey('');
+                        $this->getEntityManger()->persist($user);
+                        $this->getEntityManger()->flush();
+                        $this->identity = $user;
+                        return true;
+                    }
                 }
             } catch (\Exception $e) {
             }
@@ -141,4 +146,5 @@ class UserService extends AbstractService implements UserServiceInterface
     {
         return $this->identity;
     }
+
 }

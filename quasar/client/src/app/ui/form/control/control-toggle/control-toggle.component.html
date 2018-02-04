@@ -1,5 +1,6 @@
 <mv-row>
   <mv-col>
+    <ng-content select="label"></ng-content>
     <label [for]="id">
       <ng-content select="mv-control-label,[mvControlLabel]"></ng-content>
     </label>
@@ -11,8 +12,8 @@
       (change)="onChange($event)">
     <ng-content select="mv-control-value,[mvControlValue]"></ng-content>
   </mv-col>
-  <mv-col class="no-flex">
-    <button class="mv-btn is-icon"
+  <mv-col class="no-grow">
+    <button mv-btn class="is-icon"
       [class.is-active]="checked"
       (click)="onClick($event)">
       <mv-icon [name]="icon"></mv-icon>

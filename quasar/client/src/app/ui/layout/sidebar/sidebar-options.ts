@@ -6,6 +6,7 @@ export class SidebarOptions {
   private _right?: boolean = false;
   private _backdrop?: boolean = false;
   private _enabled:boolean = true;
+  private _toolbarClass;
 
 
   get title() { return this._title; }
@@ -35,4 +36,8 @@ export class SidebarOptions {
   get enabled() { return this._enabled; }
   set enabled(value) { this._enabled = value; }
   setEnabled(value) { this._enabled = value; return this; }
+
+  get toolbarClass() { return this._toolbarClass; }
+  set toolbarClass(value) { this._toolbarClass = value; }
+  setToolbarClass(value) { this._toolbarClass = value; return this; }
 }

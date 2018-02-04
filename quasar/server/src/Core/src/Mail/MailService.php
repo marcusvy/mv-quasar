@@ -57,10 +57,10 @@ class MailService implements MailServiceInterface
 
     public function __construct(array $config)
     {
-        $this->message = new Message();
-        $this->transport = new Smtp();
+        $this->setMessage(new Message());
+        $this->setTransport(new Smtp());
         $this->options = $config[self::CONFIG_OPTIONS];
-        $this->transport->setOptions(new SmtpOptions($config[self::CONFIG_TRANSPORT]));
+        $this->transport->setOptions(new SmtpOptions($this->options));
     }
 
     /**

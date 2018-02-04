@@ -33,8 +33,8 @@
   flex-grow: 1;
   flex-wrap: nowrap;
   align-content: stretch;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
+  // overflow-y: auto;
 }
 
 
@@ -67,4 +67,6 @@
   flex-direction: column;
   flex-grow: 1;
   align-items: stretch;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

@@ -2,6 +2,7 @@
 @import "../mixins";
 @import "normalize";
 @import "mobile";
+
 $code-background: $mv-color--dark !default;
 $code-color: $mv-color--light !default;
 $code-padding: 0.25em 0.5em 0.25em 0.25em !default;
@@ -27,9 +28,10 @@ $table-head-cell-border-width: 0 0 1px !default;
 $table-head-cell-color: $mv-color--primary !default;
 $table-foot-cell-border-width: 1px 0 0 !default;
 $table-foot-cell-color: $mv-color--grey !default;
+
 ::selection {
   color: $mv-color--primary;
-  background-color: $mv-color--secondary;
+  background-color: $mv-color--dark;
   text-shadow: none;
 }
 
@@ -54,7 +56,7 @@ button,
 input,
 select,
 textarea {
-  font-family: $mv-font--default;
+  font-family: $mv-font--family-sans;
   font-size: inherit;
 }
 
@@ -75,7 +77,6 @@ pre {
   -moz-osx-font-smoothing: auto;
   font-family: $mv-font--mono;
 }
-
 
 /*
  * Main display reset for IE support.
@@ -157,7 +158,8 @@ p {
   margin: 0 0 #{($mv-font--line-height / 2)}rem;
 }
 
-p+p {}
+p + p {
+}
 
 pre {
   background-color: $pre-background;
@@ -333,28 +335,40 @@ h1,
 .h1 {
   font-size: 3em;
   font-weight: 300;
-} // 48px
+}
+
+// 48px
 h2,
 .h2 {
   font-size: 2em;
   font-weight: 300;
-} // 32px
+}
+
+// 32px
 h3,
 .h3 {
   font-size: 1.75em;
-} // 28px
+}
+
+// 28px
 h4,
 .h4 {
   font-size: 1.5em;
-} // 24px
+}
+
+// 24px
 h5,
 .h5 {
   font-size: 1.25em;
-} // 20px
+}
+
+// 20px
 h6,
 .h6 {
   font-size: 1em;
-} // 16px
+}
+
+// 16px
 h1,
 .h1,
 h2,
@@ -367,5 +381,5 @@ h5,
 .h5,
 h6,
 .h6 {
-  margin-bottom: .5rem;
+  margin-bottom: 1rem;
 }

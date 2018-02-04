@@ -16,7 +16,7 @@
 
         <ng-container *ngIf="hasLeftSidebar()">
           <mv-col class="mv-shell__left-button">
-            <button class="mv-btn" accesskey="2" (click)="onToggleLeft()">
+            <button mv-btn accesskey="2" (click)="onToggleLeft()">
               <mv-icon [name]="leftOptions?.icon"></mv-icon>
             </button>
           </mv-col>
@@ -24,7 +24,7 @@
 
         <ng-container *ngIf="hasRightSidebar()">
           <mv-col class="is-align-last">
-            <button class="mv-btn" accesskey="3" (click)="onToggleRight()">
+            <button mv-btn accesskey="3" (click)="onToggleRight()">
               <mv-icon [name]="rightOptions?.icon"></mv-icon>
             </button>
           </mv-col>
@@ -42,7 +42,7 @@
       <mv-row>
         <mv-col>
           <ng-content></ng-content>
-          <button class="mv-btn" top [animate]="true">
+          <button mv-btn top [animate]="true">
             <mv-icon name="chevron-up"></mv-icon>
           </button>
         </mv-col>

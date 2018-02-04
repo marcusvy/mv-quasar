@@ -43,6 +43,6 @@
   border-top: none;
 }
 
-:host /deep/ .calendar--out .mv-btn {
+:host /deep/ .calendar--out button[mv-btn] {
   color: $mv-color--grey-light !important;
 }

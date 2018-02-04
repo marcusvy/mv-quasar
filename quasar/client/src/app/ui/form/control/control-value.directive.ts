@@ -1,20 +1,17 @@
-import { Directive, Input, OnInit, HostBinding } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import {Directive, Input, OnInit, HostBinding, ElementRef} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 
 @Directive({
-  selector: 'mv-control-value,[mvControlValue]'
+  selector: '[mvControlValue]'
 })
-export class ControlValueDirective implements OnInit {
-  
-  @Input('for') attrFor;
-  public hidden = true;
-  
-  constructor() { }
-  
-  ngOnInit(): void { }
+export class ControlValueDirective {
+
+  @Input('for')
+  hidden = true;
 
   @HostBinding('class.is-hidden')
-  get isHidden(){
-    return (this.attrFor!==undefined) ? this.hidden : false;
+  get isHidden() {
+    return !this.hidden;
   }
+
 }

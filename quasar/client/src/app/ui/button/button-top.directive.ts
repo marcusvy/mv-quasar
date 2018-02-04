@@ -2,7 +2,7 @@ import { Directive, Host, HostListener, Input, OnInit } from '@angular/core';
 import { ButtonComponent } from './button.component';
 
 @Directive({
-  selector: 'button.mv-btn[top]',
+  selector: 'button[mv-btn][top]',
   host: {
     '(click)': 'scrollTop($event)'
   }

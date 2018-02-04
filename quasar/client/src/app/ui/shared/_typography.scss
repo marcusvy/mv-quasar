@@ -91,13 +91,14 @@ $title-size: $mv-size--3 !default;
 $title-weight: $mv-font-weight--semibold !default;
 $title-strong-color: inherit !default;
 $title-strong-weight: inherit !default;
-$subtitle-color: $mv-color--grey-dark !default;
+$subtitle-color: $mv-color--grey !default;
 $subtitle-size: $mv-size--5 !default;
-$subtitle-weight: $mv-font-weight--normal !default;
+$subtitle-weight: $mv-font-weight--light !default;
 $subtitle-strong-color: $mv-color--grey-darker !default;
 $subtitle-strong-weight: $mv-font-weight--semibold !default;
-.title,
-.subtitle {
+
+.is-title,
+.is-subtitle {
   margin-bottom: 1.5rem;
   word-break: keep-all;
   word-wrap: break-word;
@@ -110,7 +111,7 @@ $subtitle-strong-weight: $mv-font-weight--semibold !default;
   }
 }
 
-.title {
+.is-title {
   color: $title-color;
   font-size: $title-size;
   font-weight: $title-weight;
@@ -127,7 +128,7 @@ $subtitle-strong-weight: $mv-font-weight--semibold !default;
   }
 }
 
-.subtitle {
+.is-subtitle {
   color: $subtitle-color;
   font-size: $subtitle-size;
   font-weight: $subtitle-weight;

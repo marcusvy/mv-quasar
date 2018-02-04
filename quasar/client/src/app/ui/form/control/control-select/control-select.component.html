@@ -1,5 +1,6 @@
 <mv-row>
   <mv-col>
+    <ng-content select="label"></ng-content>
     <label [for]="id">
       <ng-content select="[mvControlLabel],mv-control-label"></ng-content>
     </label>

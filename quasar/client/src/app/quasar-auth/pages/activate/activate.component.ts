@@ -11,8 +11,7 @@ import { AuthService } from './../../shared/service/auth.service';
 })
 export class ActivateComponent implements OnInit, OnDestroy {
 
-
-  success:boolean;
+  success: boolean;
   message: string = '';
   $route: Subscription;
   $activation: Subscription;
@@ -24,11 +23,12 @@ export class ActivateComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.$route = this._route.params.subscribe(res => {
-      this.activate(res['key']);
-    }, (e) => {
-      this.message = 'Chave inválida';
-    });
+    this.$route = this._route.params
+      .subscribe(
+      res => this.activate(res['credential'], res['key']),
+      (e) => {
+        this.message = '... Aguarde um momento. Verificando chave ...';
+      });
   }
 
   ngOnDestroy(): void {
@@ -44,11 +44,9 @@ export class ActivateComponent implements OnInit, OnDestroy {
     this._router.navigate(['quasar', 'auth']);
   }
 
-  activate(key) {
-    this.message = '... Aguarde um momento. Verificando chave ...';
-    this.$activation = this._service.activate(key)
+  activate(credential, key) {
+    this.$activation = this._service.activate(credential, key)
       .subscribe((res) => {
-        console.log('foi');
         this.success = res['success'];
         this.message = res['message'];
       }, () => {

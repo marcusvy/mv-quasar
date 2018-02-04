@@ -29,7 +29,7 @@
     </mv-list>
   </mv-card-body>
   <mv-card-action>
-    <button class="mv-btn">
+    <button mv-btn>
       <mv-icon name="user"></mv-icon>
       <span>Um usuário</span>
     </button>

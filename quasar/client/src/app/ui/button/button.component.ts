@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { ButtonTopAnimation } from './button.animation';
 
 @Component({
-  selector: 'button.mv-btn',
+  selector: 'button[mv-btn]',
   templateUrl: './button.component.html',
   styleUrls: [
     './button.component.scss',

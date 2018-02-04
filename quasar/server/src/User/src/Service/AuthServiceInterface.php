@@ -12,9 +12,4 @@ interface AuthServiceInterface extends AuthenticationServiceInterface
      * @return Result
      */
     public function authenticate(Adapter\AdapterInterface $adapter = null);
-
-    /**
-     * @return mixed
-     */
-    public function check();
 }

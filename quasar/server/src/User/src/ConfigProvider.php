@@ -99,7 +99,7 @@ class ConfigProvider
                 'name' => 'QuasarUser.teste',
                 'allowed_methods' => ['GET', 'POST']
             ], [
-                'path' => '/login',
+                'path' => '/api/auth',
                 'middleware' => Action\AuthPageAction::class,
                 'name' => 'QuasarUser.auth.login',
                 'allowed_methods' => ['GET', 'POST']
@@ -139,7 +139,7 @@ class ConfigProvider
                 'name' => 'QuasarUser.user.register',
                 'allowed_methods' => ['POST']
             ], [
-                'path' => '/api/user/activate/{id:\d+}/{key}',
+                'path' => '/api/user/activate/for/{credential}/by/{key}',
                 'middleware' => Action\ActivationPageAction::class,
                 'name' => 'QuasarUser.user.activation',
                 'allowed_methods' => ['GET']

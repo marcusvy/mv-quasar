@@ -31,7 +31,7 @@ export class ControlEditorComponent
   @ViewChild('controlEditorArea') quillElement: ElementRef;
   private quillEditor: any;
   @Input() readonly = false;
-  @Input() theme: string = 'snow'; //snow, core, bubble
+  @Input() theme = 'snow'; // snow, core, bubble
   @Input() modules: 'full' | any = {};
   @Input() config: any;
   @Input() output: 'text' | 'html' = 'html';
@@ -45,7 +45,7 @@ export class ControlEditorComponent
   ) {
     super(_renderer);
     if (!window) {
-      console.warn("Quill not registered");
+      console.warn('Quill not registered');
     }
     this.quillFactory = window['Quill'];
   }
@@ -94,7 +94,7 @@ export class ControlEditorComponent
       readOnly: this.readonly,
       theme: this.theme,
       bounds: document.body,
-    }
+    };
   }
 
   initQuill() {
@@ -102,7 +102,7 @@ export class ControlEditorComponent
 
     // write
     if (this.value) {
-      let valueSanitized = this._sanitize.sanitize(SecurityContext.HTML, this.value);
+      const valueSanitized = this._sanitize.sanitize(SecurityContext.HTML, this.value);
       this.quillEditor.clipboard.dangerouslyPasteHTML(valueSanitized);
     }
 
@@ -129,8 +129,7 @@ export class ControlEditorComponent
   }
 
   onInput(html: string) {
-    let value = html;
-    this._value.next(value);
+    this._value.next(html);
     this.errorInvalid = this._control.invalid;
   }
 

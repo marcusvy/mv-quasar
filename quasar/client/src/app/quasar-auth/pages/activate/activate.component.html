@@ -9,8 +9,10 @@
     <h3 class="is-align-center">{{message}}</h3>
   </mv-col>
 </mv-row>
-<mv-row *ngIf="success">
-  <mv-col class="is-align-end">
-    <button type="button" class="mv-btn is-raised" (click)="back()">Entrar</button>
-  </mv-col>
-</mv-row>
+<ng-container *ngIf="success">
+  <mv-row>
+    <mv-col class="is-align-end">
+      <button mv-btn type="button" class="is-raised" (click)="back()">Entrar</button>
+    </mv-col>
+  </mv-row>
+</ng-container>

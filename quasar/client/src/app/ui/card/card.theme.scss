@@ -20,15 +20,16 @@
  * @section Configuration
  */
 
-$card-border-color: transparent;
+$card-border-color: $mv-color--light;
 
 /**
  * @section Style
  */
 
 :host {
-  background-color: $mv-color__light;
+  background-color: $mv-color--white;
   border-color: $mv-color--light;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card__header {

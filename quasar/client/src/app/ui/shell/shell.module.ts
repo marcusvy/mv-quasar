@@ -13,6 +13,7 @@ import { ShellComponent } from './shell.component';
 import { ShellHeaderDirective } from './shell-header.directive';
 import { ShellLeftDirective } from './shell-left.directive';
 import { ShellRightDirective } from './shell-right.directive';
+import { ShellHeaderComponent } from './shell-header/shell-header.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { ShellRightDirective } from './shell-right.directive';
     ShellComponent,
     ShellHeaderDirective,
     ShellLeftDirective,
-    ShellRightDirective
+    ShellRightDirective,
+    ShellHeaderComponent
   ],
   exports: [
     ShellComponent,

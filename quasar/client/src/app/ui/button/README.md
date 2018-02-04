@@ -1,7 +1,7 @@
 # Button
 
 ```html
-<button class="mv-btn">
+<button mv-btn>
   ...
 </button>
 ```
@@ -41,7 +41,7 @@
 The **top** directive enable a scroll button to top of the page
 
 ```html
-<button class="mv-btn" top>
+<button mv-btn top>
   ...
 </button>
 ```

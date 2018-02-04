@@ -1,13 +1,16 @@
-<mv-toolbar>
-  <mv-container class="is-limited">
-    <mv-row>
-      <mv-col>
-        <h4>
-          <mv-icon name="cog"></mv-icon>
-          <span>Configuração</span>
-        </h4>
-      </mv-col>
-    </mv-row>
-  </mv-container>
-</mv-toolbar>
+<mv-row>
+  <mv-col>
+    <h2>
+      <mv-icon name="cog"></mv-icon>
+      <span>Configuração</span>
+    </h2>
+
+  </mv-col>
+  <mv-col class="no-grow">
+    <button mv-btn title="Ajuda" role="button">
+      <mv-icon name="question-circle"></mv-icon>
+    </button>
+  </mv-col>
+</mv-row>
+
 <router-outlet></router-outlet>
