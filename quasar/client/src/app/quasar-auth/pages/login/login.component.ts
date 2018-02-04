@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   createForm() {
     this.form = this._fb.group({
-      user: ['', Validators.compose([Validators.required, Validators.email])],
+      credential: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
     });
   }
@@ -38,11 +38,11 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.form.valid) {
       let formData = this.form.value;
-      this._service.authenticate(formData['user'], formData['password'])
+      this._service.authenticate(formData['credential'], formData['password'])
         .subscribe(res => {
           if (res['success']) {
             this._service.storeToken(res['token']);
-            this._router.navigate(['area-candidato']);
+            this._router.navigate(['quasar']);
           } else {
             this.message = 'Usuário ou Senha inválidos'
           }

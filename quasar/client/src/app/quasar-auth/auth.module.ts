@@ -9,6 +9,7 @@ import { AuthProfileMenuComponent } from './auth-profile-menu/auth-profile-menu.
 import { LoginComponent } from './pages/login/login.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { ActivateComponent } from './pages/activate/activate.component';
+import { AuthGuard } from './shared/guard/auth.guard';
 
 @NgModule({
   imports: [
@@ -24,7 +25,10 @@ import { ActivateComponent } from './pages/activate/activate.component';
     AuthComponent
   ],
   exports: [
-    AuthProfileMenuComponent
+    AuthProfileMenuComponent,
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 export class MvQuasarAuthModule { }

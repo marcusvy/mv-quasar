@@ -9,6 +9,7 @@ import { QuasarComponent } from './quasar.component';
 import { QuasarMenuComponent } from './quasar-menu/quasar-menu.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { QuasarShellComponent } from './quasar-shell/quasar-shell.component';
+import { AuthGuard } from '../quasar-auth/shared/guard/auth.guard';
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { QuasarShellComponent } from './quasar-shell/quasar-shell.component';
     QuasarMenuComponent,
     QuasarShellComponent,
     DashboardComponent,
-  ],
+  ]
 })
 export class MvQuasarModule { }

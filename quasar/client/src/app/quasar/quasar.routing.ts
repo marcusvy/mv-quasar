@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { QuasarComponent } from './quasar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { QuasarShellComponent } from './quasar-shell/quasar-shell.component';
+import { AuthGuard } from '../quasar-auth/shared/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +13,10 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'manager', component: QuasarShellComponent, children: [
+    path: 'manager',
+    component: QuasarShellComponent,
+    canActivate: [AuthGuard],
+    children: [
       { path: '', component: DashboardComponent, pathMatch: 'full' },
       { path: 'config', loadChildren: 'app/quasar-config/config.module#MvQuasarConfigModule' },
       { path: 'midia', loadChildren: 'app/quasar-midia/midia.module#MvQuasarMidiaModule' },

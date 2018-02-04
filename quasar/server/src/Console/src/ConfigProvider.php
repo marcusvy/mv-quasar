@@ -40,6 +40,7 @@ class ConfigProvider
             ],
             'factories'  => [
                 Command\ViewLogsCommand::class => Factory\ViewLogsCommandFactory::class,
+                Command\InstallCommand::class => Factory\InstallCommandFactory::class,
             ],
         ];
     }
@@ -48,7 +49,8 @@ class ConfigProvider
     {
         return [
             'commands'  => [
-                Command\ViewLogsCommand::class
+                Command\ViewLogsCommand::class,
+                Command\InstallCommand::class,
             ],
         ];
     }
