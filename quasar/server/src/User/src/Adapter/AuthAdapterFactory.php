@@ -1,10 +1,9 @@
 <?php
 
-namespace User\Factory;
+namespace User\Adapter;
 
 use Interop\Container\ContainerInterface;
 use Doctrine\ORM\EntityManager;
-use User\Adapter\AuthAdapter;
 use User\Model\Entity\User;
 
 class AuthAdapterFactory

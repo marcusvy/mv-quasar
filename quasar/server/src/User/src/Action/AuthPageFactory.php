@@ -1,9 +1,8 @@
 <?php
 
-namespace User\Factory;
+namespace User\Action;
 
 use Interop\Container\ContainerInterface;
-use User\Action\AuthPageAction;
 use User\Form\LoginForm;
 use User\Service\AuthServiceInterface;
 

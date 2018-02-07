@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-
 class DoctrineActionFactory implements FactoryInterface
 {
     /**

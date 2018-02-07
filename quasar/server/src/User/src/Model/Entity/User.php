@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Entity;
+namespace User\Model\Entity;
 
 use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +20,7 @@ use Zend\Math\Rand;
  *    @ORM\Index(name="fk_users_user_role", columns={"fk_role"})
  *  }
  * )
- * @ORM\Entity(repositoryClass="User\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="User\Model\Repository\UserRepository")
  */
 class User extends AbstractEntity
 {

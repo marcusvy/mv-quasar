@@ -15,7 +15,7 @@ class ConfigProviderHelper
         'driver' => [
           'orm_default' => [
             'drivers' => [
-              $namespace.'\Entity' => $namespace.'Entity',
+              $namespace.'\Model\Entity' => $namespace.'Entity',
             ],
           ],
             $namespace.'Entity' => [

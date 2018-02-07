@@ -1,9 +1,8 @@
 <?php
 
-namespace User\Factory;
+namespace User\Action;
 
 use Interop\Container\ContainerInterface;
-use User\Action\RoleRestAction;
 use User\Service\RoleServiceInterface;
 use Zend\Expressive\Router\RouterInterface;
 

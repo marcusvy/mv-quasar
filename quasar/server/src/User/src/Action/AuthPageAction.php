@@ -24,8 +24,7 @@ class AuthPageAction implements MiddlewareInterface
     public function __construct(
         AuthServiceInterface $service,
         FormInterface $form       // Form $form
-    )
-    {
+    ) {
         $this->service = $service;
         $this->form = $form;
     }

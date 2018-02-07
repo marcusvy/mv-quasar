@@ -2,8 +2,8 @@
 namespace User\Service;
 
 use Core\Service\AbstractService;
-use User\Entity\Role;
-use User\Repository\UserRoleRepository;
+use User\Model\Entity\Role;
+use User\Model\Repository\UserRoleRepository;
 
 class RoleService extends AbstractService implements RoleServiceInterface
 {

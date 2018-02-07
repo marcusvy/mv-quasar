@@ -2,7 +2,7 @@
 namespace User\Service;
 
 use Core\Service\AbstractService;
-use User\Entity\Perfil;
+use User\Model\Entity\Perfil;
 use Zend\Hydrator\ClassMethods;
 
 /**

@@ -2,8 +2,7 @@
 
 namespace User;
 
-use Core\Doctrine\Helper\ConfigProviderHelper;
-use Psr\Http\Message\ServerRequestInterface;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 /**
  * The configuration provider for the User module
@@ -43,19 +42,19 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories' => [
-                Action\FormPageAction::class => Factory\FormPageFactory::class,
-                Action\AuthPageAction::class => Factory\AuthPageFactory::class,
-                Action\ActivationPageAction::class => Factory\ActivationPageFactory::class,
-                Action\RegisterPageAction::class => Factory\RegisterPageFactory::class,
-                Action\UserRestAction::class => Factory\UserRestFactory::class,
-                Action\PerfilRestAction::class => Factory\PerfilRestFactory::class,
-                Action\RoleRestAction::class => Factory\RoleRestFactory::class,
-                Adapter\AuthAdapter::class => Factory\AuthAdapterFactory::class,
-                Service\AuthServiceInterface::class => Factory\AuthServiceFactory::class,
-                Service\UserServiceInterface::class => Factory\UserServiceFactory::class,
-                Service\PerfilServiceInterface::class => Factory\PerfilServiceFactory::class,
-                Service\RoleServiceInterface::class => Factory\RoleServiceFactory::class,
-                Middleware\AuthMiddleware::class => Factory\AuthMiddlewareFactory::class,
+                Action\FormPageAction::class => Action\FormPageFactory::class,
+                Action\AuthPageAction::class => Action\AuthPageFactory::class,
+                Action\ActivationPageAction::class => Action\ActivationPageFactory::class,
+                Action\RegisterPageAction::class => Action\RegisterPageFactory::class,
+                Action\UserRestAction::class => Action\UserRestFactory::class,
+                Action\PerfilRestAction::class => Action\PerfilRestFactory::class,
+                Action\RoleRestAction::class => Action\RoleRestFactory::class,
+                Adapter\AuthAdapter::class => Adapter\AuthAdapterFactory::class,
+                Service\AuthServiceInterface::class => Service\AuthServiceFactory::class,
+                Service\UserServiceInterface::class => Service\UserServiceFactory::class,
+                Service\PerfilServiceInterface::class => Service\PerfilServiceFactory::class,
+                Service\RoleServiceInterface::class => Service\RoleServiceFactory::class,
+                Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
             ],
         ];
     }
@@ -154,10 +153,19 @@ class ConfigProvider
      */
     public function getDoctrine()
     {
-        $helper = new ConfigProviderHelper();
-        return $helper->generate(
-            __NAMESPACE__,
-            __DIR__ . '/Entity'
-        );
+        return [
+            'driver' => [
+                'orm_default' => [
+                    'drivers' => [
+                        __NAMESPACE__.'\Model\Entity' => __NAMESPACE__.'Entity',
+                    ],
+                ],
+                __NAMESPACE__.'Entity' => [
+                    'class' => AnnotationDriver::class,
+                    'cache' => 'array',
+                    'paths' => __DIR__ . '/Model/Entity',
+                ],
+            ],
+        ];
     }
 }

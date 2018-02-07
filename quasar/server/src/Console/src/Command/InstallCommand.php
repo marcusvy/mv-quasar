@@ -40,23 +40,24 @@ class InstallCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        if ($this->enabled){
+        if ($this->enabled) {
             $io->title('Instalação');
 
             if (!is_null($this->userService)) {
-                $email = $io->ask('Qual o e-mail do administrador?','adm@mviniciusconsultoria.com.br');
+                $email = $io->ask('Qual o e-mail do administrador?', 'adm@mviniciusconsultoria.com.br');
                 $password = $io->askHidden('Qual a senha do administrador?');
-                $this->createDefaultUser($email,$password);
+                $this->createDefaultUser($email, $password);
                 $io->block('Usuário admin criado');
             } else {
                 $io->error("Quasar:: User service not connected");
             }
-        }else {
+        } else {
             $io->error("Quasar:: Console not enabled");
         }
     }
 
-    public function createDefaultUser($email, $password){
+    public function createDefaultUser($email, $password)
+    {
         $user = [
             'perfil' => ['name' => 'admin'],
             'credential' => 'admin',
@@ -65,6 +66,5 @@ class InstallCommand extends Command
             'active' => 1
         ];
         $this->userService->create($user);
-
     }
 }

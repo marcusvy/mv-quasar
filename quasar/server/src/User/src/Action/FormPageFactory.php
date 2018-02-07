@@ -1,9 +1,8 @@
 <?php
 
-namespace User\Factory;
+namespace User\Action;
 
 use Interop\Container\ContainerInterface;
-use User\Action\FormPageAction;
 use User\Form\SimpleForm;
 use Zend\Expressive\Template\TemplateRendererInterface;
 

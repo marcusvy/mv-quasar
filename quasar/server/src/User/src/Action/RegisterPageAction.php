@@ -7,7 +7,7 @@ use Core\Service\ServiceInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use User\Entity\User;
+use User\Model\Entity\User;
 use User\Service\UserService;
 use Zend\Diactoros\Response\JsonResponse;
 

@@ -1,8 +1,7 @@
 <?php
-namespace User\Factory;
+namespace User\Form\Fieldset;
 
 use Interop\Container\ContainerInterface;
-use User\Form\Fieldset\RoleFieldset;
 use User\Service\RoleServiceInterface;
 
 class RoleFieldsetFactory

@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Entity;
+namespace User\Model\Entity;
 
 use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Perfil
  *
  * @ORM\Table(name="mv_user_perfil", indexes={@ORM\Index(name="fk_users_perfil_avatar", columns={"avatar"})})
- * @ORM\Entity(repositoryClass="User\Repository\UserPerfilRepository")
+ * @ORM\Entity(repositoryClass="User\Model\Repository\UserPerfilRepository")
  */
 class Perfil extends AbstractEntity
 {

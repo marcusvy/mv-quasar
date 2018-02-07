@@ -4,6 +4,8 @@ services:
   db:
     container_name: im-quasar-db
     image: mysql:5.7
+    ports:
+      - "3306:3306"
     volumes:
       - "./quasar/database/mysql:/var/lib/mysql"
     restart: always
@@ -12,27 +14,26 @@ services:
       MYSQL_DATABASE: mvinicius
       MYSQL_USER: root
       MYSQL_PASSWORD: mvinicius
-    ports:
-      - "3306:3306"
+    
 
   api:
     container_name: im-quasar-api
     build: docker/php
+    ports:
+      - 8000:80
     volumes:
       - ./quasar/server/:/var/www/quasar/
       - ./docker/php/php.ini:/etc/php/7.2/php.ini
       - ./docker/apache/httpd.conf:/etc/apache2/httpd.conf
       - ./docker/apache/conf.d/quasar.conf:/etc/apache2/conf.d/quasar.conf
-    ports:
-      - 8000:80
-    restart: always
-    environment:
-      APP_ENV: 'dev'
     depends_on:
       - db
     links: 
       - db
     working_dir: /var/www/quasar
+    restart: always
+    environment:
+      APP_ENV: 'dev'
 
 volumes:
     database:

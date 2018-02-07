@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Repository;
+namespace User\Model\Repository;
 
 use Core\Doctrine\ORM\AbstractEntityRepository;
 

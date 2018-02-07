@@ -1,9 +1,8 @@
 <?php
 
-namespace User\Factory;
+namespace User\Action;
 
 use Interop\Container\ContainerInterface;
-use User\Action\UserRestAction;
 use User\Service\UserServiceInterface;
 use Zend\Expressive\Router\RouterInterface;
 use User\Form\UserForm;

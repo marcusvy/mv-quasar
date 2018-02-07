@@ -25,8 +25,7 @@ class ActivationPageAction implements MiddlewareInterface
     public function __construct(
         ServiceInterface $service,
         MailServiceInterface $mailService
-    )
-    {
+    ) {
         $this->service = $service;
         $this->mailService = $mailService;
     }
@@ -38,7 +37,6 @@ class ActivationPageAction implements MiddlewareInterface
 
 //        @todo add form to sanitize
         if (!is_null($credential) && !is_null($key)) {
-
             if ($this->service->activate($credential, $key)) {
                 $this->mail($this->service->getIdentity());
                 return new JsonResponse([
@@ -58,9 +56,9 @@ class ActivationPageAction implements MiddlewareInterface
      * @param User $user
      * @return bool
      */
-    private function mail(User $user=null)
+    private function mail(User $user = null)
     {
-        if(!is_null($user)){
+        if (!is_null($user)) {
             $texto = "<h3>Parabéns, %s!</h3><p>Seu registro foi ativado.</p>";
 
             $this->mailService

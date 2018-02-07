@@ -25,12 +25,9 @@ class AuthMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-
-
-        // if(!$this->service->hasIdentity()){
-        //     return new RedirectResponse('/login');
-        // }
-
+        if (!$this->service->hasIdentity()) {
+            return new RedirectResponse('/login');
+        }
         return $delegate->process($request);
     }
 }

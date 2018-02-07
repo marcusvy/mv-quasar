@@ -1,11 +1,9 @@
 <?php
 
-namespace User\Factory;
+namespace User\Service;
 
 use Interop\Container\ContainerInterface;
 use User\Adapter\AuthAdapter;
-use User\Service\AuthService;
-//use User\Storage\AuthSession;
 use Zend\Authentication\Storage\NonPersistent;
 
 class AuthServiceFactory

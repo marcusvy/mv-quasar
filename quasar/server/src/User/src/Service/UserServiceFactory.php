@@ -1,11 +1,9 @@
 <?php
 
-namespace User\Factory;
+namespace User\Service;
 
 use Interop\Container\ContainerInterface;
 use Doctrine\ORM\EntityManager;
-use User\Service\PerfilServiceInterface;
-use User\Service\UserService;
 
 class UserServiceFactory
 {

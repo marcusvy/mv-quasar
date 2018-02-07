@@ -5,9 +5,9 @@ namespace User\Service;
 use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\EntityManager;
 use Core\Service\AbstractService;
-use User\Entity\User;
-use User\Entity\Perfil;
-use User\Entity\Role;
+use User\Model\Entity\User;
+use User\Model\Entity\Perfil;
+use User\Model\Entity\Role;
 use Zend\Hydrator\ClassMethods;
 
 /**
@@ -71,7 +71,7 @@ class UserService extends AbstractService implements UserServiceInterface
 
     public function update($id, $data)
     {
-        /** @var \User\Entity\User $user */
+        /** @var User $user */
         $user = $this->getEntityManger()->getReference(User::class, $id);
         (new ClassMethods(false))->hydrate($data, $user);
         $this->getEntityManger()->persist($user);
@@ -122,10 +122,10 @@ class UserService extends AbstractService implements UserServiceInterface
     {
         if (!is_null($credential) && !is_null($key)) {
             try {
-                /** @var \User\Entity\user $user */
+                /** @var User $user */
                 $repo = $this->getEntityManger()->getRepository($this->entity);
                 $result = $repo->findByCredential($credential);
-                if(count($result)>0){
+                if (count($result)>0) {
                     $user = array_shift($result);
                     if (($user instanceof User)) {
                         $user->setActive(1);
@@ -146,5 +146,4 @@ class UserService extends AbstractService implements UserServiceInterface
     {
         return $this->identity;
     }
-
 }

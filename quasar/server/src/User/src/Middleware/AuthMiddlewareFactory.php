@@ -1,8 +1,7 @@
 <?php
-namespace User\Factory;
+namespace User\Middleware;
 
 use Psr\Container\ContainerInterface;
-use User\Middleware\AuthMiddleware;
 use User\Service\AuthServiceInterface;
 
 class AuthMiddlewareFactory

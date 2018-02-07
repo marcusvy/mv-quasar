@@ -6,7 +6,7 @@ use Zend\Filter;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Hydrator;
-use User\Entity\User;
+use User\Model\Entity\User;
 use Zend\Validator;
 
 class LoginFieldset extends Fieldset implements InputFilterProviderInterface

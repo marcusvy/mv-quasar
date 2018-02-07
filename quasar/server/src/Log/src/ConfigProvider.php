@@ -24,7 +24,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'doctrine' => $this->getDoctrine(),
-            'templates'    => $this->getTemplates(),
+            'templates' => $this->getTemplates(),
             'routes' => $this->getRoutes(),
         ];
     }
@@ -95,9 +95,6 @@ class ConfigProvider
     public function getDoctrine()
     {
         $helper = new ConfigProviderHelper();
-        return $helper->generate(
-            __NAMESPACE__,
-            __DIR__ . '/Entity'
-        );
+        return $helper->generate(__NAMESPACE__, __DIR__ . '/Entity');
     }
 }

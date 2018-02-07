@@ -1,10 +1,9 @@
 <?php
 
-namespace User\Factory;
+namespace User\Service;
 
 use Interop\Container\ContainerInterface;
 use Doctrine\ORM\EntityManager;
-use User\Service\RoleService;
 
 class RoleServiceFactory
 {

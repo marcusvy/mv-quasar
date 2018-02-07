@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Entity;
+namespace User\Model\Entity;
 
 use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="mv_user_role", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="mv_users_role_name_UNIQUE", columns={"name"})
  * })
- * @ORM\Entity(repositoryClass="User\Repository\UserRoleRepository")
+ * @ORM\Entity(repositoryClass="User\Model\Repository\UserRoleRepository")
  */
 class Role extends AbstractEntity
 {

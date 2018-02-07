@@ -1,10 +1,9 @@
 <?php
 
-namespace User\Factory;
+namespace User\Action;
 
 use Core\Mail\MailServiceInterface;
 use Interop\Container\ContainerInterface;
-use User\Action\RegisterPageAction;
 use User\Service\UserServiceInterface;
 
 class RegisterPageFactory

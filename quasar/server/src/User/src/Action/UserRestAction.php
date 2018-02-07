@@ -4,7 +4,7 @@ namespace User\Action;
 
 use Core\Action\AbstractRestAction;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
-use User\Entity\User;
+use User\Model\Entity\User;
 
 class UserRestAction extends AbstractRestAction implements MiddlewareInterface
 {

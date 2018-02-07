@@ -39,7 +39,7 @@ class ViewLogsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        if ($this->enabled){
+        if ($this->enabled) {
             $io->title('Logs');
 
             if (!is_null($this->entityManager)) {
@@ -54,7 +54,7 @@ class ViewLogsCommand extends Command
             } else {
                 $io->error("Quasar:: Doctrine not connected");
             }
-        }else {
+        } else {
             $io->error("Quasar:: Console not enabled");
         }
     }
