@@ -1,8 +1,7 @@
 <?php
 
-namespace Console\Factory;
+namespace Console\Command;
 
-use Console\Command\InstallCommand;
 use Interop\Container\ContainerInterface;
 use User\Service\UserServiceInterface;
 

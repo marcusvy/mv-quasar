@@ -1,6 +1,6 @@
 <?php
 
-namespace Console\Factory;
+namespace Console\Command;
 
 use Console\Command\ViewLogsCommand;
 use Doctrine\ORM\EntityManagerInterface;

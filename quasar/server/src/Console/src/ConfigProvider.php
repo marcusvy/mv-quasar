@@ -2,8 +2,6 @@
 
 namespace Console;
 
-use Core\Doctrine\Helper\ConfigProviderHelper;
-
 /**
  * The configuration provider for the Console module
  *
@@ -24,7 +22,6 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'console' => $this->getConsoleCommands(),
-//            'doctrine' => $this->getDoctrine(),
         ];
     }
 
@@ -38,9 +35,9 @@ class ConfigProvider
         return [
             'invokables' => [
             ],
-            'factories'  => [
-                Command\ViewLogsCommand::class => Factory\ViewLogsCommandFactory::class,
-                Command\InstallCommand::class => Factory\InstallCommandFactory::class,
+            'factories' => [
+                Command\ViewLogsCommand::class => Command\ViewLogsCommandFactory::class,
+                Command\InstallCommand::class => Command\InstallCommandFactory::class,
             ],
         ];
     }
@@ -48,7 +45,7 @@ class ConfigProvider
     public function getConsoleCommands()
     {
         return [
-            'commands'  => [
+            'commands' => [
                 Command\ViewLogsCommand::class,
                 Command\InstallCommand::class,
             ],
