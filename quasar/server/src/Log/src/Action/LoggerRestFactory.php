@@ -1,9 +1,8 @@
 <?php
 
-namespace Log\Factory;
+namespace Log\Action;
 
 use Interop\Container\ContainerInterface;
-use Log\Action\LoggerRestAction;
 use Log\Service\LoggerServiceInterface;
 use Zend\Expressive\Router\RouterInterface;
 

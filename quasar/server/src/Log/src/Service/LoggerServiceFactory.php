@@ -1,10 +1,9 @@
 <?php
 
-namespace Log\Factory;
+namespace Log\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Interop\Container\ContainerInterface;
-use Log\Service\LoggerService;
 
 class LoggerServiceFactory
 {

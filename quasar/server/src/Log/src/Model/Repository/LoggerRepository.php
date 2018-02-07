@@ -1,9 +1,8 @@
 <?php
 
-namespace Log\Repository;
+namespace Log\Model\Repository;
 
 use Core\Doctrine\ORM\AbstractEntityRepository;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * LoggerRepository

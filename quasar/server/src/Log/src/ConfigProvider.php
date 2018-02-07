@@ -24,7 +24,6 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'doctrine' => $this->getDoctrine(),
-            'templates' => $this->getTemplates(),
             'routes' => $this->getRoutes(),
         ];
     }
@@ -41,26 +40,10 @@ class ConfigProvider
 
             ],
             'factories' => [
-                Action\LoggerRestAction::class => Factory\LoggerRestFactory::class,
-                Middleware\LoggerMiddleware::class => Factory\LoggerMiddlewareFactory::class,
-                Service\LogServiceInterface::class => Factory\LogServiceFactory::class,
-                Service\LoggerServiceInterface::class => Factory\LoggerServiceFactory::class,
-            ],
-        ];
-    }
-
-    /**
-     * Returns the templates configuration
-     *
-     * @return array
-     */
-    public function getTemplates()
-    {
-        return [
-            'paths' => [
-                'app' => [__DIR__ . '/../templates/app'],
-                'error' => [__DIR__ . '/../templates/error'],
-                'layout' => [__DIR__ . '/../templates/layout'],
+                Action\LoggerRestAction::class => Action\LoggerRestFactory::class,
+                Middleware\LoggerMiddleware::class => Middleware\LoggerMiddlewareFactory::class,
+                Service\LogServiceInterface::class => Service\LogServiceFactory::class,
+                Service\LoggerServiceInterface::class => Service\LoggerServiceFactory::class,
             ],
         ];
     }
@@ -88,13 +71,13 @@ class ConfigProvider
     }
 
     /**
+     **
      * Returns the doctrine configuration
      *
      * @return array
      */
     public function getDoctrine()
     {
-        $helper = new ConfigProviderHelper();
-        return $helper->generate(__NAMESPACE__, __DIR__ . '/Entity');
+        return ConfigProviderHelper::generate(__NAMESPACE__, __DIR__ . '/Model/Entity');
     }
 }

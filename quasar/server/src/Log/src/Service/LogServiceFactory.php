@@ -1,11 +1,8 @@
 <?php
 
-namespace Log\Factory;
+namespace Log\Service;
 
 use Interop\Container\ContainerInterface;
-use Log\Service\LoggerServiceInterface;
-use Log\Service\LogService;
-use Log\Service\LogServiceInterface;
 
 class LogServiceFactory
 {

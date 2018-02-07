@@ -1,10 +1,9 @@
 <?php
 
-namespace Log\Factory;
+namespace Log\Middleware;
 
 use Interop\Container\ContainerInterface;
 use Log\Service\LogServiceInterface;
-use Log\Middleware\LoggerMiddleware;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 class LoggerMiddlewareFactory implements FactoryInterface

@@ -1,5 +1,5 @@
 <?php
-namespace Log\Entity;
+namespace Log\Model\Entity;
 
 use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * User
  *
  * @ORM\Table(name="mv_logger")
- * @ORM\Entity(repositoryClass="Log\Repository\LoggerRepository")
+ * @ORM\Entity(repositoryClass="Log\Model\Repository\LoggerRepository")
  */
 class Logger extends AbstractEntity
 {
