@@ -1,6 +1,6 @@
 <?php
 
-namespace Midia\Repository;
+namespace Midia\Model\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Midia\Entity;
+namespace Midia\Model\Entity;
 
 use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Video
  *
  * @ORM\Table(name="mv_midia_video")
- * @ORM\Entity(repositoryClass="Midia\Repository\VideoRepository")
+ * @ORM\Entity(repositoryClass="Midia\Model\Repository\VideoRepository")
  */
 class Video extends AbstractEntity
 {
