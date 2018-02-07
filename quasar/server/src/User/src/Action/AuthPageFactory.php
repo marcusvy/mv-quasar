@@ -4,10 +4,8 @@ namespace User\Factory;
 
 use Interop\Container\ContainerInterface;
 use User\Action\AuthPageAction;
-use User\Adapter\AuthAdapter;
 use User\Form\LoginForm;
 use User\Service\AuthServiceInterface;
-use User\Service\UserServiceInterface;
 
 class AuthPageFactory
 {

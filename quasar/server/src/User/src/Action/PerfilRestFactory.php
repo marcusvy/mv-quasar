@@ -6,7 +6,6 @@ use Interop\Container\ContainerInterface;
 use User\Action\PerfilRestAction;
 use User\Service\PerfilServiceInterface;
 use Zend\Expressive\Router\RouterInterface;
-use Doctrine\ORM\EntityManager;
 
 class PerfilRestFactory
 {

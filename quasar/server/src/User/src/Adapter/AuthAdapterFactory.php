@@ -5,7 +5,7 @@ namespace User\Factory;
 use Interop\Container\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use User\Adapter\AuthAdapter;
-use User\Entity\User;
+use User\Model\Entity\User;
 
 class AuthAdapterFactory
 {
