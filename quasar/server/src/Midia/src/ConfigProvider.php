@@ -3,7 +3,6 @@
 namespace Midia;
 
 use Core\Doctrine\Helper\ConfigProviderHelper;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 /**
  * The configuration provider for the Midia module
@@ -67,20 +66,6 @@ class ConfigProvider
      */
     public function getDoctrine()
     {
-        $config = new Confi
-        return [
-            'driver' => [
-                'orm_default' => [
-                    'drivers' => [
-                        __NAMESPACE__ . '\Model\Entity' => __NAMESPACE__ . 'Entity',
-                    ],
-                ],
-                __NAMESPACE__ . 'Entity' => [
-                    'class' => AnnotationDriver::class,
-                    'cache' => 'array',
-                    'paths' => __DIR__ . '/Model/Entity',
-                ],
-            ],
-        ];
+        return ConfigProviderHelper::generate(__NAMESPACE__, __DIR__ . '/Model/Entity');
     }
 }

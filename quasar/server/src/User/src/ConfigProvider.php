@@ -2,7 +2,7 @@
 
 namespace User;
 
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Core\Doctrine\Helper\ConfigProviderHelper;
 
 /**
  * The configuration provider for the User module
@@ -70,7 +70,7 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories' => [
-                Form\Fieldset\RoleFieldset::class => Factory\RoleFieldsetFactory::class,
+                Form\Fieldset\RoleFieldset::class => Form\Fieldset\RoleFieldsetFactory::class,
             ],
         ];
     }
@@ -147,25 +147,13 @@ class ConfigProvider
     }
 
     /**
+     **
      * Returns the doctrine configuration
      *
      * @return array
      */
     public function getDoctrine()
     {
-        return [
-            'driver' => [
-                'orm_default' => [
-                    'drivers' => [
-                        __NAMESPACE__.'\Model\Entity' => __NAMESPACE__.'Entity',
-                    ],
-                ],
-                __NAMESPACE__.'Entity' => [
-                    'class' => AnnotationDriver::class,
-                    'cache' => 'array',
-                    'paths' => __DIR__ . '/Model/Entity',
-                ],
-            ],
-        ];
+        return ConfigProviderHelper::generate(__NAMESPACE__, __DIR__ . '/Model/Entity');
     }
 }

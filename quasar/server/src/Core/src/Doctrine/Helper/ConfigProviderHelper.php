@@ -2,14 +2,14 @@
 
 namespace Core\Doctrine\Helper;
 
-use \Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 /**
  * Helper for ConfigProvider
  */
 class ConfigProviderHelper
 {
-    public function generate($namespace, $paths)
+    static public function generate($namespace, $paths)
     {
         return [
         'driver' => [
