@@ -2,7 +2,7 @@
 namespace Log\Service;
 
 use Core\Service\AbstractService;
-use Log\Entity\Logger;
+use Log\Model\Entity\Logger;
 
 class LoggerService extends AbstractService implements LoggerServiceInterface
 {

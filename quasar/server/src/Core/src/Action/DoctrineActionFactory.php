@@ -8,12 +8,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 class DoctrineActionFactory implements FactoryInterface
 {
-    /**
-     * @param ContainerInterface $container
-     * @param string $requestedName
-     * @param null|array $options
-     * @return DoctrineAction
-     */
+
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /** @var EntityManagerInterface $entityManager */

@@ -33,4 +33,5 @@ $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
 
 $app->injectRoutesFromConfig((new Core\ConfigProvider())());
 $app->injectRoutesFromConfig((new Log\ConfigProvider())());
+$app->injectRoutesFromConfig((new Midia\ConfigProvider())());
 $app->injectRoutesFromConfig((new User\ConfigProvider())());
