@@ -24,6 +24,7 @@ export class ControlFileComponent
   @Input() ariaDescribedby;
   @Input() ariaLabelledby;
 
+  // files: { file: File, reader: string}[] = [];
   files: File[] = [];
 
   // @Input('class') classCss = null;
@@ -47,7 +48,6 @@ export class ControlFileComponent
 
   onChange(event: any) {
     this.populateFiles(event.target.files);
-    // this.onUpload(this.files);
     this.onUpload();
   }
 
@@ -55,7 +55,6 @@ export class ControlFileComponent
     this._touch.next(result);
   }
 
-  // onUpload(files: File[]) {
   onUpload() {
     this._value.next(this.files);
     this.errorInvalid = this._control.invalid;
@@ -63,7 +62,8 @@ export class ControlFileComponent
 
   private populateFiles(files: FileList) {
     for (let $x = 0; $x < files.length; $x++) {
-      this.files.push(files.item($x));
+      let file = files.item($x);
+      this.files.push(file);
     }
   }
 }

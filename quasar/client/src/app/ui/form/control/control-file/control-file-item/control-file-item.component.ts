@@ -36,7 +36,7 @@ export class ControlFileItemComponent implements OnInit {
   }
 
   private getImageDataURL() {
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.file);
     reader.onload = (e: ProgressEvent) => {
       let target: any = e.target;

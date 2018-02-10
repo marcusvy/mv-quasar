@@ -14,180 +14,207 @@ use Doctrine\ORM\Mapping as ORM;
 class Image extends AbstractEntity
 {
 
-  /**
-   * @var integer
-   *
-   * @ORM\Column(name="id", type="integer", nullable=false)
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="IDENTITY")
-   */
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $id;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="title", type="string", length=255, nullable=false)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     */
     private $title;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="description", type="string", length=255, nullable=true)
-   */
-    private $description;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description = '';
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="uri", type="text", length=65535, nullable=false)
-   */
-    private $uri;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="uri", type="text", length=65535, nullable=true)
+     */
+    private $uri = null;
 
-  /**
-   * @var integer
-   *
-   * @ORM\Column(name="width", type="integer", nullable=true)
-   */
-    private $width;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="width", type="integer", nullable=true)
+     */
+    private $width = null;
 
-  /**
-   * @var integer
-   *
-   * @ORM\Column(name="height", type="integer", nullable=true)
-   */
-    private $height;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="height", type="integer", nullable=true)
+     */
+    private $height = null;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="format", type="string", length=10, nullable=true)
-   */
-    private $format;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="size", type="integer", nullable=true)
+     */
+    private $size = null;
 
-  /**
-   * @return int
-   */
-    public function getId(): int
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", nullable=true)
+     */
+    private $type = null;
+
+    /**
+     * @return int
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-  /**
-   * @param int $id
-   * @return Image
-   */
-    public function setId(int $id): Image
+    /**
+     * @param int $id
+     * @return Image
+     */
+    public function setId($id): Image
     {
         $this->id = $id;
         return $this;
     }
 
-  /**
-   * @return string
-   */
-    public function getTitle(): string
+    /**
+     * @return string
+     */
+    public function getTitle()
     {
         return $this->title;
     }
 
-  /**
-   * @param string $title
-   * @return Image
-   */
-    public function setTitle(string $title): Image
+    /**
+     * @param string $title
+     * @return Image
+     */
+    public function setTitle($title): Image
     {
         $this->title = $title;
         return $this;
     }
 
-  /**
-   * @return string
-   */
-    public function getDescription(): string
+    /**
+     * @return string
+     */
+    public function getDescription()
     {
         return $this->description;
     }
 
-  /**
-   * @param string $description
-   * @return Image
-   */
-    public function setDescription(string $description): Image
+    /**
+     * @param string $description
+     * @return Image
+     */
+    public function setDescription($description = ''): Image
     {
         $this->description = $description;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getUri(): string
     {
         return $this->uri;
     }
 
-  /**
-   * @param string $uri
-   * @return Image
-   */
-    public function setUri(string $uri): Image
+    /**
+     * @param string $uri
+     * @return Image
+     */
+    public function setUri($uri = ''): Image
     {
         $this->uri = $uri;
         return $this;
     }
 
-  /**
-   * @return int
-   */
-    public function getWidth(): int
+    /**
+     * @return int
+     */
+    public function getWidth()
     {
         return $this->width;
     }
 
-  /**
-   * @param int $width
-   * @return Image
-   */
-    public function setWidth(int $width): Image
+    /**
+     * @param int $width
+     * @return Image
+     */
+    public function setWidth($width = null): Image
     {
         $this->width = $width;
         return $this;
     }
 
-  /**
-   * @return int
-   */
-    public function getHeight(): int
+    /**
+     * @return int
+     */
+    public function getHeight()
     {
         return $this->height;
     }
 
-  /**
-   * @param int $height
-   * @return Image
-   */
-    public function setHeight(int $height): Image
+    /**
+     * @param int $height
+     * @return Image
+     */
+    public function setHeight($height = null): Image
     {
         $this->height = $height;
         return $this;
     }
 
-  /**
-   * @return string
-   */
-    public function getFormat(): string
+    /**
+     * @return int
+     */
+    public function getSize()
     {
-        return $this->format;
+        return $this->size;
     }
 
-  /**
-   * @param string $format
-   * @return Image
-   */
-    public function setFormat(string $format): Image
+    /**
+     * @param int $size
+     * @return Image
+     */
+    public function setSize($size = null): Image
     {
-        $this->format = $format;
+        $this->size = $size;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return Image
+     */
+    public function setType($type): Image
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+
 }

@@ -1,5 +1,20 @@
-<mv-form [formGroup]="formUpload">
+<mv-form [formGroup]="formFile">
   <mv-control formControlName="midia">
     <mv-control-file mvControl></mv-control-file>
   </mv-control>
 </mv-form>
+<mv-form [formGroup]="formDetail">
+  <mv-control>
+    <label for="title">Título</label>
+    <input id="title" type="text" formControlName="title">
+  </mv-control>
+  <mv-control>
+    <label for="description">Descrição</label>
+    <input id="description" type="text" formControlName="description">
+  </mv-control>
+</mv-form>
+<mv-row>
+  <mv-col class="is-align-center">
+    <button mv-btn (click)="upload($event)">Enviar</button>
+  </mv-col>
+</mv-row>

@@ -21,21 +21,21 @@ class ImageFileFieldset extends Fieldset implements InputFilterProviderInterface
 
     public function getInputFilterSpecification()
     {
-        $filter = new RealPath(true);
-        $date = new \DateTime('now');
-        $target = sprintf('public/local/image/%s/%s', $date->format('Y'), $date->format('m'));
-        if (!$filter->filter($target)) {
-            mkdir($target, 0755, true);
-        }
+//        $filter = new RealPath(true);
+//        $date = new \DateTime('now');
+//        $target = sprintf('public/local/image/%s/%s', $date->format('Y'), $date->format('m'));
+//        if (!$filter->filter($target)) {
+//            mkdir($target, 0755, true);
+//        }
         return [
             'image' => [
                 'required' => false,
                 'filters' => [
-                    (new Filter\File\RenameUpload())
-                        ->setTarget($target)
-                        ->setOverwrite(true)
-                        ->setRandomize(true)
-                        ->setUseUploadExtension(true)
+//                    (new Filter\File\RenameUpload())
+//                        ->setTarget($target)
+//                        ->setOverwrite(true)
+//                        ->setRandomize(true)
+//                        ->setUseUploadExtension(true)
                 ],
                 'validators' => [
                     (new Validator\File\IsImage()),

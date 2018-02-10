@@ -28,6 +28,25 @@ export class QuasarConfigService {
             fetch: (id) => `/api/user-role/${id}`,
           }
         }
+      },
+      midia: {
+        children: {
+          audio: {
+            default: '/api/midia/audio',
+            list: (page = 1) => { `/api/midia/audio/list/${page}` },
+            fetch: (id) => `/api/midia/audio/{id}`,
+          },
+          image: {
+            default: '/api/midia/image',
+            list: (page = 1) => { `/api/midia/image/list/${page}` },
+            fetch: (id) => `/api/midia/image/{id}`,
+          },
+          video: {
+            default: '/api/midia/video',
+            list: (page = 1) => { `/api/midia/video/list/${page}` },
+            fetch: (id) => `/api/midia/video/{id}`,
+          },
+        }
       }
     };
   }
