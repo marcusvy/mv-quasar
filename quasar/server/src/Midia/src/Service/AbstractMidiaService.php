@@ -12,7 +12,6 @@ abstract class AbstractMidiaService extends AbstractService implements ServiceIn
     public function delete($id)
     {
         try {
-
             /** @var MidiaEntityInterface $entity */
             $entity = $this->getEntityManger()->getReference($this->entity, $id);
             if ($entity) {

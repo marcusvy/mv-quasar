@@ -1,58 +1,29 @@
 <?php
+
 namespace User\Form;
 
-use Zend\Form\Element\Text;
+use User\Form\Fieldset\UserFieldsetTrait;
+use User\Model\Entity\User;
 use Zend\Form\Form;
+Use Zend\Hydrator;
+use Zend\InputFilter\InputFilterProviderInterface;
 
-class UserForm extends Form
+
+class UserForm extends Form implements InputFilterProviderInterface
 {
+
+    use UserFieldsetTrait;
+
     public function init()
     {
+        $this->setHydrator(new Hydrator\ClassMethods(false));
+        $this->setObject(new User());
 
-        $this->add([
-            'name' => 'credential',
-            'type' => Text::class
-        ]);
+        $this->initUserFieldset();
+    }
 
-        $this->add([
-            'name' => 'email',
-            'type' => Text::class
-        ]);
-
-        $this->add([
-            'name' => 'password',
-            'type' => Text::class
-        ]);
-
-        $this->add([
-            'name' => 'status',
-            'type' => Text::class
-        ]);
-
-        $this->add([
-            'name' => 'active',
-            'type' => Text::class
-        ]);
-
-        $this->add([
-            'name' => 'perfil',
-            'type' => Text::class
-        ]);
-
-        $this->add([
-            'name' => 'role',
-            'type' => Text::class
-        ]);
-
-
-//        $this->add([
-//        'name'=> 'role',
-//        'type'=> Fieldset\RoleFieldset::class,
-//        ]);
-    //
+    public function getInputFilterSpecification()
+    {
+        return $this->getInputFilterUserFieldset();
     }
 }
-
-/**
- * @todo form on viewhelper
- */

@@ -74,34 +74,6 @@ class Perfil extends AbstractEntity
   /**
    * @var string
    *
-   * @ORM\Column(name="phone_personal", type="string", length=12, nullable=true)
-   */
-    private $phonePersonal;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="phone_home", type="string", length=12, nullable=true)
-   */
-    private $phoneHome;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="phone_work", type="string", length=12, nullable=true)
-   */
-    private $phoneWork;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="postal_code", type="string", length=12, nullable=true)
-   */
-    private $postalCode;
-
-  /**
-   * @var string
-   *
    * @ORM\Column(name="city", type="string", length=50, nullable=true)
    */
     private $city;
@@ -127,8 +99,37 @@ class Perfil extends AbstractEntity
    */
     private $sociallinks;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact_phone_personal", type="string", length=12, nullable=true)
+     */
+    private $contactPhonePersonal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact_phone_home", type="string", length=12, nullable=true)
+     */
+    private $contactPhoneHome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact_phone_work", type="string", length=12, nullable=true)
+     */
+    private $contactPhoneWork;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postal_code", type="string", length=12, nullable=true)
+     */
+    private $postalCode;
+
   /**
-   * @var \Midia\Entity\Image
+   * @var \Midia\Model\Entity\Image
    *
    * @ORM\Column(nullable=true)
    * @ORM\ManyToOne(targetEntity="Midia\Entity\Image")
@@ -282,59 +283,6 @@ class Perfil extends AbstractEntity
         return $this;
     }
 
-  /**
-   * @return string
-   */
-    public function getPhonePersonal()
-    {
-        return $this->phonePersonal;
-    }
-
-  /**
-   * @param string $phonePersonal
-   * @return Perfil
-   */
-    public function setPhonePersonal(string $phonePersonal): Perfil
-    {
-        $this->phonePersonal = $phonePersonal;
-        return $this;
-    }
-
-  /**
-   * @return string
-   */
-    public function getPhoneHome()
-    {
-        return $this->phoneHome;
-    }
-
-  /**
-   * @param string $phoneHome
-   * @return Perfil
-   */
-    public function setPhoneHome(string $phoneHome): Perfil
-    {
-        $this->phoneHome = $phoneHome;
-        return $this;
-    }
-
-  /**
-   * @return string
-   */
-    public function getPhoneWork()
-    {
-        return $this->phoneWork;
-    }
-
-  /**
-   * @param string $phoneWork
-   * @return Perfil
-   */
-    public function setPhoneWork(string $phoneWork): Perfil
-    {
-        $this->phoneWork = $phoneWork;
-        return $this;
-    }
 
   /**
    * @return string
@@ -426,8 +374,62 @@ class Perfil extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getContactPhonePersonal()
+    {
+        return $this->contactPhonePersonal;
+    }
+
+    /**
+     * @param string $phonePersonal
+     * @return Perfil
+     */
+    public function setContactPhonePersonal(string $phonePersonal): Perfil
+    {
+        $this->contactPhonePersonal = $phonePersonal;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactPhoneHome()
+    {
+        return $this->contactPhoneHome;
+    }
+
+    /**
+     * @param string $phoneHome
+     * @return Perfil
+     */
+    public function setContactPhoneHome(string $phoneHome): Perfil
+    {
+        $this->contactPhoneHome = $phoneHome;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactPhoneWork()
+    {
+        return $this->contactPhoneWork;
+    }
+
+    /**
+     * @param string $phoneWork
+     * @return Perfil
+     */
+    public function setContactPhoneWork(string $phoneWork): Perfil
+    {
+        $this->contactPhoneWork = $phoneWork;
+        return $this;
+    }
+
   /**
-   * @return \Midia\Entity\Image
+   * @return \Midia\Model\Entity\Image
    */
     public function getAvatar()
     {
@@ -435,10 +437,10 @@ class Perfil extends AbstractEntity
     }
 
   /**
-   * @param \Midia\Entity\Image $avatar
+   * @param \Midia\Model\Entity\Image $avatar
    * @return Perfil
    */
-    public function setAvatar(\Midia\Entity\Image $avatar): Perfil
+    public function setAvatar(\Midia\Model\Entity\Image $avatar=null): Perfil
     {
         $this->avatar = $avatar;
         return $this;

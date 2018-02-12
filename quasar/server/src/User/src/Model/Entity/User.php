@@ -36,14 +36,14 @@ class User extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="credential", type="string", length=255, nullable=false)
+     * @ORM\Column(name="credential", type="string", length=80, nullable=false)
      */
     private $credential;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @ORM\Column(name="email", type="string", length=80, nullable=false)
      */
     private $email;
 
@@ -99,6 +99,7 @@ class User extends AbstractEntity
     /**
      * @var Perfil
      *
+     * @ORM\Column(name="fk_perfil", nullable=true)
      * @ORM\ManyToOne(targetEntity="Perfil")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_perfil", referencedColumnName="id")

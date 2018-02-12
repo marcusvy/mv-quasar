@@ -70,7 +70,7 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories' => [
-                Form\Fieldset\RoleFieldset::class => Form\Fieldset\RoleFieldsetFactory::class,
+                Form\Fieldset\RoleFieldsetTrait::class => Form\Fieldset\RoleFieldsetFactory::class,
             ],
         ];
     }

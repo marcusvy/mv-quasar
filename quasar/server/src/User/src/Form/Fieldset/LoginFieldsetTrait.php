@@ -3,28 +3,18 @@
 namespace User\Form\Fieldset;
 
 use Zend\Filter;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\Hydrator;
-use User\Model\Entity\User;
+use Zend\Form\Element\Password;
+use Zend\Form\Element\Text;
 use Zend\Validator;
 
-class LoginFieldset extends Fieldset implements InputFilterProviderInterface
+trait LoginFieldsetTrait
 {
-    protected $serviceLocator;
 
-    /**
-     * Inicialização
-     */
-    public function init()
+    public function initLoginFieldset()
     {
-
-        $this->setHydrator(new Hydrator\ClassMethods(false));
-        $this->setObject(new User());
-
         $this->add([
             'name' => 'credential',
-            'type' => 'Text',
+            'type' => Text::class,
             'required' => true,
             'options' => [
                 'label' => 'Credencial'
@@ -33,7 +23,7 @@ class LoginFieldset extends Fieldset implements InputFilterProviderInterface
 
         $this->add([
             'name' => 'password',
-            'type' => 'Password',
+            'type' => Password::class,
             'required' => true,
             'options' => [
                 'label' => 'Senha'
@@ -41,7 +31,7 @@ class LoginFieldset extends Fieldset implements InputFilterProviderInterface
         ]);
     }
 
-    public function getInputFilterSpecification()
+    public function getInputFilterLoginFieldset()
     {
         return [
 
