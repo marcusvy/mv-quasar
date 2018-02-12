@@ -1,10 +1,9 @@
 <?php
 namespace Midia\Service;
 
-use Core\Service\AbstractService;
 use Midia\Model\Entity\Image;
 
-class ImageService extends AbstractService implements ImageServiceInterface
+class ImageService extends AbstractMidiaService implements ImageServiceInterface
 {
     protected $entity = Image::class;
 }

@@ -8,8 +8,9 @@
 
 namespace Midia\Model\Entity;
 
+use Core\Doctrine\EntityInterface;
 
-interface MidiaEntityInterface
+interface MidiaEntityInterface extends EntityInterface
 {
     /**
      * @return string|array

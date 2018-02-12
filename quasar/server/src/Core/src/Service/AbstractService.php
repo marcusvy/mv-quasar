@@ -5,6 +5,7 @@ namespace Core\Service;
 use Core\Doctrine\ORM\AbstractEntityRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityNotFoundException;
 use Zend\Hydrator;
 
 abstract class AbstractService implements ServiceInterface
@@ -54,10 +55,14 @@ abstract class AbstractService implements ServiceInterface
 
     public function paginate($page, $resultsPerPage = 10)
     {
-        /** @var AbstractEntityRepository $repo */
-        $repo = $this->getEntityManger()->getRepository($this->entity);
-        $paginator = $repo->findAllPaginate($page, $resultsPerPage);
-        return $paginator;
+        try {
+            /** @var AbstractEntityRepository $repo */
+            $repo = $this->getEntityManger()->getRepository($this->entity);
+            $paginator = $repo->findAllPaginate($page, $resultsPerPage);
+            return $paginator;
+        } catch (EntityNotFoundException $e) {
+            return [];
+        }
     }
 
     public function searchBy($column, $search)
@@ -89,21 +94,27 @@ abstract class AbstractService implements ServiceInterface
 
     public function update($id, $data)
     {
-        $entity = $this->getEntityManger()->getReference($this->entity, $id);
-        (new Hydrator\ClassMethods(false))->hydrate($data, $entity);
-        $this->getEntityManger()->persist($entity);
-        $this->getEntityManger()->flush();
+        try {
+            $entity = $this->getEntityManger()->getReference($this->entity, $id);
+            (new Hydrator\ClassMethods(false))->hydrate($data, $entity);
+            $this->getEntityManger()->persist($entity);
+            $this->getEntityManger()->flush();
+        } catch (EntityNotFoundException $e) {
+        }
         return $entity;
     }
 
     public function delete($id)
     {
-        $entity = $this->getEntityManger()->getReference($this->entity, $id);
-        if ($entity) {
-            $cacheEntity = $entity->toArray();
-            $this->getEntityManger()->remove($entity);
-            $this->getEntityManger()->flush();
-            return $cacheEntity;
+        try {
+            $entity = $this->getEntityManger()->getReference($this->entity, $id);
+            if ($entity) {
+                $cacheEntity = $entity->toArray();
+                $this->getEntityManger()->remove($entity);
+                $this->getEntityManger()->flush();
+                return $cacheEntity;
+            }
+        } catch (EntityNotFoundException $e) {
         }
         return 0;
     }
