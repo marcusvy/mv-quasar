@@ -5,6 +5,7 @@ namespace Midia\Action;
 use Core\Action\AbstractRestAction;
 use Core\Service\ServiceInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
+use Midia\Model\Entity\MidiaEntityInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Expressive\Router;
@@ -30,34 +31,25 @@ abstract class AbstractMidiaRestAction
      */
     public function createAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        $contentType = $request->getHeader('Content-Type');
-        $data = [];
-        $entity = false;
-        if ($contentType[0] == 'application/json') {
-            $data = Json::decode($request->getBody(), Json::TYPE_ARRAY);
-        }
-        if ($contentType[0] == 'application/x-www-form-urlencoded') {
-            $data = $request->getQueryParams();
-        }
         if (!is_null($this->form)) {
-            $this->form->setData($data);
+            /** @var MidiaEntityInterface $midia */
+            $midia = new $this->entity($request->getParsedBody());
+            $midia->setFile($_FILES['file']);
+            $this->form->bind($midia);
         }
         if ($this->form->isValid()) {
-            $data = $this->form->getData();
-            var_dump($data);
-//            $entity = $this->service->create($data);
-        }
-        if ($entity) {
-            return new JsonResponse([
-                'success' => true,
-                'collection' => $entity->toArray(),
-            ]);
+            $entity = $this->service->create($this->form->getData()->toArray());
+            if ($entity) {
+                return new JsonResponse([
+                    'success' => true,
+                    'collection' => $entity->toArray(),
+                ], self::STATUS_CREATED);
+            }
         }
         return new JsonResponse([
             'success' => false,
-            'message' => 'Server Error',
-            'debug' => $data
-        ], 505);
+            'message' => $this->form->getMessages(),
+        ], self::STATUS_OK);
     }
 
     /**

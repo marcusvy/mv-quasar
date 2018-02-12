@@ -5,6 +5,7 @@ namespace Core\Action;
 use Core\Doctrine\AbstractEntity;
 use Core\Service\ServiceInterface;
 
+use Fig\Http\Message\StatusCodeInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,7 +15,7 @@ use Zend\Form\Fieldset;
 use Zend\Json\Json;
 use Zend\Form\FormInterface;
 
-abstract class AbstractRestAction implements RestActionInterface, MiddlewareInterface
+abstract class AbstractRestAction implements RestActionInterface, MiddlewareInterface, StatusCodeInterface
 {
     /** @var Router/RouterInterface */
     protected $router;

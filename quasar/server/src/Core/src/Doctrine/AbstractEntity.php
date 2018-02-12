@@ -3,11 +3,12 @@
 namespace Core\Doctrine;
 
 use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\HydratorAwareInterface;
+use Zend\Hydrator\HydratorAwareTrait;
 
-abstract class AbstractEntity implements EntityInterface
+abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
 {
-    /** @var ClassMethods */
-    protected $hydrator;
+    use HydratorAwareTrait;
 
     /**
      * @param array $options
@@ -31,13 +32,14 @@ abstract class AbstractEntity implements EntityInterface
     {
         $hydrator = new ClassMethods();
         $result = $hydrator->extract($this);
+        unset($result['hydrator']);
         return $result;
     }
 
     /**
      * Populate on form validation
      * @param $data
-     * @return EntityInterface
+     * @return array|object
      */
     public function exchangeArray($data)
     {

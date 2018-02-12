@@ -1,38 +1,41 @@
 <?php
 
-namespace Midia\Form\Fieldset;
+namespace Midia\Form;
 
+use Core\Filter\FilePathTrait;
 use Zend\Filter;
 use Zend\Form\Element\File;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator;
 
-class AudioFileFieldset extends Fieldset implements InputFilterProviderInterface
+trait ImageFileTrait
 {
+    use FilePathTrait;
 
-    public function init()
+    public function initImageFile()
     {
         $this->add([
-            'name' => 'audio',
+            'name' => 'file',
             'type' => File::class
         ]);
     }
 
-    public function getInputFilterSpecification()
+    public function getInputFilterImageFile($directory = 'public/local/midia', $type = 'image')
     {
+        $target = $this->checkTarget($directory, $type);
+
         return [
-            'audio' => [
+            'file' => [
                 'required' => false,
                 'filters' => [
                     (new Filter\File\RenameUpload())
-                        ->setTarget('public/local/audio')
+                        ->setTarget($target)
                         ->setOverwrite(true)
                         ->setRandomize(true)
                         ->setUseUploadExtension(true)
                 ],
                 'validators' => [
-                    (new Validator\File\Extension())->setExtension(['ogg', 'mp3']),
+                    (new Validator\File\IsImage()),
+                    (new Validator\File\Extension(['gif', 'jpg', 'jpeg', 'png', 'svg', 'tiff']))
                 ]
             ]
         ];

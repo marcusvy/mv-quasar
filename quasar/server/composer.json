@@ -8,7 +8,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^5.6 || ^7.1",
+        "php": "^7.2",
         "dasprid/container-interop-doctrine": "^1.1",
         "http-interop/http-middleware": "^0.4.1",
         "lcobucci/jwt": "^3.2",
