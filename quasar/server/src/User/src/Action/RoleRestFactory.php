@@ -2,8 +2,9 @@
 
 namespace User\Action;
 
-use Interop\Container\ContainerInterface;
+use User\Form\RoleForm;
 use User\Service\RoleServiceInterface;
+use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 
 class RoleRestFactory
@@ -12,7 +13,9 @@ class RoleRestFactory
     {
         $router   = $container->get(RouterInterface::class);
         $service = $container->get(RoleServiceInterface::class);
+        $formElementManager = $container->get('FormElementManager');
+        $form = $formElementManager->get(RoleForm::class);
 
-        return new RoleRestAction($router, $service);
+        return new RoleRestAction($router, $service, $form);
     }
 }

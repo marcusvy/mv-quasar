@@ -14,6 +14,7 @@ use Zend\Expressive\Router;
 use Zend\Form\Fieldset;
 use Zend\Json\Json;
 use Zend\Form\FormInterface;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 abstract class AbstractRestAction implements RestActionInterface, MiddlewareInterface, StatusCodeInterface
 {
@@ -80,17 +81,26 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     public function getAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $id = ($request->getAttribute($this->primaryColumn)) ? (int)$request->getAttribute($this->primaryColumn) : 0;
-        $entity = $this->service->get($id);
-        if ($entity) {
-            return new JsonResponse([
-                'success' => true,
-                'collection' => [$entity->toArray()],
-            ]);
+        $result = $this->service->get($id);
+        $collection = [];
+        $success = false;
+        $message = '';
+        $status = 404;
+
+        if (!$result->hasError()) {
+            $status = 200;
+            $success = true;
+            $entity = $result->getFirstResult();
+            $collection = $entity->toArray();
+        } else {
+            $message = $result->getError()->getMessage();
         }
+
         return new JsonResponse([
-            'success' => false,
-            'message' => 'Not found!'
-        ], 404);
+            'success' => $success,
+            'collection' => $collection,
+            'message' => $message,
+        ], $status);
     }
 
     /**
@@ -100,24 +110,43 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
      */
     public function listAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        //    $collection = $this->service->list();
-
         $page = is_null($request->getAttribute('page')) ? 1 : $request->getAttribute('page');
         $resultsPerPage = 10;
-        $paginator = $this->service->paginate($page, $resultsPerPage);
-        $interator = $paginator->getIterator();
-        $total = $paginator->count();
-        $perpage = $interator->count();
-        $pages = ($total > 0) ? ceil($total / $perpage) : 1;
+        $result = $this->service->paginate($page, $resultsPerPage);
+
+        $collection = [];
+        $message = '';
+        $status = 404;
+
+        if (!$result->hasError()) {
+            $paginator = $result->getFirstResult();
+            $interator = $paginator->getIterator();
+            $total = $paginator->count();
+            $perpage = $interator->count();
+            $pages = ($total > 0) ? ceil($total / $perpage) : 1;
+
+            $message = 'Done';
+
+            return new JsonResponse([
+                'success' => true,
+                'pagination' => [
+                    'pages' => $pages,
+                    'current' => $page,
+                    'perpage' => $perpage,
+                    'total' => $total,
+                ],
+                'collection' => $interator->getArrayCopy(),
+                'message' => 'Done'
+            ]);
+        } else {
+            $message = $result->getError()->getMessage();
+        }
 
         return new JsonResponse([
-            'success' => true,
-            'pages' => $pages,
-            'current' => $page,
-            'perpage' => $perpage,
-            'total' => $total,
-            'collection' => $interator->getArrayCopy()
-        ]);
+            'success' => false,
+            'collection' => $collection,
+            'message' => $message,
+        ], $status);
     }
 
     /**
@@ -128,21 +157,24 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     public function searchAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $data = $request->getQueryParams();
+        $result = $this->service->search($data);
+        $collection = [];
+        $success = false;
+        $message = '';
+        $status = 404;
 
-
-        if (isset($data['for']) && isset($data['in'])) {
-            // @todo: gerar um mapeamento de colunas por número
-            $collection = $this->service->searchBy($data['in'], $data['for']);
-
-            return new JsonResponse([
-                'success' => true,
-                'collection' => $collection,
-            ]);
+        if (!$result->hasError()) {
+            $success = true;
+            $collection = $result->getResult();
+        } else {
+            $message = $result->getError()->getMessage();
         }
+
         return new JsonResponse([
-            'success' => false,
-            'message' => 'Server Error'
-        ], 500); //505
+            'success' => $success,
+            'collection' => $collection,
+            'message' => $message,
+        ], $status);
     }
 
     /**
@@ -152,33 +184,37 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
      */
     public function createAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        $contentType = $request->getHeader('Content-Type');
-        $data = [];
-        $entity = false;
-        if ($contentType[0] == 'application/json') {
-            $data = Json::decode($request->getBody(), Json::TYPE_ARRAY);
-        }
-        if ($contentType[0] == 'application/x-www-form-urlencoded') {
-            $data = $request->getQueryParams();
-        }
+        $data = $this->extractRequestData($request);
+        $collection = [];
+        $success = false;
+        $message = 'Form not provided';
+        $status = 505;
+
+
         if (!is_null($this->form)) {
             $this->form->setData($data);
-        }
-        if ($this->form->isValid()) {
-            $data = $this->form->getData();
-            $entity = $this->service->create($data);
-        }
-        if ($entity) {
-            return new JsonResponse([
-                'success' => true,
-                'collection' => $entity->toArray(),
-            ]);
+
+            if ($this->form->isValid()) {
+                $data = $this->form->getData();
+                $result = $this->service->create($data);
+                if (!$result->hasError()) {
+                    $entity = $result->getFirstResult();
+                    $success = true;
+                    $collection = $entity->toArray();
+                    $message = 'Done';
+                    $status = 200;
+                } else {
+                    $message = ($result->getError() instanceof UniqueConstraintViolationException)
+                        ? 'Duplicate entry'
+                        : $result->getError()->getMessage();
+                }
+            }
         }
         return new JsonResponse([
-            'success' => false,
-            'message' => 'Server Error',
-            'debug' => $data
-        ], 505);
+            'success' => $success,
+            'message' => $message,
+            'collection' => $collection,
+        ], $status);
     }
 
     /**
@@ -189,39 +225,37 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     public function updateAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $id = ($request->getAttribute($this->primaryColumn)) ? (int)$request->getAttribute($this->primaryColumn) : 0;
-        $contentType = $request->getHeader('Content-Type');
-        $data = [];
-        $entity = false;
-        if ($contentType[0] == 'application/json') {
-            $data = Json::decode($request->getBody(), Json::TYPE_ARRAY);
-        }
-        if ($contentType[0] == 'application/x-www-form-urlencoded') {
-            $data = $request->getQueryParams();
-        }
+        $data = $this->extractRequestData($request);
+        $collection = [];
+        $success = false;
+        $message = 'Server Error';
+        $status = 505;
+
         if ($id) {
             if (!is_null($this->form)) {
                 $this->form->setData($data);
             }
             if ($this->form->isValid()) {
                 $data = $this->form->getData();
-                $entity = $this->service->update($id, $data);
-            }
-            if ($entity) {
-                return new JsonResponse([
-                    'success' => true,
-                    'collection' => $entity->toArray(),
-                ]);
+                $result = $this->service->update($id, $data);
+
+                if (!$result->hasError()) {
+                    $entity = $result->getFirstResult();
+                    $success = true;
+                    $collection = $entity->toArray();
+                    $message = 'Done';
+                    $status = 200;
+                }
             }
         } else {
-            return new JsonResponse([
-                'success' => false,
-                'message' => 'You must identify'
-            ], 404);
+            $message = 'You must identify';
+            $status = 404;
         }
         return new JsonResponse([
-            'success' => false,
-            'message' => 'Server Error'
-        ], 505);
+            'success' => $success,
+            'collection' => $collection,
+            'message' => $message,
+        ], $status);
     }
 
     /**
@@ -233,23 +267,43 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     {
         $id = ($request->getAttribute($this->primaryColumn)) ? (int)$request->getAttribute($this->primaryColumn) : 0;
 
+        $collection = [];
+        $success = false;
+        $message = 'Server Error';
+        $status = 505;
+
         if ($id) {
-            $entity = $this->service->delete($id);
-            if ($entity) {
-                return new JsonResponse([
-                    'success' => true,
-                    'collection' => $entity,
-                ]);
+            $result = $this->service->delete($id);
+
+            if (!$result->hasError()) {
+                $entity = $result->getFirstResult();
+                $success = true;
+                $collection = $entity->toArray();
+                $message = 'Done';
+                $status = 200;
             }
         } else {
-            return new JsonResponse([
-                'success' => false,
-                'message' => 'You must identify'
-            ], 404);
+            $message = 'You must identify';
+            $status = 404;
         }
         return new JsonResponse([
-            'success' => false,
-            'message' => 'Server Error'
-        ], 505);
+            'success' => $success,
+            'collection' => $collection,
+            'message' => $message,
+        ], $status);
+    }
+
+    public function extractRequestData(ServerRequestInterface $request)
+    {
+        $data = [];
+        $ct = $request->getHeader('Content-Type');
+        $contentType = array_shift($ct);
+        if ($contentType == 'application/json') {
+            $data = Json::decode($request->getBody(), Json::TYPE_ARRAY);
+        }
+        if ($contentType == 'application/x-www-form-urlencoded') {
+            $data = $request->getQueryParams();
+        }
+        return $data;
     }
 }

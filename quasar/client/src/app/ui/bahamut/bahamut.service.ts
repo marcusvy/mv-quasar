@@ -19,7 +19,7 @@ export class BahamutService {
   private _action: ModelAction;
 
   constructor(private _http: HttpClient) {
-    this._mode = new BehaviorSubject(new ModelMode())
+    this._mode = new BehaviorSubject(new ModelMode());
     this._pagination = new BehaviorSubject(new ModelPagination());
     this._collection = new BehaviorSubject<any[]>([]);
     this._storage = { collection: [], selected: null }; //temporary data for process collection
@@ -50,7 +50,7 @@ export class BahamutService {
   }
 
   setPagination(obj: ModelPagination) {
-    this._pagination.next(obj)
+    this._pagination.next(obj);
     this.setCollection(obj.collection);
     return this.paginationChanges;
   }
@@ -145,6 +145,8 @@ export class BahamutService {
   /**
    * Translate the model to
    * @param model
+   * @param {any} normalize
+   * @returns {Observable<ModelPagination>}
    */
   normalize(model, normalize = null) {
     if (normalize !== null) {

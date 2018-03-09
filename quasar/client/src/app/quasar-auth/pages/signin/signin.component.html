@@ -10,24 +10,28 @@
       <mv-control>
         <label for="input-name">Nome</label>
         <input id="input-name" type="text" name="name" formControlName="name" mvInputMask="alpha" />
+        <mv-control-errors [errors]="form.get('name').errors"></mv-control-errors>
       </mv-control>
 
       <!-- Usuário -->
       <mv-control>
-        <label for="input-credential">Usuário</label>
-        <input id="input-credential" type="text" name="credential" formControlName="credential"/>
+        <label for="input-identity">Usuário</label>
+        <input id="input-identity" type="text" name="identity" formControlName="identity"/>
+        <mv-control-errors [errors]="form.get('identity').errors"></mv-control-errors>
       </mv-control>
 
       <!-- E-mail -->
       <mv-control>
         <label for="input-email">E-mail</label>
         <input id="input-email" type="email" name="email" formControlName="email" />
+        <mv-control-errors [errors]="form.get('email').errors"></mv-control-errors>
       </mv-control>
 
       <!-- Senha -->
       <mv-control>
         <label for="input-senha">Senha</label>
-        <input id="input-senha" type="password" name="password" formControlName="password" />
+        <input id="input-senha" type="password" name="credential" formControlName="credential" />
+        <mv-control-errors [errors]="form.get('credential').errors"></mv-control-errors>
       </mv-control>
 
       <p class="is-align-center">{{message}}</p>

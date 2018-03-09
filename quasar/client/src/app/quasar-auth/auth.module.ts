@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MvQuasarSharedModule } from './../quasar/shared/quasar-shared.module';
+import { MvQuasarSharedModule } from '../quasar/shared/quasar-shared.module';
 
 import { MvQuasarAuthRoutingModule } from './auth.routing';
 

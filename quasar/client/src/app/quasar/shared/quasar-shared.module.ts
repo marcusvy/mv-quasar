@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MvUiModule } from './../../ui/ui.module';
+import {NgModule} from '@angular/core';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MvUiModule} from '../../ui';
 
-import { QuasarConfigService } from './service/quasar-config.service';
+import {QuasarConfigService} from './service/quasar-config.service';
+import {QuasarServerStatusService} from './service/quasar-server-status.service';
+import {QuasarOnlineStatusService} from './service/quasar-online-status.service';
 
 @NgModule({
   exports: [
@@ -11,7 +13,15 @@ import { QuasarConfigService } from './service/quasar-config.service';
     ReactiveFormsModule,
   ],
   providers: [
-    QuasarConfigService
+    QuasarConfigService,
+    QuasarOnlineStatusService,
+    QuasarServerStatusService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: QuasarServerStatusService,
+      multi: true,
+    }
   ]
 })
-export class MvQuasarSharedModule { }
+export class MvQuasarSharedModule {
+}

@@ -5,10 +5,6 @@ import * as WebFont from 'webfontloader';
 
 export class MvUiConfig {
 
-  constructor() {
-
-  }
-
   /**
    * WebFont Configuration
    */

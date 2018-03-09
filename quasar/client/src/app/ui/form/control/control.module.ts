@@ -30,6 +30,7 @@ import { ControlFileItemComponent } from './control-file/control-file-item/contr
 import { ControlFileAreaComponent } from './control-file/control-file-area/control-file-area.component';
 import { ControlDateComponent } from './control-date/control-date.component';
 import { ControlRowDirective } from './control-row.directive';
+import { ControlErrorsComponent } from './control-errors/control-errors.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { ControlRowDirective } from './control-row.directive';
     ControlFileAreaComponent,
     ControlDateComponent,
     ControlRowDirective,
+    ControlErrorsComponent,
   ],
   exports: [
     ControlActionDirective,
@@ -84,6 +86,7 @@ import { ControlRowDirective } from './control-row.directive';
     ControlDateComponent,
     ControlFileComponent,
     ControlRowDirective,
+    ControlErrorsComponent
   ]
 })
 export class ControlModule { }

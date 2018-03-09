@@ -1,6 +1,6 @@
 <?php
 
-namespace MvUser\Form;
+namespace User\Form;
 
 use User\Form\Fieldset\AddressFieldsetTrait;
 use User\Form\Fieldset\ContactFieldsetTrait;

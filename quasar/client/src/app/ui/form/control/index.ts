@@ -9,6 +9,7 @@ export * from './control-date/control-date.component';
 export * from './control-editor/control-editor.component';
 export * from './control-editor/quill/full-modules';
 export * from './control-error/control-error.component';
+export * from './control-errors/control-errors.component';
 export * from './control-file/control-file.component';
 export * from './control-file/control-file-area/control-file-area.component';
 export * from './control-file/control-file-item/control-file-item.component';

@@ -9,20 +9,14 @@ use Zend\Validator;
 
 trait UserFieldsetTrait
 {
+    use LoginFieldsetTrait;
+
     public function initUserFieldset()
     {
-        $this->add([
-            'name' => 'credential',
-            'type' => Text::class
-        ]);
+        $this->initLoginFieldset();
 
         $this->add([
             'name' => 'email',
-            'type' => Text::class
-        ]);
-
-        $this->add([
-            'name' => 'password',
             'type' => Text::class
         ]);
 
@@ -50,59 +44,40 @@ trait UserFieldsetTrait
 
     public function getInputFilterUserFieldset()
     {
-        return [
-            'credential' => [
-                'required' => true,
-                'filters' => [
-                    (new Filter\StringTrim()),
-                    (new Filter\StripTags()),
-                    (new Filter\StringToLower())->setEncoding('UTF-8'),
+        return array_merge_recursive(
+            $this->getInputFilterLoginFieldset(),
+            [
+                'email' => [
+                    'required' => true,
+                    'filters' => [
+                        (new Filter\StringTrim()),
+                        (new Filter\StripTags()),
+                        (new Filter\StringToLower())->setEncoding('UTF-8'),
+                    ],
+                    'validators' => [
+                        (new Validator\NotEmpty()),
+                        (new Validator\EmailAddress()),
+                        (new Validator\StringLength())->setMin(6)->setMax(80)
+                    ],
                 ],
-                'validators' => [
-                    (new Validator\NotEmpty()),
-                    (new Validator\StringLength())->setMin(6)->setMax(80)
+
+                'status' => [
+                    'required' => false,
                 ],
-            ],
-            'email' => [
-                'required' => true,
-                'filters' => [
-                    (new Filter\StringTrim()),
-                    (new Filter\StripTags()),
-                    (new Filter\StringToLower())->setEncoding('UTF-8'),
+                'active' => [
+                    'required' => false,
+                    'filters' => [
+                        (new Filter\Boolean())
+                    ]
                 ],
-                'validators' => [
-                    (new Validator\NotEmpty()),
-                    (new Validator\EmailAddress()),
-                    (new Validator\StringLength())->setMin(6)->setMax(80)
+                'perfil' => [
+                    'required' => false,
                 ],
-            ],
-            'password' => [
-                'required' => true,
-                'filters' => [
-                    (new Filter\StringTrim()),
-                    (new Filter\StripTags()),
+                'role' => [
+                    'required' => false,
                 ],
-                'validators' => [
-                    (new Validator\NotEmpty()),
-                    (new Validator\StringLength())->setMin(6)->setMax(80)
-                ],
-            ],
-            'status' => [
-                'required' => false,
-            ],
-            'active' => [
-                'required' => false,
-                'filters' => [
-                    (new Filter\Boolean())
-                ]
-            ],
-            'perfil' => [
-                'required' => false,
-            ],
-            'role' => [
-                'required' => false,
-            ],
-        ];
+            ]
+        );
 
     }
 

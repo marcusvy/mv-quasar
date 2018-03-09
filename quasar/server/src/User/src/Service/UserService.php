@@ -1,5 +1,4 @@
 <?php
-
 namespace User\Service;
 
 use Core\Doctrine\AbstractEntity;
@@ -31,10 +30,11 @@ class UserService extends AbstractService implements UserServiceInterface
     public function __construct(
         EntityManager $entityManager,
         PerfilServiceInterface $perfilService
-    ) {
-
+    )
+    {
         $this->entityManager = $entityManager;
         $this->perfilService = $perfilService;
+        parent::__construct($entityManager);
     }
 
     public function findAll()
@@ -48,15 +48,23 @@ class UserService extends AbstractService implements UserServiceInterface
         return $result;
     }
 
-    public function create(array $data)
+    /**
+     * @param array|\Core\Doctrine\EntityInterface $data
+     * @return \Core\Doctrine\EntityInterface|mixed|User
+     * @throws \Doctrine\DBAL\Exception\UniqueConstraintViolationException
+     */
+    public function create($data)
     {
         // Perfil
-        $perfil = $this->perfilService->insert($data);
 
         //Usuário
+        if(is_array($data)) {
+            $perfil = $this->perfilService->insert($data);
+        }
         $user = new User($data);
 
-        $role = isset($data['role']) ? $data['role'] : null;
+        $role = (isset($data['role']) && !empty($data['role'])) ? $data['role'] : null;
+
         if (!is_null($role)) {
             $role = $this->getEntityManger()->getRepository(Role::class)->find($role['id']);
         }
@@ -118,14 +126,14 @@ class UserService extends AbstractService implements UserServiceInterface
         return false;
     }
 
-    public function activate($credential, $key): bool
+    public function activate($identity, $key): bool
     {
-        if (!is_null($credential) && !is_null($key)) {
+        if (!is_null($identity) && !is_null($key)) {
             try {
                 /** @var User $user */
                 $repo = $this->getEntityManger()->getRepository($this->entity);
-                $result = $repo->findByCredential($credential);
-                if (count($result)>0) {
+                $result = $repo->findByIdentity($identity);
+                if (count($result) > 0) {
                     $user = array_shift($result);
                     if (($user instanceof User)) {
                         $user->setActive(1);
@@ -145,5 +153,24 @@ class UserService extends AbstractService implements UserServiceInterface
     public function getIdentity()
     {
         return $this->identity;
+    }
+
+    public function getConfig($identity)
+    {
+        if (!is_null($identity)) {
+            try {
+                /** @var User $user */
+                $repo = $this->getEntityManger()->getRepository($this->entity);
+                $result = $repo->findByIdentity($identity);
+                if (count($result) > 0) {
+                    $user = array_shift($result);
+                    if (($user instanceof User)) {
+                       return $user->toArray();
+                    }
+                }
+            } catch (\Exception $e) {
+            }
+        }
+        return [];
     }
 }

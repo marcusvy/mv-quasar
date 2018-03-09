@@ -2,81 +2,88 @@
 
 namespace Core\Service;
 
-use Doctrine\ORM\EntityManager;
+use Core\Doctrine\EntityInterface;
+use Core\Service\ServiceResultInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Core\Doctrine\ORM\AbstractEntityRepository;
 
 interface ServiceInterface
 {
-    /**
-     * Inject the Doctrine Entity Manager
-     * @param EntityManager $entityManager
-     * @return ServiceInterface
-     */
-    public function setEntityManger(EntityManager $entityManager);
-
-    /**
-     * Get the Doctrine Entity Manager
-     * @return EntityManager
-     */
-    public function getEntityManger();
 
     /**
      * Retorna um único registro de usuário
      * @param integer $id
-     * @return \Core\Doctrine\AbstractEntity
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
-     * @return array|\Core\Doctrine\EntityInterface
+     * @return ServiceResultInterface
      */
-    public function get($id);
+    public function get($id): ServiceResultInterface;
 
     /**
      * Retorna lista de registros
-     * @return array
+     * @return ServiceResultInterface
      */
-    public function list();
+    public function list(): ServiceResultInterface;
 
     /**
      * Obtem listagem com paginação
      * @param int $page Página Atual
      * @param int $resultsPerPage Limite por página
-     * @return \Doctrine\ORM\Tools\Pagination\Paginator
+     * @return ServiceResultInterface
      */
-    public function paginate($page, $resultsPerPage = 10);
+    public function paginate($page, $resultsPerPage = 10): ServiceResultInterface;
 
     /**
      * Insere um novo registro
-     * @param array $data
-     * @return \Core\Doctrine\EntityInterface
+     * @param array|EntityInterface $entity
+     * @return ServiceResultInterface
      */
-    public function create(array $data);
+    public function create($entity): ServiceResultInterface;
 
     /**
      * Atualiza um registro de usuário
      * @param int $id
      * @param array $data
-     * @return int|\Core\Doctrine\EntityInterface
+     * @return ServiceResultInterface
      */
-    public function update($id, $data);
+    public function update(int $id, EntityInterface $entity): ServiceResultInterface;
 
     /**
      * Exclui um registro com $id fornecido
      * @param $id
-     * @return int
+     * @return ServiceResultInterface
      * @throws \InvalidArgumentException
      */
-    public function delete($id);
+    public function delete($id): ServiceResultInterface;
 
-    /**
-     * Search entity by one $column by a term in $search
-     * @param $column
-     * @param $search
-     * @return mixed
-     */
-    public function searchBy($column, $search);
 
     /**
      * @param array $parameters Parameters of [$column => $searchValue]
      */
-    public function searchByParameters(array $parameters);
+    public function search(array $parameters): ServiceResultInterface;
+
+    /**
+     * Inject the Doctrine Entity Manager
+     * @param EntityManagerInterface $entityManager
+     * @return ServiceInterface
+     */
+    public function setEntityManger(EntityManagerInterface $entityManager=null);
+
+    /**
+     * Get the Doctrine Entity Manager
+     * @return EntityManagerInterface|null
+     */
+    public function getEntityManger();
+
+    /**
+     * Verify if Doctrine Entity Manager exist on service
+     * @return boolean
+     */
+    public function hasEntityManager() : bool;
+
+    /**
+     * @return AbstractEntityRepository
+     */
+    public function getRepository();
 }

@@ -22,14 +22,14 @@ class Role extends AbstractEntity
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="IDENTITY")
    */
-    private $id;
+    private $id = 0;
 
   /**
    * @var string
    *
    * @ORM\Column(name="name", type="string", length=45, nullable=false)
    */
-    private $name;
+    private $name = '';
 
   /**
    * @return int
@@ -61,7 +61,7 @@ class Role extends AbstractEntity
    * @param string $name
    * @return Role
    */
-    public function setName(string $name): Role
+    public function setName(string $name=''): Role
     {
         $this->name = $name;
         return $this;

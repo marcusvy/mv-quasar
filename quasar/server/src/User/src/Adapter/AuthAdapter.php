@@ -1,7 +1,7 @@
 <?php
 namespace User\Adapter;
 
-use User\Repository\UserRepositoryInterface;
+use User\Model\Repository\UserRepositoryInterface;
 use Zend\Authentication\Adapter\AbstractAdapter;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Zend\Authentication\Result;
@@ -40,7 +40,7 @@ class AuthAdapter extends AbstractAdapter implements AdapterInterface
             );
         }
 
-        if ($this->repository->checkAuthenticationData($this->getCredential(), $this->getIdentity())) {
+        if ($this->repository->checkAuthenticationData( $this->getIdentity(), $this->getCredential())) {
             return new Result(Result::SUCCESS, $this->getIdentity(), ['success' => true]);
         }
 

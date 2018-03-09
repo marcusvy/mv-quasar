@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, Validator } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
-import { AuthService } from './../../shared/service/auth.service';
+import {AuthService} from '../../';
+import {FormUtil} from '../../../ui/form';
 
 @Component({
   selector: 'im-signin',
@@ -13,16 +14,15 @@ import { AuthService } from './../../shared/service/auth.service';
 export class SigninComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
-  message: string = '';
+  message = '';
   $sign: Subscription;
-  send: boolean = false;
-  loading: boolean = false;
+  send = false;
+  loading = false;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _service: AuthService,
-    private _router: Router,
-  ) { }
+  constructor(private _fb: FormBuilder,
+              private _service: AuthService,
+              private _router: Router) {
+  }
 
   ngOnInit() {
     this.createForm();
@@ -37,9 +37,9 @@ export class SigninComponent implements OnInit, OnDestroy {
   createForm() {
     this.form = this._fb.group({
       name: ['', Validators.compose([Validators.required])],
-      credential: ['', Validators.compose([Validators.required])],
+      identity: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required])],
+      credential: ['', Validators.compose([Validators.required])],
     });
   }
 
@@ -50,28 +50,26 @@ export class SigninComponent implements OnInit, OnDestroy {
   signin() {
     if (this.form.valid) {
       this.loading = true;
-      let formData = this.form.value;
+      const formData = this.form.value;
 
       this.$sign = this._service.signin(formData)
-        .delay(1000)
         .subscribe(res => {
-          this.send = res['success'];
-          if (res['success']) {
-            this.message = 'Verifique seu e-mail para confirmar seu cadastro e receber sua senha';
-          }
-          if (res['message'] !== undefined) {
-            this.message = res['message'];
-          }
-        }, (err) => {
-          this.send = false;
-          this.message = 'Verifique seu e-mail para confirmar seu cadastro e receber sua senha';
-        },
-        () => {
-          this.loading = false;
-        })
+            this.send = res['success'];
+            FormUtil.applyErrors(this.form, res['form']);
+            if (res['success']) {
+              this.message = 'Verifique seu e-mail para confirmar seu cadastro e receber sua senha';
+            }
+            if (res['message'] !== undefined) {
+              this.message = res['message'];
+            }
+          }, (err) => {
+            this.send = false;
+            this.message = 'Erro ao enviar';
+          },
+          () => {
+            this.loading = false;
+          });
     }
   }
-
-
 
 }

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { QuasarConfigService } from './../../../quasar/shared/service/quasar-config.service';
+import { QuasarConfigService } from '../../../quasar/shared/service/quasar-config.service';
+
+/**
+ * @todo intercept all errors
+ */
 
 @Injectable()
 export class AuthService {
 
-  private _token: string = 'profile';
+  private _token = 'profile';
 
   constructor(private _http: HttpClient, private _config: QuasarConfigService) { }
 
@@ -20,24 +24,22 @@ export class AuthService {
   }
 
   storeToken(obj) {
-    let dataStorage = obj;
-    localStorage.setItem(this._token, dataStorage);
+    localStorage.setItem(this._token, obj);
   }
 
   decryptToken() {
-    let token = localStorage.getItem(this._token);
-    let decrypt = JSON.parse(atob(token));
-    return decrypt;
+    const token = localStorage.getItem(this._token);
+    return JSON.parse(atob(token));
   }
 
-  private protectAuthRequestBody(credential: string, password: string) {
-    return { token: btoa(JSON.stringify([credential, password])) };
+  private protectAuthRequestBody(identity: string, credential: string) {
+    return { token: btoa(JSON.stringify([identity, credential])) };
   }
 
-  authenticate(credential: string, password: string): Observable<Object> {
+  authenticate(identity: string, credential: string): Observable<Object> {
     return this._http.post(
       this._config.api.auth.authenticate,
-      this.protectAuthRequestBody(credential, password)
+      this.protectAuthRequestBody(identity, credential)
     );
   }
 
@@ -45,8 +47,8 @@ export class AuthService {
     return this._http.post(this._config.api.auth.signin, data);
   }
 
-  activate(credential, key) {
-    return this._http.get(this._config.api.auth.activate(credential, key))
+  activate(identity, key) {
+    return this._http.get(this._config.api.auth.activate(identity, key));
   }
 
 

@@ -18,10 +18,18 @@ interface UserServiceInterface extends ServiceInterface
 
     /**
      * Ativa através de um código de ativação
-     * @param $credential
+     * @param $identity
      * @param $key
      * @return mixed
      * @return User
      */
-    public function activate($credential, $key);
+    public function activate($identity, $key);
+
+    /**
+     * Obtem configurações para serem armazenadas no cliente
+     * @param $identity
+     * @return array
+     */
+    public function getConfig($identity);
+
 }

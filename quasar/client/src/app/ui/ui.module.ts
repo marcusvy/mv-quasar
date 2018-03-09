@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
@@ -73,13 +73,12 @@ const listUiModules = [
   ToolbarModule,
 ];
 
-const ui_config = new MvUiConfig();
+// const ui_config = new MvUiConfig();
 // ui_config.configFont();
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
     ReactiveFormsModule,
     ... listUiModules
   ],
@@ -91,4 +90,16 @@ const ui_config = new MvUiConfig();
     ... listUiModules
   ]
 })
-export class MvUiModule { }
+export class MvUiModule {
+  // constructor (@Optional() @SkipSelf() parentModule: MvUiModule) {
+  //   if (parentModule) {
+  //     throw new Error(
+  //       'MvUiModule is already loaded. Import it in the AppModule only');
+  //   }
+  // }
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: MvUiModule
+    };
+  }
+}

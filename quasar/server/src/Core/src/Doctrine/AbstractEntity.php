@@ -18,10 +18,25 @@ abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
         $this->hydradorSetup($options);
     }
 
-    protected function hydradorSetup($options)
+    /**
+     * @param mixed $options
+     * @return EntityInterface
+     */
+    public function hydradorSetup($options=[])
     {
         $this->hydrator = new ClassMethods();
+        $this->hydrate($options);
+        return $this;
+    }
+
+    /**
+     * @param mixed $options
+     * @return EntityInterface
+     */
+    public function hydrate($options)
+    {
         $this->hydrator->hydrate($options, $this);
+        return $this;
     }
 
     /**

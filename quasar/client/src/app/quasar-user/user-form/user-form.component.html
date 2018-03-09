@@ -2,8 +2,8 @@
   <h2>Conta</h2>
   <mv-control>
     <label>Nome <sup>*</sup></label>
-    <input type="text" formControlName="credencial">
-    <mv-control-error [for]="form.get('credencial').invalid">Obrigatório</mv-control-error>
+    <input type="text" formControlName="identity">
+    <mv-control-error [for]="form.get('identity').invalid">Obrigatório</mv-control-error>
   </mv-control>
 
   <mv-control>
@@ -14,7 +14,7 @@
 
   <mv-control>
     <label>Senha</label>
-    <input type="password" formControlName="password">
+    <input type="password" formControlName="credential">
   </mv-control>
 
   <mv-control>

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import {Component, OnInit, Input, HostBinding} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 
 @Component({
   selector: 'mv-control-error',
@@ -11,20 +11,22 @@ import { AbstractControl } from '@angular/forms';
 })
 export class ControlErrorComponent implements OnInit {
 
-  private control:AbstractControl;
-  @Input('for') _for:boolean = false;
+  private control: AbstractControl;
+  @Input('for') _for: boolean = false;
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
-  registerControl(control:AbstractControl){
+  registerControl(control: AbstractControl) {
     this.control = control;
   }
 
   @HostBinding('class.is-hidden')
   get isVisible() {
-    return (this.control!==undefined) ? this.control.valid : false;
+    return (this.control !== undefined) ? this.control.valid : false;
   }
 
 }

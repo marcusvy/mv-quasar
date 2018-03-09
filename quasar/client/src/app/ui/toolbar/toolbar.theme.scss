@@ -44,6 +44,11 @@
   background-color: $mv-color--light;
 }
 
+:host(.is-danger) {
+  color: $mv-color--light;
+  background-color: $mv-color--danger;
+}
+
 :host(.is-form) {
   & /deep/ mv-control input {
     background-color: darken($mv-color--light,5%) !important;

@@ -12,7 +12,7 @@ import { AuthService } from './../../shared/service/auth.service';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  message: string = '';
+  message = '';
 
   constructor(
     private _fb: FormBuilder,
@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit {
 
   createForm() {
     this.form = this._fb.group({
+      identity: ['', Validators.compose([Validators.required])],
       credential: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.required])],
     });
   }
 
@@ -37,16 +37,16 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.form.valid) {
-      let formData = this.form.value;
-      this._service.authenticate(formData['credential'], formData['password'])
+      const formData = this.form.value;
+      this._service.authenticate(formData['identity'], formData['credential'])
         .subscribe(res => {
           if (res['success']) {
             this._service.storeToken(res['token']);
-            this._router.navigate(['quasar']);
+            this._router.navigateByUrl('/quasar');
           } else {
-            this.message = 'Usuário ou Senha inválidos'
+            this.message = 'Usuário ou Senha inválidos';
           }
-        })
+        });
     }
   }
 

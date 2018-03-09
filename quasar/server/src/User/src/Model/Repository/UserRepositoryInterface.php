@@ -7,9 +7,9 @@ interface UserRepositoryInterface
   /**
    * Validation for authentication
    *
+   * @param string $identity
    * @param string $credential
-   * @param string $password
    * @return bool
    */
-    public function checkAuthenticationData($credential, $password);
+    public function checkAuthenticationData($identity, $credential);
 }

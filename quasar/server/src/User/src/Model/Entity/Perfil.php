@@ -13,90 +13,90 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Perfil extends AbstractEntity
 {
-  /**
-   * @var integer
-   *
-   * @ORM\Column(name="id", type="integer", nullable=false)
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="IDENTITY")
-   */
-    private $id;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id = 0;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="name", type="string", length=200, nullable=false)
-   */
-    private $name;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=200, nullable=false)
+     */
+    private $name = '';
 
-  /**
-   * @var \DateTime
-   *
-   * @ORM\Column(name="birthday", type="datetime", nullable=true)
-   */
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="birthday", type="datetime", nullable=true)
+     */
     private $birthday;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="birth_place", type="string", length=50, nullable=true)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="birth_place", type="string", length=50, nullable=true)
+     */
     private $birthPlace;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="nationality", type="string", length=50, nullable=true)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nationality", type="string", length=50, nullable=true)
+     */
     private $nationality;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="address_number", type="string", length=20, nullable=true)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address_number", type="string", length=20, nullable=true)
+     */
     private $addressNumber;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="address_street", type="string", length=100, nullable=true)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address_street", type="string", length=100, nullable=true)
+     */
     private $addressStreet;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="address_district", type="string", length=100, nullable=true)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address_district", type="string", length=100, nullable=true)
+     */
     private $addressDistrict;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="city", type="string", length=50, nullable=true)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=50, nullable=true)
+     */
     private $city;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="state", type="string", length=50, nullable=true)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="state", type="string", length=50, nullable=true)
+     */
     private $state;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="country", type="string", length=50, nullable=true)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="country", type="string", length=50, nullable=true)
+     */
     private $country;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="sociallinks", type="text", length=65535, nullable=true)
-   */
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sociallinks", type="text", length=65535, nullable=true)
+     */
     private $sociallinks;
 
 
@@ -128,247 +128,247 @@ class Perfil extends AbstractEntity
      */
     private $postalCode;
 
-  /**
-   * @var \Midia\Model\Entity\Image
-   *
-   * @ORM\Column(nullable=true)
-   * @ORM\ManyToOne(targetEntity="Midia\Entity\Image")
-   * @ORM\JoinColumns({
-   *   @ORM\JoinColumn(name="avatar", referencedColumnName="id")
-   * })
-   */
+    /**
+     * @var \Midia\Model\Entity\Image
+     *
+     * @ORM\Column(nullable=true)
+     * @ORM\ManyToOne(targetEntity="Midia\Entity\Image")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="avatar", referencedColumnName="id")
+     * })
+     */
     private $avatar;
 
-  /**
-   * @return int
-   */
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
-  /**
-   * @param int $id
-   * @return Perfil
-   */
-    public function setId(int $id): Perfil
+    /**
+     * @param int $id
+     * @return Perfil
+     */
+    public function setId(int $id = null): Perfil
     {
         $this->id = $id;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
-  /**
-   * @param string $name
-   * @return Perfil
-   */
-    public function setName(string $name): Perfil
+    /**
+     * @param string $name
+     * @return Perfil
+     */
+    public function setName(string $name = ''): Perfil
     {
         $this->name = $name;
         return $this;
     }
 
-  /**
-   * @return \DateTime
-   */
+    /**
+     * @return \DateTime
+     */
     public function getBirthday()
     {
         return $this->birthday;
     }
 
-  /**
-   * @param \DateTime $birthday
-   * @return Perfil
-   */
-    public function setBirthday(\DateTime $birthday): Perfil
+    /**
+     * @param \DateTime $birthday
+     * @return Perfil
+     */
+    public function setBirthday(\DateTime $birthday = null): Perfil
     {
         $this->birthday = $birthday;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getBirthPlace()
     {
         return $this->birthPlace;
     }
 
-  /**
-   * @param string $birthPlace
-   * @return Perfil
-   */
-    public function setBirthPlace(string $birthPlace): Perfil
+    /**
+     * @param string $birthPlace
+     * @return Perfil
+     */
+    public function setBirthPlace(string $birthPlace = null): Perfil
     {
         $this->birthPlace = $birthPlace;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getNationality()
     {
         return $this->nationality;
     }
 
-  /**
-   * @param string $nationality
-   * @return Perfil
-   */
-    public function setNationality(string $nationality): Perfil
+    /**
+     * @param string $nationality
+     * @return Perfil
+     */
+    public function setNationality(string $nationality = null): Perfil
     {
         $this->nationality = $nationality;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getAddressNumber()
     {
         return $this->addressNumber;
     }
 
-  /**
-   * @param string $addressNumber
-   * @return Perfil
-   */
-    public function setAddressNumber(string $addressNumber): Perfil
+    /**
+     * @param string $addressNumber
+     * @return Perfil
+     */
+    public function setAddressNumber(string $addressNumber = null): Perfil
     {
         $this->addressNumber = $addressNumber;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getAddressStreet()
     {
         return $this->addressStreet;
     }
 
-  /**
-   * @param string $addressStreet
-   * @return Perfil
-   */
-    public function setAddressStreet(string $addressStreet): Perfil
+    /**
+     * @param string $addressStreet
+     * @return Perfil
+     */
+    public function setAddressStreet(string $addressStreet = null): Perfil
     {
         $this->addressStreet = $addressStreet;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getAddressDistrict()
     {
         return $this->addressDistrict;
     }
 
-  /**
-   * @param string $addressDistrict
-   * @return Perfil
-   */
-    public function setAddressDistrict(string $addressDistrict): Perfil
+    /**
+     * @param string $addressDistrict
+     * @return Perfil
+     */
+    public function setAddressDistrict(string $addressDistrict = null): Perfil
     {
         $this->addressDistrict = $addressDistrict;
         return $this;
     }
 
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getPostalCode()
     {
         return $this->postalCode;
     }
 
-  /**
-   * @param string $postalCode
-   * @return Perfil
-   */
-    public function setPostalCode(string $postalCode): Perfil
+    /**
+     * @param string $postalCode
+     * @return Perfil
+     */
+    public function setPostalCode(string $postalCode = null): Perfil
     {
         $this->postalCode = $postalCode;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getCity()
     {
         return $this->city;
     }
 
-  /**
-   * @param string $city
-   * @return Perfil
-   */
-    public function setCity(string $city): Perfil
+    /**
+     * @param string $city
+     * @return Perfil
+     */
+    public function setCity(string $city = null): Perfil
     {
         $this->city = $city;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getState()
     {
         return $this->state;
     }
 
-  /**
-   * @param string $state
-   * @return Perfil
-   */
-    public function setState(string $state): Perfil
+    /**
+     * @param string $state
+     * @return Perfil
+     */
+    public function setState(string $state = null): Perfil
     {
         $this->state = $state;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getCountry()
     {
         return $this->country;
     }
 
-  /**
-   * @param string $country
-   * @return Perfil
-   */
-    public function setCountry(string $country): Perfil
+    /**
+     * @param string $country
+     * @return Perfil
+     */
+    public function setCountry(string $country = null): Perfil
     {
         $this->country = $country;
         return $this;
     }
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getSociallinks()
     {
         return $this->sociallinks;
     }
 
-  /**
-   * @param string $sociallinks
-   * @return Perfil
-   */
-    public function setSociallinks(string $sociallinks): Perfil
+    /**
+     * @param string $sociallinks
+     * @return Perfil
+     */
+    public function setSociallinks(string $sociallinks = null): Perfil
     {
         $this->sociallinks = $sociallinks;
         return $this;
@@ -386,7 +386,7 @@ class Perfil extends AbstractEntity
      * @param string $phonePersonal
      * @return Perfil
      */
-    public function setContactPhonePersonal(string $phonePersonal): Perfil
+    public function setContactPhonePersonal(string $phonePersonal = null): Perfil
     {
         $this->contactPhonePersonal = $phonePersonal;
         return $this;
@@ -404,7 +404,7 @@ class Perfil extends AbstractEntity
      * @param string $phoneHome
      * @return Perfil
      */
-    public function setContactPhoneHome(string $phoneHome): Perfil
+    public function setContactPhoneHome(string $phoneHome = null): Perfil
     {
         $this->contactPhoneHome = $phoneHome;
         return $this;
@@ -422,27 +422,28 @@ class Perfil extends AbstractEntity
      * @param string $phoneWork
      * @return Perfil
      */
-    public function setContactPhoneWork(string $phoneWork): Perfil
+    public function setContactPhoneWork(string $phoneWork = null): Perfil
     {
         $this->contactPhoneWork = $phoneWork;
         return $this;
     }
 
-  /**
-   * @return \Midia\Model\Entity\Image
-   */
+    /**
+     * @return \Midia\Model\Entity\Image
+     */
     public function getAvatar()
     {
         return $this->avatar;
     }
 
-  /**
-   * @param \Midia\Model\Entity\Image $avatar
-   * @return Perfil
-   */
-    public function setAvatar(\Midia\Model\Entity\Image $avatar=null): Perfil
+    /**
+     * @param \Midia\Model\Entity\Image $avatar
+     * @return Perfil
+     */
+    public function setAvatar(\Midia\Model\Entity\Image $avatar = null): Perfil
     {
         $this->avatar = $avatar;
         return $this;
     }
+
 }

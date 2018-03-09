@@ -6,6 +6,7 @@ use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Hydrator\ClassMethods;
 use Zend\Math\Rand;
+use User\Model\Entity\Role;
 
 /**
  * User
@@ -13,7 +14,8 @@ use Zend\Math\Rand;
  * @ORM\Table(
  *  name="mv_user",
  *  uniqueConstraints={
- *    @ORM\UniqueConstraint(name="credential_UNIQUE", columns={"credential"})
+ *    @ORM\UniqueConstraint(name="credential_UNIQUE", columns={"credential"}),
+ *    @ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})
  *  },
  *  indexes={
  *    @ORM\Index(name="fk_users_user_perfil", columns={"fk_perfil"}),
@@ -31,14 +33,14 @@ class User extends AbstractEntity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $id = 0;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="credential", type="string", length=80, nullable=false)
+     * @ORM\Column(name="identity", type="string", length=80, nullable=false)
      */
-    private $credential;
+    private $identity;
 
     /**
      * @var string
@@ -50,9 +52,9 @@ class User extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @ORM\Column(name="credential", type="string", length=255, nullable=false)
      */
-    private $password;
+    private $credential;
 
     /**
      * @var string
@@ -99,27 +101,26 @@ class User extends AbstractEntity
     /**
      * @var Perfil
      *
-     * @ORM\Column(name="fk_perfil", nullable=true)
-     * @ORM\ManyToOne(targetEntity="Perfil")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_perfil", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="fk_perfil", nullable=true, type="integer")
+     * @ORM\OneToOne(targetEntity="Perfil")
+     * @ORM\JoinColumn(name="fk_perfil", referencedColumnName="id")
+     *
      */
     private $perfil;
 
     /**
      * @var Role
      *
-     * @ORM\Column(name="fk_role", nullable=true)
-     * @ORM\ManyToOne(targetEntity="Role")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_role", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="fk_role", nullable=true, type="integer")
+     * @ORM\OneToOne(targetEntity="Role")
+     * @ORM\JoinColumn(name="fk_role", referencedColumnName="id")
      */
     private $role;
 
     public function __construct($options = [])
     {
+        $this->perfil = new Perfil();
+        $this->role = new Role();
         $this->setCreatedat(new \DateTime('now'))
             ->setUpdatedat(new \DateTime('now'))
             ->setSalt(base64_encode(Rand::getBytes(8)))
@@ -147,8 +148,11 @@ class User extends AbstractEntity
      * @param int $id
      * @return User
      */
-    public function setId(int $id): User
+    public function setId($id): User
     {
+        if (is_string($id)) {
+            $id = (int)$id;
+        }
         $this->id = $id;
         return $this;
     }
@@ -156,18 +160,18 @@ class User extends AbstractEntity
     /**
      * @return string
      */
-    public function getCredential()
+    public function getIdentity()
     {
-        return $this->credential;
+        return $this->identity;
     }
 
     /**
-     * @param string $credential
+     * @param string $identity
      * @return User
      */
-    public function setCredential(string $credential): User
+    public function setIdentity(string $identity): User
     {
-        $this->credential = $credential;
+        $this->identity = $identity;
         return $this;
     }
 
@@ -192,18 +196,18 @@ class User extends AbstractEntity
     /**
      * @return string
      */
-    public function getPassword()
+    public function getCredential()
     {
-        return $this->password;
+        return $this->credential;
     }
 
     /**
-     * @param string $password
+     * @param string $credential
      * @return User
      */
-    public function setPassword(string $password): User
+    public function setCredential(string $credential): User
     {
-        $this->password = $password;
+        $this->credential = $credential;
         return $this;
     }
 
@@ -264,7 +268,7 @@ class User extends AbstractEntity
     /**
      * @return string
      */
-    public function getStatus(): string
+    public function getStatus()
     {
         return $this->status;
     }
@@ -282,7 +286,7 @@ class User extends AbstractEntity
     /**
      * @return boolean
      */
-    public function isActive(): bool
+    public function isActive()
     {
         return $this->active;
     }
@@ -300,7 +304,7 @@ class User extends AbstractEntity
     /**
      * @return string
      */
-    public function getActivationKey(): string
+    public function getActivationKey()
     {
         return $this->activationKey;
     }
@@ -318,7 +322,7 @@ class User extends AbstractEntity
     /**
      * @return Perfil
      */
-    public function getPerfil()
+    public function getPerfil(): Perfil
     {
         return $this->perfil;
     }
@@ -336,7 +340,7 @@ class User extends AbstractEntity
     /**
      * @return Role
      */
-    public function getRole()
+    public function getRole(): Role
     {
         return $this->role;
     }
@@ -351,7 +355,7 @@ class User extends AbstractEntity
         return $this;
     }
 
-    public function toArray()
+    public function toArray($purify = true)
     {
         $perfil = !is_null($this->getPerfil()) ? $this->getPerfil()->toArray() : [];
         $role = !is_null($this->getrole()) ? $this->getRole()->toArray() : [];
@@ -361,15 +365,17 @@ class User extends AbstractEntity
         ];
         $hydrator = new ClassMethods();
         $result = $hydrator->extract($this);
-        unset($result['password']);
-        unset($result['salt']);
-        unset($result['activation_key']);
+        if ($purify) {
+            unset($result['credential']);
+            unset($result['salt']);
+            unset($result['activation_key']);
+        }
         return array_merge($result, $foreign);
     }
 
     public function encriptPassword()
     {
-        $this->setPassword(password_hash($this->getPassword(), PASSWORD_DEFAULT));
+        $this->setCredential(password_hash($this->getCredential(), PASSWORD_DEFAULT));
         return $this;
     }
 }

@@ -4,6 +4,7 @@ namespace User\Model\Repository;
 
 use Core\Doctrine\ORM\AbstractEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
+use User\Model\Entity\User;
 
 /**
  * UserRepository
@@ -25,19 +26,16 @@ class UserRepository extends AbstractEntityRepository implements UserRepositoryI
     }
 
   /**
+   * @param string $identity
    * @param string $credential
-   * @param string $password
    * @return bool
    */
-    public function checkAuthenticationData($credential, $password)
+    public function checkAuthenticationData($identity, $credential): bool
     {
-        /** @var \User\Entity\User $user */
-        $user = $this->findOneBy(['credential' => $credential]);
-
-        if ($user) {
-            if (password_verify($password, $user->getPassword())) {
-                return true;
-            }
+        /** @var \User\Model\Entity\User $user */
+        $user = $this->findOneBy(['identity' => $identity, 'active'=> 1]);
+        if ($user instanceof User) {
+            return password_verify($credential, $user->getCredential());
         }
         return false;
     }

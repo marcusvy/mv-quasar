@@ -13,18 +13,16 @@ trait LoginFieldsetTrait
     public function initLoginFieldset()
     {
         $this->add([
-            'name' => 'credential',
+            'name' => 'identity',
             'type' => Text::class,
-            'required' => true,
             'options' => [
-                'label' => 'Credencial'
+                'label' => 'Identidade'
             ]
         ]);
 
         $this->add([
-            'name' => 'password',
+            'name' => 'credential',
             'type' => Password::class,
-            'required' => true,
             'options' => [
                 'label' => 'Senha'
             ]
@@ -35,7 +33,7 @@ trait LoginFieldsetTrait
     {
         return [
 
-            'credential' => [
+            'identity' => [
                 'required' => true,
                 'filters' => [
                     (new Filter\StringTrim()),
@@ -48,7 +46,7 @@ trait LoginFieldsetTrait
                 ],
             ],
 
-            'password' => [
+            'credential' => [
                 'required' => true,
                 'filters' => [
                     (new Filter\StringTrim()),

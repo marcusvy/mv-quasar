@@ -5,7 +5,7 @@ use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * Logger
  *
  * @ORM\Table(name="mv_logger")
  * @ORM\Entity(repositoryClass="Log\Model\Repository\LoggerRepository")

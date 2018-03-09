@@ -2,11 +2,13 @@
 
 namespace Core\Service;
 
-use Core\Doctrine\ORM\AbstractEntityRepository;
+use Zend\Hydrator;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
-use Zend\Hydrator;
+use Core\Doctrine\ORM\AbstractEntityRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Core\Doctrine\EntityInterface;
 
 abstract class AbstractService implements ServiceInterface
 {
@@ -24,98 +26,151 @@ abstract class AbstractService implements ServiceInterface
         }
     }
 
-    public function setEntityManger(EntityManager $entityManager)
+    /**
+     * @return ServiceResultInterface
+     */
+    public function get($id): ServiceResultInterface
     {
-        $this->entityManager = $entityManager;
+        try {
+            $entity = $this->getEntityManger()->find($this->entity, $id);
+            if(is_null($entity)){
+                throw new EntityNotFoundException('Not Found');
+            }
+            return new ServiceResult($entity);
+        } catch (EntityNotFoundException $e) {
+            return new ServiceResult([], $e);
+        }
     }
 
+    /**
+     * @return ServiceResultInterface
+     */
+    public function list(): ServiceResultInterface
+    {
+        return new ServiceResult($this->getRepository()->getAll());
+    }
+
+    /**
+     * @return ServiceResultInterface
+     */
+    public function paginate($page, $resultsPerPage = 10) : ServiceResultInterface
+    {
+        try {
+            $result = $this->getRepository()->findAllPaginate($page, $resultsPerPage);
+            return new ServiceResult([$result]);
+        } catch (EntityNotFoundException $e) {
+            return new ServiceResult([], $e);
+        }
+    }
+
+    /** 
+     * @return ServiceResultInterface
+     */
+    public function search(array $criteria, array $orderBy = null, $limit = null, $offset = null): ServiceResultInterface
+    {
+        // $qb = $this->getEntityManger()->createQueryBuilder();
+        // $qb->from($this->entity);
+        // $qb->setParameters($criteria);
+        // $qb->expr()->like()
+        try {
+            $list = $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
+
+            if(is_array($list) && count($list > 0)){
+                array_map(function ($key, $entity) use ($list) {
+                    if ($entity instanceof EntityInterface) {
+                        return $entity->toArray();
+                    }
+                });
+            }
+            return new ServiceResult($list);
+        } catch (EntityNotFoundException $e) {
+            return new ServiceResult([], $e);
+        }
+    }
+
+    /**
+     * @return ServiceResultInterface
+     */
+    public function create($entity): ServiceResultInterface
+    {
+        if (is_array($entity)) {
+            $entity = new $this->entity($entity);
+        }
+        try {
+            $this->getEntityManger()->persist($entity);
+            $this->getEntityManger()->flush();
+            return new ServiceResult([$entity]);
+        } catch (UniqueConstraintViolationException $e) {
+            return new ServiceResult([], $e);
+        }
+    }
+
+    /**
+     * @return ServiceResultInterface
+     */
+    public function update(int $id, EntityInterface $newEntity): ServiceResultInterface
+    {
+        try {
+            $entity = $this->getEntityManger()->getReference($this->entity, $id);
+            $entity->hydradorSetup();
+            $entity->getHydrator()->hydrate($newEntity->toArray(), $entity);
+            $this->getEntityManger()->persist($entity);
+            $this->getEntityManger()->flush();
+            return new ServiceResult([$entity]);
+        } catch (EntityNotFoundException $e) {
+            return new ServiceResult([], $e);
+        }
+    }
+
+    /**
+     * @return ServiceResultInterface
+     */
+    public function delete($id): ServiceResultInterface
+    {
+        try {
+            $entity = $this->getEntityManger()->getReference($this->entity, $id);
+            $cacheEntity = $entity;
+            $this->getEntityManger()->remove($entity);
+            $this->getEntityManger()->flush();
+            return new ServiceResult([$cacheEntity]);
+        } catch (EntityNotFoundException $e) {
+            return new ServiceResult([], $e);
+        }
+    }
+
+    /**
+     * @return AbstractService
+     */
+    public function setEntityManger(EntityManagerInterface $entityManager=null)
+    {
+        $this->entityManager = $entityManager;
+        return $this;
+    }
+
+    /**
+     * @return EntityManagerInterface|null
+     */
     public function getEntityManger()
     {
         return $this->entityManager;
     }
 
-    public function hasEntityManager()
+    /**
+     * @return boolean
+     */
+    public function hasEntityManager() : bool
     {
         return !is_null($this->entityManager);
     }
 
-    public function get($id)
+    /**
+     * @return AbstractEntityRepository
+     */
+    public function getRepository()
     {
-        $entity = $this->getEntityManger()->find($this->entity, $id);
-        return $entity;
-    }
-
-    public function list()
-    {
-        $result = [];
-        /** @var AbstractEntityRepository $repo */
-        $repo = $this->getEntityManger()->getRepository($this->entity);
-        return $repo->getAll();
-    }
-
-    public function paginate($page, $resultsPerPage = 10)
-    {
-        try {
-            /** @var AbstractEntityRepository $repo */
-            $repo = $this->getEntityManger()->getRepository($this->entity);
-            $paginator = $repo->findAllPaginate($page, $resultsPerPage);
-            return $paginator;
-        } catch (EntityNotFoundException $e) {
-            return [];
+        if ($this->hasEntityManager()) {
+            return $this->getEntityManger()->getRepository($this->entity);
         }
     }
 
-    public function searchBy($column, $search)
-    {
-        $result = [];
-    }
-
-    public function searchByParameters(array $parameters)
-    {
-        $result = [];
-        $list = $this->getEntityManger()
-            ->getRepository($this->entity)
-            ->findBy($parameters);
-        if (count($list) > 0) {
-            foreach ($list as $entity) {
-                $result[] = $entity->toArray();
-            }
-        }
-        return $result;
-    }
-
-    public function create(array $data)
-    {
-        $entity = new $this->entity($data);
-        $this->getEntityManger()->persist($entity);
-        $this->getEntityManger()->flush();
-        return $entity;
-    }
-
-    public function update($id, $data)
-    {
-        try {
-            $entity = $this->getEntityManger()->getReference($this->entity, $id);
-            (new Hydrator\ClassMethods(false))->hydrate($data, $entity);
-            $this->getEntityManger()->persist($entity);
-            $this->getEntityManger()->flush();
-        } catch (EntityNotFoundException $e) {
-        }
-        return $entity;
-    }
-
-    public function delete($id)
-    {
-        try {
-            $entity = $this->getEntityManger()->getReference($this->entity, $id);
-            if ($entity) {
-                $cacheEntity = $entity->toArray();
-                $this->getEntityManger()->remove($entity);
-                $this->getEntityManger()->flush();
-                return $cacheEntity;
-            }
-        } catch (EntityNotFoundException $e) {
-        }
-        return 0;
-    }
 }

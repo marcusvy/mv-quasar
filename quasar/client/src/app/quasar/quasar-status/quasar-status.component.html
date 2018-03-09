@@ -1,0 +1,25 @@
+<ng-container *ngIf="!online">
+  <mv-toolbar class="is-danger" [@fadeIn]="online">
+    <mv-col>
+      <mv-icon name="bell-slash"></mv-icon>
+      <span>Você está offline</span>
+    </mv-col>
+  </mv-toolbar>
+</ng-container>
+
+<!--<ng-container *ngIf="!server?.ok">-->
+  <!--<mv-toolbar class="is-default" [@fadeIn]="online">-->
+    <!--<mv-row class="is-align-middle">-->
+      <!--<mv-col class=" is-color-danger">-->
+        <!--<mv-icon name="bell"></mv-icon>-->
+        <!--<span>Erro</span>-->
+      <!--</mv-col>-->
+      <!--<mv-col class="no-grow">-->
+        <!--<button mv-btn (click)="resetServerStatus()">-->
+          <!--<mv-icon name="close"></mv-icon>-->
+        <!--</button>-->
+      <!--</mv-col>-->
+    <!--</mv-row>-->
+  <!--</mv-toolbar>-->
+<!--</ng-container>-->
+

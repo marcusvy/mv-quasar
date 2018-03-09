@@ -9,13 +9,13 @@
       <!-- Usuário -->
       <mv-control>
         <label for="input-user">Usuário</label>
-        <input id="input-user" type="text" name="credential" formControlName="credential" />
+        <input id="input-user" type="text" name="identity" formControlName="identity" />
       </mv-control>
 
       <!-- Senha -->
       <mv-control>
         <label for="input-senha">Senha</label>
-        <input id="input-senha" type="password" name="password" formControlName="password" />
+        <input id="input-senha" type="password" name="credential" formControlName="credential" />
       </mv-control>
 
       <p class="is-align-center" *ngIf="showMessage()">{{message}}</p>

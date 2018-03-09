@@ -5,9 +5,10 @@ namespace User\Action;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use User\Model\Entity\User;
 use User\Service\AuthService;
 use User\Service\AuthServiceInterface;
-use Zend\Authentication\AuthenticationService;
+use User\Service\UserServiceInterface;
 use Zend\Authentication\Result;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Form\FormInterface;
@@ -21,11 +22,17 @@ class AuthPageAction implements MiddlewareInterface
     /** @var FormInterface */
     private $form;
 
+    /** @var UserServiceInterface */
+    private $userService;
+
     public function __construct(
         AuthServiceInterface $service,
+        UserServiceInterface $userService,
         FormInterface $form       // Form $form
-    ) {
+    )
+    {
         $this->service = $service;
+        $this->userService = $userService;
         $this->form = $form;
     }
 
@@ -40,19 +47,20 @@ class AuthPageAction implements MiddlewareInterface
             ? Json::decode($request->getBody(), Json::TYPE_ARRAY)
             : $request->getQueryParams();
 
-        list($credential, $password) = Json::decode(base64_decode($data['token']));
+        list($identity, $credential) = Json::decode(base64_decode($data['token']));
 
-        $this->form->setData(['login' => [
+        $this->form->setData([
+            'identity' => $identity,
             'credential' => $credential,
-            'password' => $password
-        ]]);
+        ]);
         if ($this->form->isValid()) {
-            $this->service->getAdapter()->setCredential($credential)->setIdentity($password);
+            $this->service->getAdapter()->setIdentity($identity)->setCredential($credential);
             $result = $this->service->authenticate();
+            var_dump($result);
             if ($result->getCode() === Result::SUCCESS) {
                 return new JsonResponse([
-                    'success' => true,
-                    'token' => $this->storageDataForClient()
+                    'success' => $result->getMessages()['success'],
+                    'token' => $this->storageDataForClient($result)
                 ]);
             }
         }
@@ -61,8 +69,18 @@ class AuthPageAction implements MiddlewareInterface
         ]);
     }
 
-    private function storageDataForClient(): array
+    /**
+     * @param Result $result
+     * @return array
+     */
+    private function storageDataForClient($result = null): array
     {
-        return [];
+        /** @todo Create a class with storage configuration for user based on db configuration table */
+        /** @todo Send the token for use with client */
+        $data = [];
+        if (!is_null($result) and ($result instanceof Result)) {
+            return $this->userService->getConfig($result->getIdentity());
+        }
+        return $data;
     }
 }

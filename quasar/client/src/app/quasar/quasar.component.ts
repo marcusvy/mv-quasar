@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-quasar',
+  selector: 'mv-quasar',
   templateUrl: './quasar.component.html',
   styleUrls: ['./quasar.component.scss']
 })

@@ -11,12 +11,12 @@
   </mv-container>
 </mv-grid>
 
-<ng-template #templateItem let-model="model">
+<ng-template #templateItem let-model>
   <app-user-item [model]="model"></app-user-item>
 </ng-template>
 
 
-<ng-template #templateForm let-model="model">
+<ng-template #templateForm>
   <app-user-form (onSave)="save($event)"></app-user-form>
 </ng-template>
 
