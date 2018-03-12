@@ -1,7 +1,5 @@
 <?php
 
-
-
 return [
     'i18n' => [
 

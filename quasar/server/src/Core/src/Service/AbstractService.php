@@ -19,6 +19,8 @@ abstract class AbstractService implements ServiceInterface
 
     protected $entity;
 
+    protected $permitedSearchColumns = ['id'];
+
     public function __construct(EntityManagerInterface $entityManager = null)
     {
         if (!is_null($entityManager)) {
@@ -29,11 +31,11 @@ abstract class AbstractService implements ServiceInterface
     /**
      * @return ServiceResultInterface
      */
-    public function get($id): ServiceResultInterface
+    public function get($id) : ServiceResultInterface
     {
         try {
             $entity = $this->getEntityManger()->find($this->entity, $id);
-            if(is_null($entity)){
+            if (is_null($entity)) {
                 throw new EntityNotFoundException('Not Found');
             }
             return new ServiceResult($entity);
@@ -45,7 +47,7 @@ abstract class AbstractService implements ServiceInterface
     /**
      * @return ServiceResultInterface
      */
-    public function list(): ServiceResultInterface
+    public function list() : ServiceResultInterface
     {
         return new ServiceResult($this->getRepository()->getAll());
     }
@@ -66,32 +68,63 @@ abstract class AbstractService implements ServiceInterface
     /** 
      * @return ServiceResultInterface
      */
-    public function search(array $criteria, array $orderBy = null, $limit = null, $offset = null): ServiceResultInterface
+    public function search(array $criteria, array $orderBy = null, $limit = null, $offset = null) : ServiceResultInterface
     {
-        // $qb = $this->getEntityManger()->createQueryBuilder();
-        // $qb->from($this->entity);
-        // $qb->setParameters($criteria);
-        // $qb->expr()->like()
         try {
-            $list = $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
+            $filteredCriteria = array_filter($criteria, function ($search, $column) {
+                return in_array($column, $this->permitedSearchColumns);
+            }, ARRAY_FILTER_USE_BOTH);
 
-            if(is_array($list) && count($list > 0)){
-                array_map(function ($key, $entity) use ($list) {
-                    if ($entity instanceof EntityInterface) {
-                        return $entity->toArray();
-                    }
-                });
+            if (!empty($filteredCriteria)) {
+
+                $list = $this->getRepository()->findBy($filteredCriteria, $orderBy, $limit, $offset);
+
+                if (is_array($list) && !empty($list)) {
+                    return new ServiceResult(array_map(function ($entity) {
+                        if ($entity instanceof EntityInterface) {
+                            return $entity->toArray();
+                        }
+                    }, $list));
+                }
             }
-            return new ServiceResult($list);
         } catch (EntityNotFoundException $e) {
             return new ServiceResult([], $e);
         }
+        return new ServiceResult([]);
+    }
+
+    /** 
+     * @return ServiceResultInterface
+     */
+    public function searchLike(array $criteria, array $orderBy = null, $limit = null, $offset = null) : ServiceResultInterface
+    {
+        try {
+            $filteredCriteria = array_filter($criteria, function ($search, $column) {
+                return in_array($column, $this->permitedSearchColumns);
+            }, ARRAY_FILTER_USE_BOTH);
+
+            if (!empty($filteredCriteria)) {
+
+                $list = $this->getRepository()->findLike($filteredCriteria, $orderBy, $limit, $offset);
+
+                if (is_array($list) && !empty($list)) {
+                    return new ServiceResult(array_map(function ($entity) {
+                        if ($entity instanceof EntityInterface) {
+                            return $entity->toArray();
+                        }
+                    }, $list));
+                }
+            }
+        } catch (EntityNotFoundException $e) {
+            return new ServiceResult([], $e);
+        }
+        return new ServiceResult([]);
     }
 
     /**
      * @return ServiceResultInterface
      */
-    public function create($entity): ServiceResultInterface
+    public function create($entity) : ServiceResultInterface
     {
         if (is_array($entity)) {
             $entity = new $this->entity($entity);
@@ -108,7 +141,7 @@ abstract class AbstractService implements ServiceInterface
     /**
      * @return ServiceResultInterface
      */
-    public function update(int $id, EntityInterface $newEntity): ServiceResultInterface
+    public function update(int $id, EntityInterface $newEntity) : ServiceResultInterface
     {
         try {
             $entity = $this->getEntityManger()->getReference($this->entity, $id);
@@ -125,7 +158,7 @@ abstract class AbstractService implements ServiceInterface
     /**
      * @return ServiceResultInterface
      */
-    public function delete($id): ServiceResultInterface
+    public function delete($id) : ServiceResultInterface
     {
         try {
             $entity = $this->getEntityManger()->getReference($this->entity, $id);
@@ -141,7 +174,7 @@ abstract class AbstractService implements ServiceInterface
     /**
      * @return AbstractService
      */
-    public function setEntityManger(EntityManagerInterface $entityManager=null)
+    public function setEntityManger(EntityManagerInterface $entityManager = null)
     {
         $this->entityManager = $entityManager;
         return $this;

@@ -26,7 +26,8 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     protected $entity;
     /** @var  FormInterface */
     protected $form;
-
+    /** @var array */
+    protected $reservedQueryParams = ['orderby', 'offset', 'limit', 'like'];
     /** @var string */
     protected $primaryColumn = 'id';
 
@@ -156,12 +157,25 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
      */
     public function searchAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        $data = $request->getQueryParams();
-        $result = $this->service->search($data);
         $collection = [];
         $success = false;
         $message = '';
         $status = 404;
+        $data = $request->getQueryParams();
+        $criteria = array_filter($data, function ($value, $param) {
+            return !in_array($param, $this->reservedQueryParams);
+        }, ARRAY_FILTER_USE_BOTH);
+        $reservedData = array_filter($data, function ($value, $param) {
+            return in_array($param, $this->reservedQueryParams);
+        }, ARRAY_FILTER_USE_BOTH);
+        $orderby = isset($reservedData['orderby']) ? $this->retrieveOrderFromRoute($reservedData['orderby']) : null;
+        $limit = $reservedData['limit'] ?? null;
+        $offset = $reservedData['offset'] ?? null;
+        
+
+        $result = isset($reservedData['like'])
+            ? $this->service->searchLike($criteria, $orderby, $limit, $offset)
+            : $this->service->search($criteria, $orderby, $limit, $offset);
 
         if (!$result->hasError()) {
             $success = true;
@@ -175,6 +189,22 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
             'collection' => $collection,
             'message' => $message,
         ], $status);
+    }
+
+    /**
+     * Transform &orderby=name:asc;id=desc into array
+     */
+    private function retrieveOrderFromRoute($value)
+    {
+        $result = [];
+        if (is_string($value)) {
+            $conditions = explode(';', $value);
+            foreach ($conditions as $condition) {
+                list($column, $order) = explode(':', $condition);
+                $result[$column] = $order;
+            }
+        }
+        return $result;
     }
 
     /**

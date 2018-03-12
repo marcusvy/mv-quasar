@@ -9,6 +9,8 @@ class RoleService extends AbstractService implements RoleServiceInterface
 {
     protected $entity = Role::class;
 
+    protected $permitedSearchColumns = ['name'];
+
     // /**
     //  * @return array
     //  */

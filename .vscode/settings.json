@@ -1,0 +1,6 @@
+{
+    "material-icon-theme.folders.associations": {
+        "server": "src",
+        "client": "dist"
+    },
+}

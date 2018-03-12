@@ -1,6 +1,7 @@
 <?php
 return [
     'cors' => [
+        'enabled' => false,
         /**
          * Set the list of allowed origins domain with protocol.
          * For example:

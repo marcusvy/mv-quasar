@@ -61,7 +61,12 @@ interface ServiceInterface
     /**
      * @param array $parameters Parameters of [$column => $searchValue]
      */
-    public function search(array $parameters): ServiceResultInterface;
+    public function search(array $criteria, array $orderBy = null, $limit = null, $offset = null) : ServiceResultInterface;
+
+    /**
+     * @param array $parameters Parameters of [$column => $searchValue]
+     */
+    public function searchLike(array $criteria, array $orderBy = null, $limit = null, $offset = null) : ServiceResultInterface;
 
     /**
      * Inject the Doctrine Entity Manager
