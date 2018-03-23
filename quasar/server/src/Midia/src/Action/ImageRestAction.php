@@ -2,7 +2,7 @@
 
 namespace Midia\Action;
 
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Midia\Model\Entity\Image;
 
 class ImageRestAction extends AbstractMidiaRestAction implements MiddlewareInterface

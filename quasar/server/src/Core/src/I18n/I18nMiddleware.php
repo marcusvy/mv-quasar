@@ -4,8 +4,8 @@ namespace Core\I18n;
 
 use Zend\I18n\Translator\Resources;
 use Zend\I18n\Translator\Translator;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Validator\AbstractValidator;
 
@@ -21,7 +21,7 @@ class I18nMiddleware implements MiddlewareInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
     {
         $translator = new I18nTranslator();
 
@@ -50,6 +50,6 @@ class I18nMiddleware implements MiddlewareInterface
         AbstractValidator::setDefaultTranslator($translator);
 
         // Translate Validators
-        return $delegate->process($request);
+        return $delegate->handle($request);
     }
 }

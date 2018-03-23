@@ -2,8 +2,8 @@
 
 namespace Core\Cors;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class CorsMiddleware implements MiddlewareInterface
@@ -18,7 +18,7 @@ class CorsMiddleware implements MiddlewareInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
     {
 
         $allowed_origins = implode(',', $this->config['allowed_origins']);
@@ -28,7 +28,7 @@ class CorsMiddleware implements MiddlewareInterface
         $max_age = $this->config['max_age'];
         $allowed_credentials = ($this->config['allowed_credentials']) ? 'true' : 'false';
 
-        $response = $delegate->process($request);
+        $response = $delegate->handle($request);
         $response = $response->withHeader('Access-Control-Allow-Origin', $allowed_origins)
             ->withHeader('Access-Control-Allow-Methods', $allowed_methods)
             ->withHeader('Access-Control-Allow-Headers', $allowed_headers)

@@ -2,7 +2,7 @@
 
 namespace Midia\Action;
 
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Midia\Model\Entity\Audio;
 
 class AudioRestAction extends AbstractMidiaRestAction implements MiddlewareInterface

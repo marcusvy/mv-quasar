@@ -1,6 +1,6 @@
 <?php
 
-namespace Log\Action;
+    namespace Log\Action;
 
 use Interop\Container\ContainerInterface;
 use Log\Service\LoggerServiceInterface;

@@ -2,11 +2,11 @@
 
 namespace Log\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Log\Service\LogServiceInterface;
 use Monolog\Logger;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class LoggerMiddleware implements MiddlewareInterface
 {
@@ -26,15 +26,17 @@ class LoggerMiddleware implements MiddlewareInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : \Psr\Http\Message\ResponseInterface
     {
         $uri = $request->getServerParams()['REQUEST_URI'];
         $method = $request->getMethod();
+        
         $data = ['uri' => $uri, 'method' => $method];
 
         $logger = $this->service->log();
         $logger->log(Logger::INFO, 'access', $data);
-        $response = $delegate->process($request);
+
+        $response = $handler->handle($request);
 
         return $response;
     }

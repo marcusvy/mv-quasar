@@ -6,8 +6,8 @@ use Imc\Entity\Candidato;
 use Imc\Entity\CandidatoPerfil;
 use Imc\Service\CandidatoPerfilService;
 use Imc\Service\CandidatoService;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
@@ -39,7 +39,7 @@ class CandidatoAtivarPageAction implements MiddlewareInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
     {
         $key = $request->getAttribute('key');
         $data = Json::decode(base64_decode(urldecode($key)), Json::TYPE_ARRAY);

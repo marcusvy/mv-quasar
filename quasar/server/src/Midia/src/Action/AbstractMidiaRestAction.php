@@ -4,7 +4,7 @@ namespace Midia\Action;
 
 use Core\Action\AbstractRestAction;
 use Core\Service\ServiceInterface;
-use Interop\Http\ServerMiddleware\DelegateInterface;
+use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
 use Midia\Model\Entity\MidiaEntityInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;

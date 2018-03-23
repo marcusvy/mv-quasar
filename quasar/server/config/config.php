@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Zend\ConfigAggregator\ArrayProvider;
 use Zend\ConfigAggregator\ConfigAggregator;
 use Zend\ConfigAggregator\PhpFileProvider;
@@ -7,22 +9,30 @@ use Zend\ConfigAggregator\PhpFileProvider;
 // To enable or disable caching, set the `ConfigAggregator::ENABLE_CACHE` boolean in
 // `config/autoload/local.php`.
 $cacheConfig = [
-    'config_cache_path' => 'data/config-cache.php',
+    'config_cache_path' => 'data/cache/config-cache.php',
 ];
 
 $aggregator = new ConfigAggregator([
-    \Zend\I18n\ConfigProvider::class,
     \Zend\Serializer\ConfigProvider::class,
     \Zend\Paginator\ConfigProvider::class,
     \Zend\Mail\ConfigProvider::class,
+    \Zend\I18n\ConfigProvider::class,
     \Zend\Form\ConfigProvider::class,
     \Zend\InputFilter\ConfigProvider::class,
     \Zend\Filter\ConfigProvider::class,
     \Zend\Hydrator\ConfigProvider::class,
+    \Zend\Expressive\Csrf\ConfigProvider::class,
+    \Zend\Expressive\Session\ConfigProvider::class,
     \Zend\Validator\ConfigProvider::class,
-
+    \Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
+    \Zend\HttpHandlerRunner\ConfigProvider::class,
+    \Zend\Expressive\ZendView\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
+
+    \Zend\Expressive\Helper\ConfigProvider::class,
+    \Zend\Expressive\ConfigProvider::class,
+    \Zend\Expressive\Router\ConfigProvider::class,
 
     // Default App module config
     App\ConfigProvider::class,
@@ -38,7 +48,7 @@ $aggregator = new ConfigAggregator([
     //   - `*.global.php`
     //   - `local.php`
     //   - `*.local.php`
-    new PhpFileProvider(realpath(__DIR__) . '/conf.d/{{,*.}global,{,*.}local}.php'),
+    new PhpFileProvider(realpath(__DIR__) . '/core/{{,*.}global,{,*.}local}.php'),
     new PhpFileProvider(realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php'),
 
     // Load development config if it exists

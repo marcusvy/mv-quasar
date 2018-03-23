@@ -5,8 +5,8 @@ namespace User\Action;
 use Core\Mail\MailServiceInterface;
 use Core\Service\ServiceInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use User\Model\Entity\Perfil;
 use User\Model\Entity\User;
@@ -47,7 +47,7 @@ class RegisterPageAction implements MiddlewareInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
     {
         $data = ($request->getHeader('Content-Type')[0] == 'application/json')
             ? Json::decode($request->getBody(), Json::TYPE_ARRAY)

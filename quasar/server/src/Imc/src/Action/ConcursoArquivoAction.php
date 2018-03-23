@@ -4,7 +4,7 @@ namespace Imc\Action;
 
 use Core\Action\AbstractRestAction;
 use Imc\Entity\ConcursoArquivo;
-use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
+use Psr\Http\Server\MiddlewareInterface as ServerMiddlewareInterface;
 
 class ConcursoArquivoAction extends AbstractRestAction implements ServerMiddlewareInterface
 {

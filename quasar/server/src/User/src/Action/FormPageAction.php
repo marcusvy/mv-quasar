@@ -2,8 +2,8 @@
 
 namespace User\Action;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
@@ -22,7 +22,7 @@ class FormPageAction implements MiddlewareInterface
         $this->form = $form;
     }
 
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
     {
 
         $data = [];

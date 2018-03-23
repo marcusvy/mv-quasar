@@ -4,8 +4,8 @@ namespace User\Action;
 
 use Core\Mail\MailServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use User\Entity\User;
 use Zend\Diactoros\Response\JsonResponse;
@@ -30,7 +30,7 @@ class ActivationPageAction implements MiddlewareInterface
         $this->mailService = $mailService;
     }
 
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
     {
         $credential = $request->getAttribute('credential');
         $key = $request->getAttribute('key');
