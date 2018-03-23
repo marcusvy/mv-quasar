@@ -10,5 +10,5 @@ interface PerfilServiceInterface extends ServiceInterface
    * @param array $data
    * @return mixed
    */
-    public function dataNormalization(array $data);
+    // public function dataNormalization(array $data);
 }

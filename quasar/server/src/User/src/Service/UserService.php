@@ -8,6 +8,7 @@ use User\Model\Entity\User;
 use User\Model\Entity\Perfil;
 use User\Model\Entity\Role;
 use Zend\Hydrator\ClassMethods;
+use Core\Service\ServiceResultInterface;
 
 /**
  * Class UserService
@@ -30,38 +31,41 @@ class UserService extends AbstractService implements UserServiceInterface
     public function __construct(
         EntityManager $entityManager,
         PerfilServiceInterface $perfilService
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->perfilService = $perfilService;
         parent::__construct($entityManager);
     }
 
-    public function findAll()
-    {
-        $result = [];
-        $list = $this->getEntityManger()->getRepository($this->entity)->findAll();
-        /** @var User $entity */
-        foreach ($list as $entity) {
-            $result[$entity->getId()] = $entity->toArray();
-        }
-        return $result;
-    }
+    // public function findAll()
+    // {
+    //     $result = [];
+    //     $list = $this->getEntityManger()->getRepository($this->entity)->findAll();
+    //     /** @var User $entity */
+    //     foreach ($list as $entity) {
+    //         $result[$entity->getId()] = $entity->toArray();
+    //     }
+    //     return $result;
+    // }
 
     /**
-     * @param array|\Core\Doctrine\EntityInterface $data
-     * @return \Core\Doctrine\EntityInterface|mixed|User
-     * @throws \Doctrine\DBAL\Exception\UniqueConstraintViolationException
+     * @param array|User $entity
+     * @return ServiceResultInterface
      */
-    public function create($data)
+    public function create($entity) : ServiceResultInterface
     {
         // Perfil
-
-        //Usuário
-        if(is_array($data)) {
-            $perfil = $this->perfilService->insert($data);
+        // if ($entity->getPerfil() instanceof Perfil) {
+        //     if (!empty($entity->getPerfil()->getName())) {
+        //         $entity->setPerfil($this->perfilService->create($entity->getPerfil())->getFirstResult());
+        //     }
+        // }elseif (is_string($entity->getPerfil())) {
+            
+        // }
+        
+        if($entity->getRole() instanceof Role) {
+            // @todo 
         }
-        $user = new User($data);
 
         $role = (isset($data['role']) && !empty($data['role'])) ? $data['role'] : null;
 
@@ -77,41 +81,41 @@ class UserService extends AbstractService implements UserServiceInterface
         return $user;
     }
 
-    public function update($id, $data)
-    {
-        /** @var User $user */
-        $user = $this->getEntityManger()->getReference(User::class, $id);
-        (new ClassMethods(false))->hydrate($data, $user);
-        $this->getEntityManger()->persist($user);
+    // public function update($id, $data)
+    // {
+    //     /** @var User $user */
+    //     $user = $this->getEntityManger()->getReference(User::class, $id);
+    //     (new ClassMethods(false))->hydrate($data, $user);
+    //     $this->getEntityManger()->persist($user);
 
-        $perfil = $this->getEntityManger()->getReference(
-            Perfil::class,
-            $user->getPerfil()->getId()
-        );
-        (new ClassMethods(false))->hydrate($this->perfilService->dataNormalization($data), $perfil);
-        $this->getEntityManger()->persist($perfil);
+    //     $perfil = $this->getEntityManger()->getReference(
+    //         Perfil::class,
+    //         $user->getPerfil()->getId()
+    //     );
+    //     (new ClassMethods(false))->hydrate($this->perfilService->dataNormalization($data), $perfil);
+    //     $this->getEntityManger()->persist($perfil);
 
-        $this->getEntityManger()->flush();
-        return $user;
-    }
+    //     $this->getEntityManger()->flush();
+    //     return $user;
+    // }
 
-    public function delete($id): int
-    {
-        $user = $this->getEntityManger()->getReference($this->entity, $id);
-        if ($user) {
-            $perfil = $this->getEntityManger()->getReference(
-                Perfil::class,
-                $user->getPerfil()->getId()
-            );
-            if ($perfil) {
-                $this->getEntityManger()->remove($perfil);
-            }
-            $this->getEntityManger()->remove($user);
-            $this->getEntityManger()->flush();
-            return $id;
-        }
-        return 0;
-    }
+    // public function delete($id) : int
+    // {
+    //     $user = $this->getEntityManger()->getReference($this->entity, $id);
+    //     if ($user) {
+    //         $perfil = $this->getEntityManger()->getReference(
+    //             Perfil::class,
+    //             $user->getPerfil()->getId()
+    //         );
+    //         if ($perfil) {
+    //             $this->getEntityManger()->remove($perfil);
+    //         }
+    //         $this->getEntityManger()->remove($user);
+    //         $this->getEntityManger()->flush();
+    //         return $id;
+    //     }
+    //     return 0;
+    // }
 
     public function status($id, $status)
     {
@@ -126,7 +130,7 @@ class UserService extends AbstractService implements UserServiceInterface
         return false;
     }
 
-    public function activate($identity, $key): bool
+    public function activate($identity, $key) : bool
     {
         if (!is_null($identity) && !is_null($key)) {
             try {
@@ -165,7 +169,7 @@ class UserService extends AbstractService implements UserServiceInterface
                 if (count($result) > 0) {
                     $user = array_shift($result);
                     if (($user instanceof User)) {
-                       return $user->toArray();
+                        return $user->toArray();
                     }
                 }
             } catch (\Exception $e) {

@@ -122,6 +122,7 @@ abstract class AbstractService implements ServiceInterface
     }
 
     /**
+     * @param array|\Core\Doctrine\EntityInterface $entity
      * @return ServiceResultInterface
      */
     public function create($entity) : ServiceResultInterface

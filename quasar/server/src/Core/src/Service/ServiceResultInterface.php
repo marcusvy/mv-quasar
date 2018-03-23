@@ -2,6 +2,7 @@
 
 namespace Core\Service;
 
+use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\EntityManager;
 
 interface ServiceResultInterface
@@ -15,7 +16,7 @@ interface ServiceResultInterface
 
     /**
      * Retorna a entidade     
-     * @return \Core\Doctrine\AbstractEntity
+     * @return array
      */
     public function getResult(): array;
 
