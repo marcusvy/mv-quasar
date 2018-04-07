@@ -116,7 +116,6 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         $result = $this->service->paginate($page, $resultsPerPage);
 
         $collection = [];
-        $message = '';
         $status = 404;
 
         if (!$result->hasError()) {
@@ -124,8 +123,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
             $interator = $paginator->getIterator();
             $total = $paginator->count();
             $perpage = $interator->count();
-            $pages = ($total > 0) ? ceil($total / $perpage) : 1;
-
+            $pages = ($total > 0 && $perpage > 0) ? ceil($total / $perpage) : 1;
             $message = 'Done';
 
             return new JsonResponse([
@@ -137,7 +135,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
                     'total' => $total,
                 ],
                 'collection' => $interator->getArrayCopy(),
-                'message' => 'Done'
+                'message' => $message
             ]);
         } else {
             $message = $result->getError()->getMessage();

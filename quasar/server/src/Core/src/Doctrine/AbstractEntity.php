@@ -10,6 +10,14 @@ abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
 {
     use HydratorAwareTrait;
 
+    protected $__filtered = false;
+
+    /**
+     * Array of properties that exclude from toArray method result
+     * @var array
+     */
+    protected $__protectedProperties = [];
+
     /**
      * @param array $options
      */
@@ -19,35 +27,46 @@ abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
     }
 
     /**
-     * @param mixed $options
-     * @return EntityInterface
+     * @param array $options
+     * @return AbstractEntity
      */
-    public function hydradorSetup($options=[])
+    public function hydradorSetup($options = [])
     {
         $this->hydrator = new ClassMethods();
-        $this->hydrate($options);
+        $this->getHydrator()->hydrate($options, $this);
         return $this;
     }
-
     /**
-     * @param mixed $options
-     * @return EntityInterface
+     * @param bool $filtered
+     * @return AbstractEntity
      */
-    public function hydrate($options)
+    public function setFiltered(bool $filtered): AbstractEntity
     {
-        $this->hydrator->hydrate($options, $this);
+        $this->__filtered = $filtered;
         return $this;
     }
 
     /**
-     * Transforma a entidade em um array
+     * @param array $protectedProperties
+     */
+    public function setProtectedProperties(array $protectedProperties): void
+    {
+        $this->__protectedProperties = $protectedProperties;
+    }
+
+    /**
+     * Transform entity to array
      * @return array
      */
     public function toArray()
     {
-        $hydrator = new ClassMethods();
-        $result = $hydrator->extract($this);
+        $result = $this->getHydrator()->extract($this);
         unset($result['hydrator']);
+        if($this->__filtered){
+            foreach ($this->__protectedProperties as $property) {
+                unset($result[$property]);
+            }
+        }
         return $result;
     }
 
@@ -58,7 +77,6 @@ abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
      */
     public function exchangeArray($data)
     {
-        $hydrator = new ClassMethods();
-        return $hydrator->hydrate($data, $this);
+        return $this->getHydrator()->hydrate($data, $this);
     }
 }

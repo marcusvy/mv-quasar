@@ -117,6 +117,12 @@ class User extends AbstractEntity
      */
     private $role;
 
+    protected $__protectedProperties = [
+        'credential',
+        'salt',
+        'activation_key',
+    ];
+
     public function __construct($options = [])
     {
         $this->perfil = new Perfil();
@@ -130,10 +136,6 @@ class User extends AbstractEntity
             $options['perfil'] = (is_array($options['perfil'])) ? new Perfil($options['perfil']) : null;
         }
         parent::__construct($options);
-    }
-
-    public function hydratorFilters($property)
-    {
     }
 
     /**
@@ -322,7 +324,7 @@ class User extends AbstractEntity
     /**
      * @return Perfil
      */
-    public function getPerfil(): Perfil
+    public function getPerfil()
     {
         return $this->perfil;
     }
@@ -340,7 +342,7 @@ class User extends AbstractEntity
     /**
      * @return Role
      */
-    public function getRole(): Role
+    public function getRole()
     {
         return $this->role;
     }
@@ -355,21 +357,18 @@ class User extends AbstractEntity
         return $this;
     }
 
-    public function toArray($purify = true)
+    /**
+     * @return array
+     */
+    public function toArray()
     {
-        $perfil = !is_null($this->getPerfil()) ? $this->getPerfil()->toArray() : [];
-        $role = !is_null($this->getrole()) ? $this->getRole()->toArray() : [];
+        $result = parent::toArray();
+        $perfil = !is_null($this->getPerfil()) ? (!is_int($this->getPerfil())) ? $this->getPerfil()->toArray() : [] : [];
+        $role = !is_null($this->getRole()) ? (!is_int($this->getRole())) ? $this->getRole()->toArray() : [] : [];
         $foreign = [
             'perfil' => $perfil,
             'role' => $role
         ];
-        $hydrator = new ClassMethods();
-        $result = $hydrator->extract($this);
-        if ($purify) {
-            unset($result['credential']);
-            unset($result['salt']);
-            unset($result['activation_key']);
-        }
         return array_merge($result, $foreign);
     }
 
