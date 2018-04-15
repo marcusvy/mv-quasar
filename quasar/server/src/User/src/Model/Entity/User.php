@@ -106,7 +106,7 @@ class User extends AbstractEntity
      * @ORM\JoinColumn(name="fk_perfil", referencedColumnName="id")
      *
      */
-    private $perfil;
+    private $perfil = null;
 
     /**
      * @var Role
@@ -115,7 +115,7 @@ class User extends AbstractEntity
      * @ORM\OneToOne(targetEntity="Role")
      * @ORM\JoinColumn(name="fk_role", referencedColumnName="id")
      */
-    private $role;
+    private $role =  null;
 
     protected $__protectedProperties = [
         'credential',
@@ -330,10 +330,10 @@ class User extends AbstractEntity
     }
 
     /**
-     * @param Perfil $perfil
+     * @param Perfil|int $perfil
      * @return User
      */
-    public function setPerfil(Perfil $perfil): User
+    public function setPerfil($perfil=null): User
     {
         $this->perfil = $perfil;
         return $this;
@@ -348,10 +348,10 @@ class User extends AbstractEntity
     }
 
     /**
-     * @param Role $role
+     * @param Role|int $role
      * @return User
      */
-    public function setRole($role): User
+    public function setRole($role=0): User
     {
         $this->role = $role;
         return $this;

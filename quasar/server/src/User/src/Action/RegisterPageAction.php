@@ -4,12 +4,14 @@ namespace User\Action;
 
 use Core\Mail\MailServiceInterface;
 use Core\Service\ServiceInterface;
+use Core\Utils\RequestUtils;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use User\Model\Entity\Perfil;
 use User\Model\Entity\User;
+use User\Service\PerfilService;
 use User\Service\UserService;
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -20,7 +22,10 @@ class RegisterPageAction implements MiddlewareInterface
 {
 
     /** @var UserService */
-    private $service;
+    private $userService;
+
+    /** @var PerfilService */
+    private $perfilService;
 
     /** @var MailServiceInterface */
     private $mailService;
@@ -32,13 +37,14 @@ class RegisterPageAction implements MiddlewareInterface
     private $formPerfil;
 
     public function __construct(
-        ServiceInterface $service,
+        ServiceInterface $userService,
+        ServiceInterface $perfilService,
         MailServiceInterface $mailService,
         FormInterface $form = null,
         FormInterface $formPerfil = null
-    )
-    {
-        $this->service = $service;
+    ) {
+        $this->userService = $userService;
+        $this->perfilService = $perfilService;
         $this->mailService = $mailService;
         $this->form = $form;
         $this->formPerfil = $formPerfil;
@@ -47,22 +53,23 @@ class RegisterPageAction implements MiddlewareInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
-    {
-        $data = ($request->getHeader('Content-Type')[0] == 'application/json')
-            ? Json::decode($request->getBody(), Json::TYPE_ARRAY)
-            : $request->getQueryParams();
+    public function process(
+        ServerRequestInterface $request,
+        DelegateInterface $delegate
+    ): \Psr\Http\Message\ResponseInterface {
+        $data = RequestUtils::extract($request);
 
-        if (!is_null($this->form) && !is_null($this->formPerfil)) {
+        if (!is_null($this->form)) {
             $this->form->setData($data);
-            $this->formPerfil->setData($data);
-            if ($this->form->isValid() && $this->formPerfil->isValid()) {
-                $user = $this->form->getData();
-                $perfil = $this->formPerfil->getData();
-                $user->setPerfil($perfil);
+            if ($this->form->isValid()) {
+                $registerData = $this->form->getData();
 
                 try {
-                    $user = $this->service->create($user->toArray());
+                    $perfil = $this->perfilService->create(['name' => $registerData['name']])->getFirstResult();
+
+                    $user = new User($registerData);
+                    $user->setPerfil($perfil);
+                    $user = $this->userService->create($user)->getFirstResult();
 
                     if ($user instanceof User) {
                         if ($this->mail($data['name'], $data['email'], $user->getActivationKey())) {
@@ -87,7 +94,7 @@ class RegisterPageAction implements MiddlewareInterface
                 ]);
             }
         }
-        return new JsonResponse(['success' => false]);
+        return new JsonResponse(['success' => false, 'message' => 'Formulário nulo']);
     }
 
     private function mail($to, $email, $activationKey)

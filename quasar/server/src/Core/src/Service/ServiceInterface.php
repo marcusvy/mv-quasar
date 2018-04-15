@@ -36,10 +36,10 @@ interface ServiceInterface
 
     /**
      * Insere um novo registro
-     * @param array|EntityInterface $entity
+     * @param array $data
      * @return ServiceResultInterface
      */
-    public function create($entity): ServiceResultInterface;
+    public function create(array $data): ServiceResultInterface;
 
     /**
      * Atualiza um registro de usuário
@@ -47,7 +47,7 @@ interface ServiceInterface
      * @param array $data
      * @return ServiceResultInterface
      */
-    public function update(int $id, EntityInterface $entity): ServiceResultInterface;
+    public function update(int $id, array $data): ServiceResultInterface;
 
     /**
      * Exclui um registro com $id fornecido

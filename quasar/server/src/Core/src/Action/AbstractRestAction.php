@@ -5,6 +5,7 @@ namespace Core\Action;
 use Core\Doctrine\AbstractEntity;
 use Core\Service\ServiceInterface;
 
+use Core\Utils\RequestUtils;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
@@ -12,11 +13,8 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Expressive\Router;
-use Zend\Form\Fieldset;
-use Zend\Json\Json;
 use Zend\Form\FormInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Zend\Stdlib\ArrayUtils;
 
 abstract class AbstractRestAction implements RestActionInterface, MiddlewareInterface, StatusCodeInterface
 {
@@ -123,7 +121,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         $status = 404;
 
         if (!$result->hasError()) {
-            /** @var Paginator $paginator */
+            /** @var \Doctrine\ORM\Tools\Pagination\Paginator $paginator */
             $paginator = $result->getFirstResult();
             $interator = $paginator->getIterator();
             $total = $paginator->count();
@@ -136,7 +134,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
                 if ($entity instanceof AbstractEntity) {
                     return $entity->toArray();
                 }
-                if(is_array($entity)){
+                if (is_array($entity)) {
                     return $entity;
                 }
                 return null;
@@ -228,12 +226,11 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
      */
     public function createAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        $data = $this->extractRequestData($request);
+        $data = RequestUtils::extract($request);
         $collection = [];
         $success = false;
         $message = 'Form not provided';
         $status = 505;
-
 
         if (!is_null($this->form)) {
             $this->form->setData($data);
@@ -252,6 +249,8 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
                         ? 'Duplicate entry'
                         : $result->getError()->getMessage();
                 }
+            } else {
+                $message = $this->form->getMessages();
             }
         }
         return new JsonResponse([
@@ -269,7 +268,8 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     public function updateAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $id = ($request->getAttribute($this->primaryColumn)) ? (int)$request->getAttribute($this->primaryColumn) : 0;
-        $data = $this->extractRequestData($request);
+        $data = RequestUtils::extract($request);
+
         $collection = [];
         $success = false;
         $message = 'Server Error';
@@ -286,10 +286,12 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
                 if (!$result->hasError()) {
                     $entity = $result->getFirstResult();
                     $success = true;
-                    $collection = $entity->toArray();
+                    $collection = [$entity->toArray()];
                     $message = 'Done';
                     $status = 200;
                 }
+            } else {
+                $message = $this->form->getMessages();
             }
         } else {
             $message = 'You must identify';
@@ -337,17 +339,4 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         ], $status);
     }
 
-    public function extractRequestData(ServerRequestInterface $request)
-    {
-        $data = [];
-        $ct = $request->getHeader('Content-Type');
-        $contentType = array_shift($ct);
-        if ($contentType == 'application/json') {
-            $data = Json::decode($request->getBody(), Json::TYPE_ARRAY);
-        }
-        if ($contentType == 'application/x-www-form-urlencoded') {
-            $data = $request->getQueryParams();
-        }
-        return $data;
-    }
 }

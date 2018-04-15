@@ -18,7 +18,7 @@ class PerfilForm extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setHydrator(new Hydrator\ClassMethods(false));
-        $this->setObject(new Perfil());
+//        $this->setObject(new Perfil());
 
         $this->initAddressFieldset();
         $this->initContactFieldset();

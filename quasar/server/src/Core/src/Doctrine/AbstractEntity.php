@@ -80,4 +80,5 @@ abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
     {
         return $this->getHydrator()->hydrate($data, $this);
     }
+
 }

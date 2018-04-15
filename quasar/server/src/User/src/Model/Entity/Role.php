@@ -66,4 +66,5 @@ class Role extends AbstractEntity
         $this->name = $name;
         return $this;
     }
+
 }

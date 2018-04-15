@@ -20,7 +20,7 @@ class RegisterForm extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setHydrator(new Hydrator\ClassMethods(false));
-        $this->setObject(new User());
+//        $this->setObject(new User());
 
         $this->initLoginFieldset();
         $this->add([

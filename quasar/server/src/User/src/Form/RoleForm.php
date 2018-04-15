@@ -16,7 +16,7 @@ class RoleForm extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setHydrator(new Hydrator\ClassMethods(false));
-        $this->setObject(new Role());
+//        $this->setObject(new Role());
         
         $this->initRoleFieldset(); 
     }

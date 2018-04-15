@@ -2,6 +2,8 @@
 
 namespace Core\Service;
 
+use Core\Doctrine\AbstractEntity;
+use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Zend\Hydrator;
 use Doctrine\ORM\EntityManager;
@@ -124,7 +126,7 @@ abstract class AbstractService implements ServiceInterface
     }
 
     /**
-     * @param array|\Core\Doctrine\EntityInterface $entity
+     * @param array $entity
      * @return ServiceResultInterface
      */
     public function create($entity) : ServiceResultInterface
@@ -141,15 +143,20 @@ abstract class AbstractService implements ServiceInterface
         }
     }
 
+
     /**
+     * @param int $id
+     * @param array $data
      * @return ServiceResultInterface
+     * @throws \Doctrine\ORM\ORMException
      */
-    public function update(int $id, EntityInterface $newEntity) : ServiceResultInterface
+    public function update(int $id, array $data) : ServiceResultInterface
     {
         try {
+            /** @var AbstractEntity $entity */
             $entity = $this->getEntityManger()->getReference($this->entity, $id);
             $entity->hydradorSetup();
-            $entity->getHydrator()->hydrate($newEntity->toArray(), $entity);
+            $entity->getHydrator()->hydrate($data, $entity);
             $this->getEntityManger()->persist($entity);
             $this->getEntityManger()->flush();
             return new ServiceResult([$entity]);
@@ -165,7 +172,7 @@ abstract class AbstractService implements ServiceInterface
     {
         try {
             $entity = $this->getEntityManger()->getReference($this->entity, $id);
-            $cacheEntity = $entity;
+            $cacheEntity = new $this->entity($entity->toArray());
             $this->getEntityManger()->remove($entity);
             $this->getEntityManger()->flush();
             return new ServiceResult([$cacheEntity]);

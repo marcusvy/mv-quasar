@@ -445,5 +445,4 @@ class Perfil extends AbstractEntity
         $this->avatar = $avatar;
         return $this;
     }
-
 }
