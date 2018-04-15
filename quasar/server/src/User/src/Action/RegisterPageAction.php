@@ -62,7 +62,7 @@ class RegisterPageAction implements MiddlewareInterface
                 $user->setPerfil($perfil);
 
                 try {
-                    $user = $this->service->create($user->toArray(false));
+                    $user = $this->service->create($user->toArray());
 
                     if ($user instanceof User) {
                         if ($this->mail($data['name'], $data['email'], $user->getActivationKey())) {

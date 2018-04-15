@@ -54,6 +54,9 @@ class UserService extends AbstractService implements UserServiceInterface
      */
     public function create($entity) : ServiceResultInterface
     {
+        var_dump($entity);
+        exit;
+
         // Perfil
         // if ($entity->getPerfil() instanceof Perfil) {
         //     if (!empty($entity->getPerfil()->getName())) {

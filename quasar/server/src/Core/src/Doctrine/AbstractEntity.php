@@ -10,7 +10,7 @@ abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
 {
     use HydratorAwareTrait;
 
-    protected $__filtered = false;
+    protected $__protect = true;
 
     /**
      * Array of properties that exclude from toArray method result
@@ -36,13 +36,14 @@ abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
         $this->getHydrator()->hydrate($options, $this);
         return $this;
     }
+
     /**
-     * @param bool $filtered
+     * @param bool $_protect
      * @return AbstractEntity
      */
-    public function setFiltered(bool $filtered): AbstractEntity
+    public function setProtect(bool $_protect): AbstractEntity
     {
-        $this->__filtered = $filtered;
+        $this->__protect = $_protect;
         return $this;
     }
 
@@ -62,7 +63,7 @@ abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
     {
         $result = $this->getHydrator()->extract($this);
         unset($result['hydrator']);
-        if($this->__filtered){
+        if($this->__protect){
             foreach ($this->__protectedProperties as $property) {
                 unset($result[$property]);
             }

@@ -5,6 +5,7 @@ namespace Core\Action;
 use Core\Doctrine\AbstractEntity;
 use Core\Service\ServiceInterface;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -15,6 +16,7 @@ use Zend\Form\Fieldset;
 use Zend\Json\Json;
 use Zend\Form\FormInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Zend\Stdlib\ArrayUtils;
 
 abstract class AbstractRestAction implements RestActionInterface, MiddlewareInterface, StatusCodeInterface
 {
@@ -41,8 +43,10 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         $this->form = $form;
     }
 
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
-    {
+    public function process(
+        ServerRequestInterface $request,
+        DelegateInterface $delegate
+    ): \Psr\Http\Message\ResponseInterface {
         switch ($request->getMethod()) {
             case 'OPTIONS':
             case 'GET':
@@ -119,12 +123,24 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         $status = 404;
 
         if (!$result->hasError()) {
+            /** @var Paginator $paginator */
             $paginator = $result->getFirstResult();
             $interator = $paginator->getIterator();
             $total = $paginator->count();
             $perpage = $interator->count();
             $pages = ($total > 0 && $perpage > 0) ? ceil($total / $perpage) : 1;
             $message = 'Done';
+
+            //Enable protection of properties with toArray Method on entity
+            $collection = array_map(function ($entity) {
+                if ($entity instanceof AbstractEntity) {
+                    return $entity->toArray();
+                }
+                if(is_array($entity)){
+                    return $entity;
+                }
+                return null;
+            }, $interator->getArrayCopy());
 
             return new JsonResponse([
                 'success' => true,
@@ -134,7 +150,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
                     'perpage' => $perpage,
                     'total' => $total,
                 ],
-                'collection' => $interator->getArrayCopy(),
+                'collection' => $collection,
                 'message' => $message
             ]);
         } else {
@@ -169,7 +185,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         $orderby = isset($reservedData['orderby']) ? $this->retrieveOrderFromRoute($reservedData['orderby']) : null;
         $limit = $reservedData['limit'] ?? null;
         $offset = $reservedData['offset'] ?? null;
-        
+
 
         $result = isset($reservedData['like'])
             ? $this->service->searchLike($criteria, $orderby, $limit, $offset)

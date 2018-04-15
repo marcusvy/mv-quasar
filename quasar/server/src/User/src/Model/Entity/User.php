@@ -357,21 +357,6 @@ class User extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        $result = parent::toArray();
-        $perfil = !is_null($this->getPerfil()) ? (!is_int($this->getPerfil())) ? $this->getPerfil()->toArray() : [] : [];
-        $role = !is_null($this->getRole()) ? (!is_int($this->getRole())) ? $this->getRole()->toArray() : [] : [];
-        $foreign = [
-            'perfil' => $perfil,
-            'role' => $role
-        ];
-        return array_merge($result, $foreign);
-    }
-
     public function encriptPassword()
     {
         $this->setCredential(password_hash($this->getCredential(), PASSWORD_DEFAULT));

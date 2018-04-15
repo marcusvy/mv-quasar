@@ -12,12 +12,12 @@ abstract class AbstractEntityRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('u');
         $qb->select(['u']);
-            // ->from($this->_entityName, 'u');
+        // ->from($this->_entityName, 'u');
         foreach ($criteria as $column => $value) {
             $likePredicate = sprintf('u.%s', $column);
             $likeParameter = sprintf(':%s', $column);
             $whereLike = $qb->expr()->like($likePredicate, $likeParameter);
-            $qb->setParameter($likeParameter, '%'.$value.'%');
+            $qb->setParameter($likeParameter, '%' . $value . '%');
             $qb->where($whereLike);
         }
         if (!is_null($orderBy) && is_array($orderBy)) {
@@ -42,24 +42,19 @@ abstract class AbstractEntityRepository extends EntityRepository
             ->getResult(Query::HYDRATE_ARRAY);
     }
 
-    /** 
+    /**
      * @todo OrderBy functionality
      */
-    public function findAllPaginate($page, $limit = 10)
+    public function findAllPaginate($page = 1, $limit = 10)
     {
         $qb = $this->createQueryBuilder('r');
         $qb->orderBy('r.id', 'ASC');
-        return $this->paginate($qb, $page, $limit);
-    }
-
-    protected function paginate($query, $page = 1, $limit = 10)
-    {
         $offset = $limit * ($page - 1);
-        $paginator = new Paginator($query);
+        $paginator = new Paginator($qb);
         $paginator->getQuery()
             ->setFirstResult($offset)
             ->setMaxResults($limit)
-            ->setHydrationMode(Query::HYDRATE_ARRAY);
+            ->setHydrationMode(Query::HYDRATE_OBJECT);
         return $paginator;
     }
 }

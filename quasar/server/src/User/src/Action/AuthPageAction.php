@@ -56,7 +56,7 @@ class AuthPageAction implements MiddlewareInterface
         if ($this->form->isValid()) {
             $this->service->getAdapter()->setIdentity($identity)->setCredential($credential);
             $result = $this->service->authenticate();
-            var_dump($result);
+
             if ($result->getCode() === Result::SUCCESS) {
                 return new JsonResponse([
                     'success' => $result->getMessages()['success'],

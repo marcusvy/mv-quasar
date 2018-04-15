@@ -2,6 +2,7 @@
 
 namespace Core\Service;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Zend\Hydrator;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,6 +59,7 @@ abstract class AbstractService implements ServiceInterface
     public function paginate($page, $resultsPerPage = 10) : ServiceResultInterface
     {
         try {
+            /** @var Paginator $result */
             $result = $this->getRepository()->findAllPaginate($page, $resultsPerPage);
             return new ServiceResult([$result]);
         } catch (EntityNotFoundException $e) {
