@@ -88,4 +88,16 @@ interface MailServiceInterface
      * @return MailServiceInterface
      */
     public function checkDefaults();
+
+
+    /**
+     * @return bool
+     */
+    public function isEnabled(): bool;
+
+    /**
+     * @param bool $enabled
+     * @return MailService
+     */
+    public function setEnabled(bool $enabled): MailService;
 }

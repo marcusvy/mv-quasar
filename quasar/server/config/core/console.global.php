@@ -2,6 +2,6 @@
 
 return [
     'console' => [
-        'enabled' => true
+        'enabled' => false
     ]
 ];

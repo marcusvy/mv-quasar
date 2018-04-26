@@ -34,6 +34,9 @@ class ConfigProvider
     public function getDependencies()
     {
         return [
+            'aliases' => [
+                Manager\FormElementManager::class => 'FormElementManager'
+            ],
             'invokables' => [
             ],
             'factories' => [

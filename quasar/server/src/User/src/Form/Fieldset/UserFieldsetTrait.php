@@ -27,7 +27,7 @@ trait UserFieldsetTrait
 
         $this->add([
             'name' => 'active',
-            'type' => Checkbox::class
+            'type' => Checkbox::class,
         ]);
 
         $this->add([
@@ -44,6 +44,7 @@ trait UserFieldsetTrait
 
     public function getInputFilterUserFieldset()
     {
+
         return array_merge_recursive(
             $this->getInputFilterLoginFieldset(),
             [
@@ -67,8 +68,8 @@ trait UserFieldsetTrait
                 'active' => [
                     'required' => false,
                     'filters' => [
-                        (new Filter\Boolean())
-                    ]
+                        (new Filter\Boolean()),
+                    ],
                 ],
                 'perfil' => [
                     'required' => false,

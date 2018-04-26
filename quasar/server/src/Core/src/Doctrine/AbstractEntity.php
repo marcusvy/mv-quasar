@@ -37,23 +37,23 @@ abstract class AbstractEntity implements EntityInterface, HydratorAwareInterface
         return $this;
     }
 
-    /**
-     * @param bool $_protect
-     * @return AbstractEntity
-     */
-    public function setProtect(bool $_protect): AbstractEntity
-    {
-        $this->__protect = $_protect;
-        return $this;
-    }
-
-    /**
-     * @param array $protectedProperties
-     */
-    public function setProtectedProperties(array $protectedProperties): void
-    {
-        $this->__protectedProperties = $protectedProperties;
-    }
+//    /**
+//     * @param bool $_protect
+//     * @return AbstractEntity
+//     */
+//    public function setProtect(bool $_protect): AbstractEntity
+//    {
+//        $this->__protect = $_protect;
+//        return $this;
+//    }
+//
+//    /**
+//     * @param array $protectedProperties
+//     */
+//    public function setProtectedProperties(array $protectedProperties): void
+//    {
+//        $this->__protectedProperties = $protectedProperties;
+//    }
 
     /**
      * Transform entity to array

@@ -126,7 +126,7 @@ abstract class AbstractService implements ServiceInterface
     }
 
     /**
-     * @param array $entity
+     * @param array|EntityInterface $entity
      * @return ServiceResultInterface
      */
     public function create($entity) : ServiceResultInterface
@@ -154,9 +154,8 @@ abstract class AbstractService implements ServiceInterface
     {
         try {
             /** @var AbstractEntity $entity */
-            $entity = $this->getEntityManger()->getReference($this->entity, $id);
-            $entity->hydradorSetup();
-            $entity->getHydrator()->hydrate($data, $entity);
+            $entity = $this->getEntityManger()->getReference($this->entity,$id);
+            $entity->hydradorSetup($data);
             $this->getEntityManger()->persist($entity);
             $this->getEntityManger()->flush();
             return new ServiceResult([$entity]);

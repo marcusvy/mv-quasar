@@ -10,7 +10,7 @@ return [
         /**
          * Default option enabled
          */
-        'enabled' => true,
+        'enabled' => false,
 
         /**
          * The list of $configuration => $handlerList.

@@ -99,22 +99,26 @@ class RegisterPageAction implements MiddlewareInterface
 
     private function mail($to, $email, $activationKey)
     {
-        $subject = sprintf('Quasar Platform::Registration-%s', $to);
+        if ($this->mailService->isEnabled()) {
+            $subject = sprintf('Quasar Platform::Registration-%s', $to);
 
-        $texto = <<<MAIL
-        <h3>Olá, %s!</h3>
-        <p>Antes de utilizar seu cadastro é necessário ativá-lo. 
-        Basta colar o código abaixo na página de ativação.</p>
-        <p style="padding: 2em;">%s</p>
+            $texto = <<<MAIL
+<h3>Olá, %s!</h3>
+<p>Antes de utilizar seu cadastro é necessário ativá-lo. 
+Basta colar o código abaixo na página de ativação.</p>
+<p style="padding: 2em;">%s</p>
 MAIL;
 
-        $this->mailService
-            ->write()
-            ->setFrom('teste@mviniciusconsultoria.com.br')
-            ->addTo($email, $to)
-            ->setSubject($subject)
-            ->setBody(sprintf($texto, $to, $activationKey));
+            $this->mailService
+                ->write()
+                ->setFrom('teste@mviniciusconsultoria.com.br')
+                ->addTo($email, $to)
+                ->setSubject($subject)
+                ->setBody(sprintf($texto, $to, $activationKey));
 
-        return $this->mailService->send();
+            return $this->mailService->send();
+        }
+        return true;
+
     }
 }

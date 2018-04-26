@@ -45,7 +45,6 @@ class ConfigProvider
             'factories' => [
                 Action\ActivationPageAction::class => Action\ActivationPageFactory::class,
                 Action\AuthPageAction::class => Action\AuthPageFactory::class,
-                Action\FormPageAction::class => Action\FormPageFactory::class,
                 Action\PerfilRestAction::class => Action\PerfilRestFactory::class,
                 Action\RegisterPageAction::class => Action\RegisterPageFactory::class,
                 Action\RoleRestAction::class => Action\RoleRestFactory::class,
@@ -70,9 +69,9 @@ class ConfigProvider
         return [
             'invokables' => [
             ],
-            'factories' => [
-                Form\Fieldset\RoleFieldsetTrait::class => Form\Fieldset\RoleFieldsetFactory::class,
-            ],
+//            'factories' => [
+//                Form\Fieldset\RoleFieldsetTrait::class => Form\Fieldset\RoleFieldsetFactory::class,
+//            ],
         ];
     }
 
@@ -115,16 +114,28 @@ class ConfigProvider
                 'allowed_methods' => ['GET', 'POST']
             ],
             [
+                'path' => '/api/user/register',
+                'middleware' => Action\RegisterPageAction::class,
+                'name' => 'QuasarUser.user.register',
+                'allowed_methods' => ['POST']
+            ],
+            [
+                'path' => '/api/user/activate/for/{credential}/by/{key}',
+                'middleware' => Action\ActivationPageAction::class,
+                'name' => 'QuasarUser.user.activation',
+                'allowed_methods' => ['GET']
+            ],
+            [
                 'path' => '/api/user/page[/{page:\d+}]',
                 'middleware' => Action\UserRestAction::class,
                 'name' => 'QuasarUser.user.pagination',
                 'allowed_methods' => ['GET']
             ],
             [
-                'path' => '/api/user[/[{id:\d+}]]',
+                'path' => '/api/user[/{id:\d+}]',
                 'middleware' => Action\UserRestAction::class,
                 'name' => 'QuasarUser.user',
-                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
             ],
             [
                 'path' => '/api/user-perfil/page[/{page:\d+}]',
@@ -136,30 +147,18 @@ class ConfigProvider
                 'path' => '/api/user-perfil[/{id:\d+}]',
                 'middleware' => Action\PerfilRestAction::class,
                 'name' => 'QuasarUser.user.perfil',
-                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
-            ],
-            [
-                'path' => '/api/user-role/page[/{page:\d+}]',
-                'middleware' => Action\RoleRestAction::class,
-                'name' => 'QuasarUser.user.role.pagination',
-                'allowed_methods' => ['GET']
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
             ],
             [
                 'path' => '/api/user-role[/[{id:\d+}]]',
                 'middleware' => Action\RoleRestAction::class,
                 'name' => 'QuasarUser.user.role',
-                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
             ],
             [
-                'path' => '/api/user/register',
-                'middleware' => Action\RegisterPageAction::class,
-                'name' => 'QuasarUser.user.register',
-                'allowed_methods' => ['POST']
-            ],
-            [
-                'path' => '/api/user/activate/for/{credential}/by/{key}',
-                'middleware' => Action\ActivationPageAction::class,
-                'name' => 'QuasarUser.user.activation',
+                'path' => '/api/user-role/page[/{page:\d+}]',
+                'middleware' => Action\RoleRestAction::class,
+                'name' => 'QuasarUser.user.role.pagination',
                 'allowed_methods' => ['GET']
             ],
         ];

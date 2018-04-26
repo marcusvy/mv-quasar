@@ -3,7 +3,7 @@
 namespace LogTest\Factory;
 
 use Interop\Container\ContainerInterface;
-use Log\Factory\LoggerMiddlewareFactory;
+use Log\Middleware\LoggerMiddlewareFactory;
 use Log\Middleware\LoggerMiddleware;
 use PHPUnit\Framework\TestCase;
 

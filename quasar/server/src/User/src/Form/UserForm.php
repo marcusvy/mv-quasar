@@ -8,7 +8,6 @@ use Zend\Form\Form;
 Use Zend\Hydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-
 class UserForm extends Form implements InputFilterProviderInterface
 {
 
@@ -18,7 +17,6 @@ class UserForm extends Form implements InputFilterProviderInterface
     {
         $this->setHydrator(new Hydrator\ClassMethods(false));
 //        $this->setObject(new User());
-
         $this->initUserFieldset();
     }
 

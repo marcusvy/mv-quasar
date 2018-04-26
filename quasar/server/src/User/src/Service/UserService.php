@@ -3,8 +3,10 @@
 namespace User\Service;
 
 use Core\Doctrine\AbstractEntity;
+use Core\Service\ServiceResult;
 use Doctrine\ORM\EntityManager;
 use Core\Service\AbstractService;
+use Doctrine\ORM\EntityNotFoundException;
 use User\Model\Entity\User;
 use User\Model\Entity\Perfil;
 use User\Model\Entity\Role;
@@ -39,53 +41,16 @@ class UserService extends AbstractService implements UserServiceInterface
     }
 
     /**
-     * @param array|User $entity
+     * @param array $entity
      * @return ServiceResultInterface
      */
     public function create($entity): ServiceResultInterface
     {
-        $entity->encriptPassword()
-            ->setPerfil($entity->getPerfil()->getId())
-            ->setRole($entity->getRole()->getId());
-
+        /** @var User $entity */
+        $entity = new $this->entity($entity);
+        $entity->encriptPassword();
         return parent::create($entity);
     }
-
-    // public function update($id, $data)
-    // {
-    //     /** @var User $user */
-    //     $user = $this->getEntityManger()->getReference(User::class, $id);
-    //     (new ClassMethods(false))->hydrate($data, $user);
-    //     $this->getEntityManger()->persist($user);
-
-    //     $perfil = $this->getEntityManger()->getReference(
-    //         Perfil::class,
-    //         $user->getPerfil()->getId()
-    //     );
-    //     (new ClassMethods(false))->hydrate($this->perfilService->dataNormalization($data), $perfil);
-    //     $this->getEntityManger()->persist($perfil);
-
-    //     $this->getEntityManger()->flush();
-    //     return $user;
-    // }
-
-    // public function delete($id) : int
-    // {
-    //     $user = $this->getEntityManger()->getReference($this->entity, $id);
-    //     if ($user) {
-    //         $perfil = $this->getEntityManger()->getReference(
-    //             Perfil::class,
-    //             $user->getPerfil()->getId()
-    //         );
-    //         if ($perfil) {
-    //             $this->getEntityManger()->remove($perfil);
-    //         }
-    //         $this->getEntityManger()->remove($user);
-    //         $this->getEntityManger()->flush();
-    //         return $id;
-    //     }
-    //     return 0;
-    // }
 
     public function status($id, $status)
     {

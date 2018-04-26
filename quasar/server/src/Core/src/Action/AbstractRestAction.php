@@ -16,6 +16,9 @@ use Zend\Expressive\Router;
 use Zend\Form\FormInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
+use function array_filter;
+use function in_array;
+
 abstract class AbstractRestAction implements RestActionInterface, MiddlewareInterface, StatusCodeInterface
 {
     /** @var Router/RouterInterface */
@@ -232,6 +235,14 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         $message = 'Form not provided';
         $status = 505;
 
+        if (RequestUtils::check($data)) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => RequestUtils::getMessage($data),
+                'collection' => [],
+            ]);
+        }
+
         if (!is_null($this->form)) {
             $this->form->setData($data);
 
@@ -275,23 +286,41 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
         $message = 'Server Error';
         $status = 505;
 
+        if (RequestUtils::check($data)) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => RequestUtils::getMessage($data),
+                'collection' => [],
+            ]);
+        }
+
         if ($id) {
             if (!is_null($this->form)) {
                 $this->form->setData($data);
-            }
-            if ($this->form->isValid()) {
-                $data = $this->form->getData();
-                $result = $this->service->update($id, $data);
 
-                if (!$result->hasError()) {
-                    $entity = $result->getFirstResult();
-                    $success = true;
-                    $collection = [$entity->toArray()];
-                    $message = 'Done';
-                    $status = 200;
+                if ($this->form->isValid()) {
+                    // Callback for the null filter.
+                    // Null values of form will interfere the data sent to service update method
+                    $filterNullValuesFromFormValues = function ($value) {
+                        return !is_null($value);
+                    };
+                    //Filter Null values from form values
+                    $data = array_filter(
+                        $this->form->getData(),
+                        $filterNullValuesFromFormValues
+                    );
+                    $result = $this->service->update($id, $data);
+
+                    if (!$result->hasError()) {
+                        $entity = $result->getFirstResult();
+                        $success = true;
+                        $collection = [$entity->toArray()];
+                        $message = 'Done';
+                        $status = 200;
+                    }
+                } else {
+                    $message = $this->form->getMessages();
                 }
-            } else {
-                $message = $this->form->getMessages();
             }
         } else {
             $message = 'You must identify';
@@ -315,7 +344,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
 
         $collection = [];
         $success = false;
-        $message = 'Server Error';
+        $message = 'Wrong value';
         $status = 505;
 
         if ($id) {
@@ -338,5 +367,4 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
             'message' => $message,
         ], $status);
     }
-
 }

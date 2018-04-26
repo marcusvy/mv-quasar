@@ -2,6 +2,7 @@
 
 namespace User\Action;
 
+use Core\Manager\FormElementManager;
 use Interop\Container\ContainerInterface;
 use User\Service\UserServiceInterface;
 use Zend\Expressive\Router\RouterInterface;
@@ -13,7 +14,7 @@ class UserRestFactory
     {
         $router = $container->get(RouterInterface::class);
         $service = $container->get(UserServiceInterface::class);
-        $formElementManager = $container->get('FormElementManager');
+        $formElementManager = $container->get(FormElementManager::class);
         $form = $formElementManager->get(UserForm::class);
 
         return new UserRestAction($router, $service, $form);

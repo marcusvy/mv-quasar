@@ -2,6 +2,7 @@
 
 namespace User\Action;
 
+use Core\Manager\FormElementManager;
 use Interop\Container\ContainerInterface;
 use User\Form\LoginForm;
 use User\Service\AuthServiceInterface;
@@ -13,7 +14,7 @@ class AuthPageFactory
     {
         $service = $container->get(AuthServiceInterface::class);
         $userService = $container->get(UserServiceInterface::class);
-        $formElementManager = $container->get('FormElementManager');
+        $formElementManager = $container->get(FormElementManager::class);
         $form = $formElementManager->get(LoginForm::class);
 
         return new AuthPageAction($service, $userService, $form);

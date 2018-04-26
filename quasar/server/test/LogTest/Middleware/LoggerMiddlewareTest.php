@@ -17,7 +17,7 @@ class LoggerMiddlewareTest extends TestCase
     private $middleware;
 
     /** @var string */
-    private $autoloadFile = __DIR__ . '/../../../config/conf.d/log.global.php';
+    private $autoloadFile = __DIR__ . '/../../../config/core/log.global.php';
 
     /** @var array */
     private $config = [];

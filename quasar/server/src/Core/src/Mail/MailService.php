@@ -37,6 +37,7 @@ use Zend\Mail\Exception;
 class MailService implements MailServiceInterface
 {
 
+    const CONFIG_ENABLED = 'enabled';
     const CONFIG_TRANSPORT = 'transport';
     const CONFIG_OPTIONS = 'options';
     const CONFIG_OPTIONS_ENCODING = 'encoding';
@@ -55,10 +56,14 @@ class MailService implements MailServiceInterface
     /** @var Exception\RuntimeException */
     private $error;
 
+    /** @var bool */
+    private $enabled = false;
+
     public function __construct(array $config)
     {
         $this->setMessage(new Message());
         $this->setTransport(new Smtp());
+        $this->setEnabled($config[self::CONFIG_ENABLED]);
         $this->options = $config[self::CONFIG_OPTIONS];
         $this->transport->setOptions(new SmtpOptions($this->options));
     }
@@ -158,4 +163,24 @@ class MailService implements MailServiceInterface
         $this->error = $error;
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param bool $enabled
+     * @return MailService
+     */
+    public function setEnabled(bool $enabled): MailService
+    {
+        $this->enabled = $enabled;
+        return $this;
+    }
+
+
 }

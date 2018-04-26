@@ -89,7 +89,7 @@ class User extends AbstractEntity
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
-    private $active;
+    private $active = false;
 
     /**
      * @var string
@@ -115,7 +115,7 @@ class User extends AbstractEntity
      * @ORM\OneToOne(targetEntity="Role")
      * @ORM\JoinColumn(name="fk_role", referencedColumnName="id")
      */
-    private $role =  null;
+    private $role = null;
 
     protected $__protectedProperties = [
         'credential',
@@ -171,7 +171,7 @@ class User extends AbstractEntity
      * @param string $identity
      * @return User
      */
-    public function setIdentity(string $identity): User
+    public function setIdentity($identity): User
     {
         $this->identity = $identity;
         return $this;
@@ -189,7 +189,7 @@ class User extends AbstractEntity
      * @param string $email
      * @return User
      */
-    public function setEmail(string $email): User
+    public function setEmail($email): User
     {
         $this->email = $email;
         return $this;
@@ -207,7 +207,7 @@ class User extends AbstractEntity
      * @param string $credential
      * @return User
      */
-    public function setCredential(string $credential): User
+    public function setCredential($credential): User
     {
         $this->credential = $credential;
         return $this;
@@ -225,7 +225,7 @@ class User extends AbstractEntity
      * @param string $salt
      * @return User
      */
-    public function setSalt(string $salt): User
+    public function setSalt($salt): User
     {
         $this->salt = $salt;
         return $this;
@@ -288,7 +288,7 @@ class User extends AbstractEntity
     /**
      * @return boolean
      */
-    public function isActive()
+    public function getActive()
     {
         return $this->active;
     }
@@ -297,8 +297,11 @@ class User extends AbstractEntity
      * @param boolean $active
      * @return User
      */
-    public function setActive(bool $active): User
+    public function setActive($active): User
     {
+        if(is_int($active)){
+            $active = (bool)$active;
+        }
         $this->active = $active;
         return $this;
     }
@@ -333,7 +336,7 @@ class User extends AbstractEntity
      * @param Perfil|int $perfil
      * @return User
      */
-    public function setPerfil($perfil=null): User
+    public function setPerfil($perfil = null): User
     {
         $this->perfil = $perfil;
         return $this;
@@ -351,7 +354,7 @@ class User extends AbstractEntity
      * @param Role|int $role
      * @return User
      */
-    public function setRole($role=0): User
+    public function setRole($role = 0): User
     {
         $this->role = $role;
         return $this;
