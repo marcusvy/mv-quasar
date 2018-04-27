@@ -4,6 +4,7 @@ namespace User\Form\Fieldset;
 
 use Zend\Filter;
 use Zend\Form\Element\Checkbox;
+use Zend\Form\Element\Email;
 use Zend\Form\Element\Text;
 use Zend\Validator;
 
@@ -17,7 +18,7 @@ trait UserFieldsetTrait
 
         $this->add([
             'name' => 'email',
-            'type' => Text::class
+            'type' => Email::class
         ]);
 
         $this->add([

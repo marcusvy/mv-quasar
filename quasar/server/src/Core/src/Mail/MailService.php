@@ -74,7 +74,9 @@ class MailService implements MailServiceInterface
      */
     public function write(): Message
     {
-        return $this->getMessage();
+        $message = $this->getMessage();
+        $message->setFrom($this->options['connection_config']['username']);
+        return $message;
     }
 
     /**

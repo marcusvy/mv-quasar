@@ -9,16 +9,15 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use User\Model\Entity\Perfil;
 use User\Model\Entity\User;
 use User\Service\PerfilService;
 use User\Service\UserService;
 use Zend\Diactoros\Response\JsonResponse;
 
+use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Form\FormInterface;
-use Zend\Json\Json;
 
-class RegisterPageAction implements MiddlewareInterface
+class RegisterAction implements MiddlewareInterface
 {
 
     /** @var UserService */
@@ -36,7 +35,11 @@ class RegisterPageAction implements MiddlewareInterface
     /** @var FormInterface */
     private $formPerfil;
 
+    /** @var TemplateRendererInterface */
+    private $template;
+
     public function __construct(
+        TemplateRendererInterface $template,
         ServiceInterface $userService,
         ServiceInterface $perfilService,
         MailServiceInterface $mailService,
@@ -72,7 +75,7 @@ class RegisterPageAction implements MiddlewareInterface
                     $user = $this->userService->create($user)->getFirstResult();
 
                     if ($user instanceof User) {
-                        if ($this->mail($data['name'], $data['email'], $user->getActivationKey())) {
+                        if ($this->mail($user)) {
                             return new JsonResponse(['success' => true]);
                         } else {
                             return new JsonResponse([
@@ -97,24 +100,25 @@ class RegisterPageAction implements MiddlewareInterface
         return new JsonResponse(['success' => false, 'message' => 'Formulário nulo']);
     }
 
-    private function mail($to, $email, $activationKey)
+    /**
+     * @param User|null $user
+     * @return bool
+     */
+    private function mail(User $user=null)
     {
-        if ($this->mailService->isEnabled()) {
-            $subject = sprintf('Quasar Platform::Registration-%s', $to);
+        if (!is_null($user) && $this->$this->mailService->isEnabled()) {
+            $subject = sprintf('Quasar Platform::Registration-%s', $user->getEmail());
 
-            $texto = <<<MAIL
-<h3>Olá, %s!</h3>
-<p>Antes de utilizar seu cadastro é necessário ativá-lo. 
-Basta colar o código abaixo na página de ativação.</p>
-<p style="padding: 2em;">%s</p>
-MAIL;
+            $body = $this->template->render('user::register-email', [
+                'layout' => 'layout::email',
+                'user' => $user,
+            ]);
 
             $this->mailService
                 ->write()
-                ->setFrom('teste@mviniciusconsultoria.com.br')
-                ->addTo($email, $to)
+                ->addTo($user->getEmail(), $user->getPerfil()->getName())
                 ->setSubject($subject)
-                ->setBody(sprintf($texto, $to, $activationKey));
+                ->setBody($body);
 
             return $this->mailService->send();
         }

@@ -3,18 +3,19 @@
 namespace User\Service;
 
 use Core\Service\ServiceInterface;
+use Core\Service\ServiceResultInterface;
 use User\Model\Entity\User;
 
 interface UserServiceInterface extends ServiceInterface
 {
     /**
-     * Atualiza status de ativação do usuário
+     * Update the activation status of user
      * @param int $id
-     * @param int|string $status Actual status
-     * @return User
+     * @param int|string $status The status
+     * @return ServiceResultInterface|User
+     * @throws ORMException
      */
     public function status($id, $status);
-
 
     /**
      * Ativa através de um código de ativação
@@ -32,4 +33,18 @@ interface UserServiceInterface extends ServiceInterface
      */
     public function getConfig($identity);
 
+    /**
+     * Verify if user exists
+     * @param $email
+     * @return ServiceResultInterface
+     */
+    public function verify($email): ServiceResultInterface;
+
+    /**
+     * @param $activationKey
+     * @param $data
+     * @return mixed
+     * @return ServiceResultInterface
+     */
+    public function changePassword($activationKey, $data);
 }

@@ -8,7 +8,7 @@ use User\Form\LoginForm;
 use User\Service\AuthServiceInterface;
 use User\Service\UserServiceInterface;
 
-class AuthPageFactory
+class AuthenticationFactory
 {
     public function __invoke(ContainerInterface $container)
     {
@@ -17,6 +17,6 @@ class AuthPageFactory
         $formElementManager = $container->get(FormElementManager::class);
         $form = $formElementManager->get(LoginForm::class);
 
-        return new AuthPageAction($service, $userService, $form);
+        return new AuthenticationAction($service, $userService, $form);
     }
 }

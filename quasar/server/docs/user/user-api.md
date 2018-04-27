@@ -1,4 +1,4 @@
-# Routes
+# User API
 
 ## Auth
 * path: /api/auth
@@ -8,6 +8,12 @@
 
 ## Register
 * path: /api/user/register
+* allowed method: POST
+
+---
+
+## ForgotPassword
+* path: /api/user/forgot-password
 * allowed method: POST
 
 ---

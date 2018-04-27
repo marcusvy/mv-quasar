@@ -43,10 +43,11 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories' => [
-                Action\ActivationPageAction::class => Action\ActivationPageFactory::class,
-                Action\AuthPageAction::class => Action\AuthPageFactory::class,
+                Action\ActivationAction::class => Action\ActivationFactory::class,
+                Action\AuthenticationAction::class => Action\AuthenticationFactory::class,
+                Action\ForgetPasswordAction::class => Action\ForgetPasswordFactory::class,
                 Action\PerfilRestAction::class => Action\PerfilRestFactory::class,
-                Action\RegisterPageAction::class => Action\RegisterPageFactory::class,
+                Action\RegisterAction::class => Action\RegisterFactory::class,
                 Action\RoleRestAction::class => Action\RoleRestFactory::class,
                 Action\UserRestAction::class => Action\UserRestFactory::class,
                 Adapter\AuthAdapter::class => Adapter\AuthAdapterFactory::class,
@@ -106,22 +107,29 @@ class ConfigProvider
      */
     public function getRoutes()
     {
+
         return [
             [
                 'path' => '/api/auth',
-                'middleware' => Action\AuthPageAction::class,
+                'middleware' => Action\AuthenticationAction::class,
                 'name' => 'QuasarUser.auth.login',
                 'allowed_methods' => ['GET', 'POST']
             ],
             [
                 'path' => '/api/user/register',
-                'middleware' => Action\RegisterPageAction::class,
+                'middleware' => Action\RegisterAction::class,
                 'name' => 'QuasarUser.user.register',
                 'allowed_methods' => ['POST']
             ],
             [
+                'path' => '/api/user/forget-password[/{token}]',
+                'middleware' => Action\ForgetPasswordAction::class,
+                'name' => 'QuasarUser.user.forgot-password',
+                'allowed_methods' => ['GET','POST','PUT','PATCH']
+            ],
+            [
                 'path' => '/api/user/activate/for/{credential}/by/{key}',
-                'middleware' => Action\ActivationPageAction::class,
+                'middleware' => Action\ActivationAction::class,
                 'name' => 'QuasarUser.user.activation',
                 'allowed_methods' => ['GET']
             ],

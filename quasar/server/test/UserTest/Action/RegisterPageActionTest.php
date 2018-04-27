@@ -4,7 +4,7 @@ namespace UserTest\Action;
 
 use Core\Mail\MailServiceInterface;
 use Core\Service\ServiceInterface;
-use User\Action\RegisterPageAction;
+use User\Action\RegisterAction;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
@@ -36,7 +36,7 @@ class RegisterPageActionTest extends TestCase
     public function testReturnsJsonResponseWhenNoTemplateRendererProvided()
     {
 
-        $this->middleware = new RegisterPageAction(
+        $this->middleware = new RegisterAction(
             $this->service->reveal(),
             $this->mailService->reveal()
         );
@@ -51,7 +51,7 @@ class RegisterPageActionTest extends TestCase
 
     public function testRequiredKeysAreReceived()
     {
-        $this->middleware = new RegisterPageAction(
+        $this->middleware = new RegisterAction(
             $this->service->reveal(),
             $this->mailService->reveal()
         );
@@ -101,7 +101,7 @@ class RegisterPageActionTest extends TestCase
 
     private function defaultProccess()
     {
-        $this->middleware = new RegisterPageAction(
+        $this->middleware = new RegisterAction(
             $this->service->reveal(),
             $this->mailService->reveal()
         );

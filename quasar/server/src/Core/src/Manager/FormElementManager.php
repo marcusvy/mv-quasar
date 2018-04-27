@@ -1,5 +1,11 @@
 <?php
 namespace Core\Manager;
 
-/** FormElementManager Alias */
-class FormElementManager {}
+use Zend\ServiceManager\AbstractPluginManager;
+
+/**
+ * Class FormElementManager
+ * Alias for FormElementManager
+ * @package Core\Manager
+ */
+class FormElementManager extends AbstractPluginManager {}

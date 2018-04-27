@@ -9,7 +9,7 @@ use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use User\Action\ActivationPageAction;
+use User\Action\ActivationAction;
 use User\Entity\User;
 use User\Service\PerfilServiceInterface;
 use User\Service\UserService;
@@ -45,7 +45,7 @@ class ActivationPageActionTest extends TestCase
         $this->mailService = $this->prophesize(MailServiceInterface::class);
         $this->mailService->send()->willReturn(true);
 
-        $this->middleware = new ActivationPageAction(
+        $this->middleware = new ActivationAction(
             $this->service,
             $this->mailService->reveal()
         );

@@ -2,6 +2,7 @@
 
 namespace User\Action;
 
+use Core\Utils\RequestUtils;
 use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,7 +15,7 @@ use Zend\Diactoros\Response\JsonResponse;
 use Zend\Form\FormInterface;
 use Zend\Json\Json;
 
-class AuthPageAction implements MiddlewareInterface
+class AuthenticationAction implements MiddlewareInterface
 {
     /** @var AuthService */
     private $service;
@@ -41,11 +42,12 @@ class AuthPageAction implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
     {
-        $contentType = $request->getHeader('Content-Type')[0];
+        $data = RequestUtils::extract($request);
+//        $contentType = $request->getHeader('Content-Type')[0];
 
-        $data = ($contentType == 'application/json')
-            ? Json::decode($request->getBody(), Json::TYPE_ARRAY)
-            : $request->getQueryParams();
+//        $data = ($contentType == 'application/json')
+//            ? Json::decode($request->getBody(), Json::TYPE_ARRAY)
+//            : $request->getQueryParams();
 
         list($identity, $credential) = Json::decode(base64_decode($data['token']));
 

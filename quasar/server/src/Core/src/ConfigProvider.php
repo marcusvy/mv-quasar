@@ -41,6 +41,7 @@ class ConfigProvider
             ],
             'factories' => [
                 Action\DoctrineAction::class => Action\DoctrineActionFactory::class,
+                Config\ServerInfo::class => Config\ServerInfoFactory::class,
                 Cors\CorsMiddleware::class => Cors\CorsMiddlewareFactory::class,
                 Mail\MailServiceInterface::class => Mail\MailServiceFactory::class,
                 I18n\I18nMiddleware::class => I18n\I18nMiddlewareFactory::class,

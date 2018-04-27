@@ -2,6 +2,11 @@
 
 return [
     'mail' => [
+        /**
+         * Default option enabled
+         */
+        'enabled' => false,
+
         'options' => [
             'name'              => 'localhost',
             'host'              => 'smtp.domain.com',

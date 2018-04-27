@@ -204,6 +204,7 @@ Action Factory
 ```php
 namespace Log\Action;
 
+use Core\Manager\FormElementManager;
 use Interop\Container\ContainerInterface;
 use Log\Service\LoggerServiceInterface;
 use Zend\Expressive\Router\RouterInterface;
@@ -215,7 +216,7 @@ class LoggerRestFactory
     {
         $router   = $container->get(RouterInterface::class);
         $service = $container->get(LoggerServiceInterface::class);
-        $formElementManager = $container->get('FormElementManager'); #retrieve the form 
+        $formElementManager = $container->get(FormElementManager::class); #retrieve the form 
         $form = $formElementManager->get(LoggerForm::class);
 
         return new LoggerRestAction($router, $service, $form);
@@ -247,15 +248,16 @@ public function getRoutes(): array
 {
     return [
         [
-            'path' => '/api/logger/list[/{page:\d+}]',
+            'path' => '/api/logger[/[{id:\d+}]]',
+            'middleware' => Action\LoggerRestAction::class,
+            'name' => 'logger.rest',
+            'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+        ],
+        [
+            'path' => '/api/logger/page[/{page:\d+}]',
             'middleware' => Action\LoggerRestAction::class,
             'name' => 'logger.pagination',
             'allowed_methods' => ['GET']
-        ], [
-            'path' => '/api/logger[/[{id:\d+}]]',
-            'middleware' => Action\LoggerRestAction::class,
-            'name' => 'logger.role',
-            'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
         ],
     ];
 }

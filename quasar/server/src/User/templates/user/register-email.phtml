@@ -1,0 +1,15 @@
+<?php
+
+use User\Model\Entity\User;
+
+/**
+ * Variables
+ * @var User $user
+ */
+?>
+<h3>Olá, <strong><?= $user->getPerfil()->getName() ?></strong>!</h3>
+<p>Antes de utilizar seu cadastro é necessário ativá-lo.
+    Basta colar o código abaixo na página de ativação.</p>
+<p style="padding: 2em;">
+    <?= $user->getActivationKey() ?>
+</p>

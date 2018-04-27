@@ -3,35 +3,40 @@
 namespace User\Action;
 
 use Core\Mail\MailServiceInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use User\Entity\User;
+use User\Model\Entity\User;
 use Zend\Diactoros\Response\JsonResponse;
 use Core\Service\ServiceInterface;
 use User\Service\UserService;
+use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Json\Json;
 
-class ActivationPageAction implements MiddlewareInterface
+class ActivationAction implements MiddlewareInterface
 {
     /** @var UserService */
-    protected $service;
+    private $service;
 
     /** @var MailServiceInterface */
-    protected $mailService;
+    private $mailService;
 
+    /** @var TemplateRendererInterface */
+    private $template;
 
     public function __construct(
         ServiceInterface $service,
-        MailServiceInterface $mailService
+        MailServiceInterface $mailService,
+        TemplateRendererInterface $template
     ) {
         $this->service = $service;
         $this->mailService = $mailService;
     }
 
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
-    {
+    public function process(
+        ServerRequestInterface $request,
+        DelegateInterface $delegate
+    ): \Psr\Http\Message\ResponseInterface {
         $credential = $request->getAttribute('credential');
         $key = $request->getAttribute('key');
 
@@ -58,15 +63,17 @@ class ActivationPageAction implements MiddlewareInterface
      */
     private function mail(User $user = null)
     {
-        if (!is_null($user)) {
-            $texto = "<h3>Parabéns, %s!</h3><p>Seu registro foi ativado.</p>";
+        if (!is_null($user) && $this->mailService->isEnabled()) {
+            $body = $this->template->render('user::activation-email', [
+                'layout' => 'layout::email',
+                'user' => $user,
+            ]);
 
             $this->mailService
                 ->write()
                 ->setSubject('Quasar Platform::Activation')
-                ->setFrom('teste@mviniciusconsultoria.com.br')
                 ->addTo($user->getEmail(), $user->getPerfil()->getName())
-                ->setBody(sprintf($texto, $user->getPerfil()->getName()));
+                ->setBody($body);
             return $this->mailService->send();
         }
     }
