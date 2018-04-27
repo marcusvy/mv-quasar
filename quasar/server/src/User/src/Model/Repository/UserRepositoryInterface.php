@@ -18,5 +18,4 @@ interface UserRepositoryInterface
      * @param $email
      * @return array
      */
-    public function checkEmailExists($email): array;
 }

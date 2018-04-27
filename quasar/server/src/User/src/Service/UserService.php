@@ -6,6 +6,7 @@ use Core\Doctrine\AbstractEntity;
 use Core\Service\ServiceResult;
 use Doctrine\ORM\EntityManager;
 use Core\Service\AbstractService;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\ORMException;
 use User\Model\Entity\User;
 use User\Model\Entity\Perfil;
@@ -83,24 +84,29 @@ class UserService extends AbstractService implements UserServiceInterface
         }
     }
 
+
     /**
-     * Change password with the provided token
-     *
-     * The token has a base64_encode($hash)
-     * The hash is separated by '.'(dot) and the first item is the id, and the second the activation key,
-     * both in base64_encode
-     *
-     * @param $token
-     * @param $data
-     * @return ServiceResult|mixed
+     * @param int $id
+     * @param string $activation_key
+     * @param array $data
+     * @return ServiceResultInterface
      */
-    public function changePassword($token, $data): ServiceResultInterface
+    public function changePassword(int $id, string $activation_key, array $data): ServiceResultInterface
     {
         try {
-            /** @var UserRepositoryInterface $repo */
-            $repo = $this->getRepository();
-//            $result = $repo->($activationKey);
-            return new ServiceResult([]);
+            $user = $this->getRepository()->findOneBy(['id' => $id, 'activationKey' => $activation_key]);
+            if ($user instanceof User) {
+                $user->setCredential($data['credential'])->encriptPassword();
+                $user->setSalt($user->generateSalt());
+                $user->setActivationKey($user->generateActivationKey());
+
+                $data['credential'] = $user->getCredential();
+                $data['salt'] = $user->getSalt();
+                $data['activationKey'] = $user->getActivationKey();
+                return parent::update($user->getId(), $data);
+            }else{
+                throw new EntityNotFoundException('User not found');
+            }
         } catch (\Exception $e) {
             return new ServiceResult([], $e);
         }

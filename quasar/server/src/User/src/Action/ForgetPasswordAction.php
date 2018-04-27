@@ -95,6 +95,7 @@ class ForgetPasswordAction implements MiddlewareInterface
         $success = false;
         $message = 'Form not provided';
         $status = 505;
+        $token = '';
 
         if (!is_null($this->formForgetPassword)) {
             $this->formForgetPassword->setData($data);
@@ -107,10 +108,10 @@ class ForgetPasswordAction implements MiddlewareInterface
                     /** @var User $user */
                     $user = $result->getFirstResult();
                     $token = $this->encodeToken($user);
-                    $this->requestMail($user, $token);
                     $success = true;
                     $message = 'Done';
                     $status = 200;
+                    $this->requestMail($user, $token);
                 }
             } else {
                 $message = $this->formForgetPassword->getMessages();
@@ -119,6 +120,7 @@ class ForgetPasswordAction implements MiddlewareInterface
         return new JsonResponse([
             'success' => $success,
             'message' => $message,
+            'token' => $token
         ], $status);
     }
 
@@ -126,30 +128,31 @@ class ForgetPasswordAction implements MiddlewareInterface
     {
         $token = $request->getAttribute('token') ?? null;
         $data = RequestUtils::extract($request);
+        $data['token'] = $token;
         $success = false;
         $message = 'Form not provided';
         $status = 505;
         if (!is_null($token)) {
-            $message = 'Form not provided';
 
             if (!is_null($this->formChangePassword)) {
                 $this->formChangePassword->setData($data);
-
                 if ($this->formChangePassword->isValid()) {
-                    $data = $this->formChangePassword->getData();
 
+                    $data = $this->formChangePassword->getData();
                     list($id, $activation_key) = $this->decodeToken($token);
                     $result = $this->service->changePassword($id, $activation_key, $data);
                     if (!$result->hasError()) {
                         /** @var User $user */
                         $user = $result->getFirstResult();
-                        $this->changeMail($user);
                         $success = true;
                         $message = 'Done';
                         $status = 200;
+                        $this->changeMail($user);
+                    }else{
+                        $message = 'User not found or invalid token';
                     }
                 } else {
-                    $message = $this->formForgetPassword->getMessages();
+                    $message = $this->formChangePassword->getMessages();
                 }
             }
         }

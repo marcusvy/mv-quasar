@@ -41,10 +41,12 @@ interface UserServiceInterface extends ServiceInterface
     public function verify($email): ServiceResultInterface;
 
     /**
-     * @param $activationKey
-     * @param $data
-     * @return mixed
+     * Change password
+     *
+     * @param int $id
+     * @param string $activation_key
+     * @param array $data
      * @return ServiceResultInterface
      */
-    public function changePassword($id, $activationKey, $data);
+    public function changePassword(int $id, string $activation_key, array $data): ServiceResultInterface;
 }

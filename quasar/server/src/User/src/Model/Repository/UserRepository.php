@@ -32,7 +32,7 @@ class UserRepository extends AbstractEntityRepository implements UserRepositoryI
      */
     public function checkAuthenticationData($identity, $credential): bool
     {
-        /** @var \User\Model\Entity\User $user */
+        /** @var User $user */
         $user = $this->findOneBy(['identity' => $identity, 'active' => 1]);
         if ($user instanceof User) {
             return password_verify($credential, $user->getCredential());

@@ -4,9 +4,7 @@ namespace User\Model\Entity;
 
 use Core\Doctrine\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Hydrator\ClassMethods;
 use Zend\Math\Rand;
-use User\Model\Entity\Role;
 
 /**
  * User
@@ -129,8 +127,8 @@ class User extends AbstractEntity
         $this->role = new Role();
         $this->setCreatedat(new \DateTime('now'))
             ->setUpdatedat(new \DateTime('now'))
-            ->setSalt(base64_encode(Rand::getBytes(8)))
-            ->setActivationKey(md5(sprintf('%s%s', $this->credential, $this->salt)));
+            ->setSalt($this->generateSalt())
+            ->setActivationKey($this->generateActivationKey());
 
         if (isset($options['perfil'])) {
             $options['perfil'] = (is_array($options['perfil'])) ? new Perfil($options['perfil']) : null;
@@ -364,5 +362,14 @@ class User extends AbstractEntity
     {
         $this->setCredential(password_hash($this->getCredential(), PASSWORD_DEFAULT));
         return $this;
+    }
+
+    public function generateSalt()
+    {
+        return base64_encode(Rand::getBytes(8));
+    }
+
+    public function generateActivationKey(){
+        return md5(sprintf('%s%s', $this->credential, $this->salt));
     }
 }
