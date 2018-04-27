@@ -106,7 +106,8 @@ class ForgetPasswordAction implements MiddlewareInterface
                 if (!$result->hasError()) {
                     /** @var User $user */
                     $user = $result->getFirstResult();
-                    $this->mail($user);
+                    $token = $this->encodeToken($user);
+                    $this->requestMail($user, $token);
                     $success = true;
                     $message = 'Done';
                     $status = 200;
@@ -131,17 +132,18 @@ class ForgetPasswordAction implements MiddlewareInterface
         if (!is_null($token)) {
             $message = 'Form not provided';
 
-            if (!is_null($this->formForgetPassword)) {
-                $this->formForgetPassword->setData($data);
+            if (!is_null($this->formChangePassword)) {
+                $this->formChangePassword->setData($data);
 
-                if ($this->formForgetPassword->isValid()) {
-                    $data = $this->formForgetPassword->getData();
+                if ($this->formChangePassword->isValid()) {
+                    $data = $this->formChangePassword->getData();
 
-                    $result = $this->service->verify($data['email']);
+                    list($id, $activation_key) = $this->decodeToken($token);
+                    $result = $this->service->changePassword($id, $activation_key, $data);
                     if (!$result->hasError()) {
                         /** @var User $user */
                         $user = $result->getFirstResult();
-                        $this->mail($user);
+                        $this->changeMail($user);
                         $success = true;
                         $message = 'Done';
                         $status = 200;
@@ -150,7 +152,6 @@ class ForgetPasswordAction implements MiddlewareInterface
                     $message = $this->formForgetPassword->getMessages();
                 }
             }
-
         }
 
         return new JsonResponse([
@@ -161,17 +162,19 @@ class ForgetPasswordAction implements MiddlewareInterface
 
 
     /**
-     * @param User $user
+     * @param User|null $user
+     * @param string $token
      * @return bool
      */
-    private function mail(User $user = null)
+    private function requestMail(User $user = null, $token = '')
     {
         if (!is_null($user) && $this->mailService->isEnabled()) {
 
             $body = $this->template->render('user::forget-password-email', [
                 'layout' => 'layout::email',
                 'user' => $user,
-                'serverInfo' => $this->config[ServerInfo::CONFIG_TOKEN]
+                'serverInfo' => $this->config[ServerInfo::CONFIG_TOKEN],
+                'token' => $token
             ]);
             $this->mailService
                 ->write()
@@ -180,5 +183,52 @@ class ForgetPasswordAction implements MiddlewareInterface
                 ->setBody($body);
             return $this->mailService->send();
         }
+    }
+
+    /**
+     * @param User|null $user
+     * @param string $token
+     * @return bool
+     */
+    private function changeMail(User $user = null)
+    {
+        if (!is_null($user) && $this->mailService->isEnabled()) {
+
+            $body = $this->template->render('user::change-password-email', [
+                'layout' => 'layout::email',
+                'user' => $user
+            ]);
+            $this->mailService
+                ->write()
+                ->setSubject('Quasar Platform::Your Password has changed')
+                ->addTo($user->getEmail(), $user->getPerfil()->getName())
+                ->setBody($body);
+            return $this->mailService->send();
+        }
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    private function encodeToken(User $user): string
+    {
+        $id = base64_encode($user->getId());
+        $activation_key = base64_encode($user->getActivationKey());
+        return base64_encode(sprintf('%s.%s', $id, $activation_key));
+    }
+
+    /**
+     * @param string $token
+     * @return array
+     */
+    private function decodeToken(string $token): array
+    {
+        $hash = base64_decode($token);
+        $decodeCallback = function ($value) {
+            return base64_decode($value);
+        };
+        list($id, $activation_key) = array_map($decodeCallback, explode('.', $hash));
+        return [$id, $activation_key];
     }
 }

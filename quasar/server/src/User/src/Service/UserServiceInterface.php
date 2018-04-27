@@ -46,5 +46,5 @@ interface UserServiceInterface extends ServiceInterface
      * @return mixed
      * @return ServiceResultInterface
      */
-    public function changePassword($activationKey, $data);
+    public function changePassword($id, $activationKey, $data);
 }
