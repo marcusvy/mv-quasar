@@ -254,10 +254,12 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
 
         if (!is_null($this->form)) {
             $this->form->setData($data);
+            $this->onBeforeFormValidation($data);
 
             if ($this->form->isValid()) {
                 $data = $this->form->getData();
                 if ($this->fileRequest) {
+                    $data = $this->extractExtraDataFromFiles($data);
                     $data = $this->normalizeFilesEntries($data);
                 }
                 $result = $this->service->create($data);
@@ -312,7 +314,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
             if (!is_null($this->form)) {
                 $this->form->setData($data);
                 $this->disableRequiredFiltersForFiles();
-
+                $this->onBeforeFormValidation($data);
                 if ($this->form->isValid()) {
                     $data = $this->form->getData();
                     if ($this->fileRequest) {
@@ -414,5 +416,23 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
                 $this->form->getInputFilter()->get($file)->setRequired(false);
             }
         }
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function extractExtraDataFromFiles(array $data)
+    {
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @return null
+     */
+    public function onBeforeFormValidation(array $data)
+    {
+        return null;
     }
 }

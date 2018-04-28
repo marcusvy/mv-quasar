@@ -32,7 +32,9 @@ trait MidiaFormTrait
         // url
         $this->add([
             'name' => 'url',
-            'type' => Url::class,
+// @todo Type URL not validate
+//            'type' => Url::class,
+            'type' => Text::class,
             'options' => [
                 'label' => 'URL',
             ]
@@ -64,7 +66,7 @@ trait MidiaFormTrait
                 'required' => false
             ],
             'url' => [
-                'required' => false
+                'required' => false,
             ],
             'size' => [
                 'required' => false
