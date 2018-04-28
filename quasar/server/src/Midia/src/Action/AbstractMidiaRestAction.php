@@ -3,7 +3,7 @@
 namespace Midia\Action;
 
 use Core\Action\AbstractRestAction;
-
+use Zend\Filter;
 
 /**
  * Class AbstractMidiaRestAction
@@ -26,10 +26,16 @@ abstract class AbstractMidiaRestAction
     {
         if ($this->fileRequest) {
             foreach ($this->fileRequestNames as $file) {
+                $data['url'] = $this->resolveUrlForData($data[$file]['tmp_name']);
                 $data['type'] = $data[$file]['type'] ?? null;
                 $data['size'] = $data[$file]['size'] ?? null;
             }
         }
         return $data;
+    }
+
+    public function resolveUrlForData($value)
+    {
+        return str_replace('public/', '', $value);
     }
 }
