@@ -4,17 +4,17 @@ namespace Core\Action;
 
 use Core\Doctrine\AbstractEntity;
 use Core\Service\ServiceInterface;
-
 use Core\Utils\RequestUtils;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Fig\Http\Message\StatusCodeInterface;
-use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
-use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Expressive\Router;
 use Zend\Form\FormInterface;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 use function array_filter;
 use function in_array;
@@ -34,6 +34,12 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     /** @var string */
     protected $primaryColumn = 'id';
 
+    //Files
+
+    /** @var bool */
+    protected $fileRequest = false;
+    protected $fileRequestNames = [];
+
     public function __construct(
         Router\RouterInterface $router,
         ServiceInterface $service,
@@ -47,7 +53,8 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     public function process(
         ServerRequestInterface $request,
         DelegateInterface $delegate
-    ): \Psr\Http\Message\ResponseInterface {
+    ): ResponseInterface {
+
         switch ($request->getMethod()) {
             case 'OPTIONS':
             case 'GET':
@@ -229,7 +236,9 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
      */
     public function createAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        $data = RequestUtils::extract($request);
+        $data = ($this->fileRequest)
+            ? RequestUtils::extractWithFile($request, $this->fileRequestNames)
+            : RequestUtils::extract($request);
         $collection = [];
         $success = false;
         $message = 'Form not provided';
@@ -248,6 +257,9 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
 
             if ($this->form->isValid()) {
                 $data = $this->form->getData();
+                if($this->fileRequest){
+                    $data = $this->normalizeFilesEntries($data);
+                }
                 $result = $this->service->create($data);
                 if (!$result->hasError()) {
                     $entity = $result->getFirstResult();
@@ -279,7 +291,9 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
     public function updateAction(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $id = ($request->getAttribute($this->primaryColumn)) ? (int)$request->getAttribute($this->primaryColumn) : 0;
-        $data = RequestUtils::extract($request);
+        $data = ($this->fileRequest)
+            ? RequestUtils::extractWithFile($request, $this->fileRequestNames)
+            : RequestUtils::extract($request);
 
         $collection = [];
         $success = false;
@@ -299,6 +313,10 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
                 $this->form->setData($data);
 
                 if ($this->form->isValid()) {
+                    $data = $this->form->getData();
+                    if($this->fileRequest){
+                        $data = $this->normalizeFilesEntries($data);
+                    }
                     // Callback for the null filter.
                     // Null values of form will interfere the data sent to service update method
                     $filterNullValuesFromFormValues = function ($value) {
@@ -306,7 +324,7 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
                     };
                     //Filter Null values from form values
                     $data = array_filter(
-                        $this->form->getData(),
+                        $data,
                         $filterNullValuesFromFormValues
                     );
                     $result = $this->service->update($id, $data);
@@ -366,5 +384,22 @@ abstract class AbstractRestAction implements RestActionInterface, MiddlewareInte
             'collection' => $collection,
             'message' => $message,
         ], $status);
+    }
+
+    /**
+     * Nomalize data to send for Services eliminating $_FILES values on $data and put only the
+     * 'tmp_name' (the location of file in server).
+     * This data should be passed and validated on Zend Form before to sanitize $data.
+     * @param array $data
+     * @return array
+     */
+    public function normalizeFilesEntries(array $data): array
+    {
+        foreach ($this->fileRequestNames as $file) {
+            if (is_array($data[$file]) && isset($data[$file]['tmp_name'])) {
+                $data[$file] = $data['file']['tmp_name'];
+            }
+        }
+        return $data;
     }
 }

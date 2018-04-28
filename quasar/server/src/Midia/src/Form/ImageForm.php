@@ -15,7 +15,7 @@ class ImageForm extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setHydrator(new Hydrator\ClassMethods());
-        $this->setObject(new Image());
+//        $this->setObject(new Image());
 
         $this->initImageForm();
         $this->initImageFile();

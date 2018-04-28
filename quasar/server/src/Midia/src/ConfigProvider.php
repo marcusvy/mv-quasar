@@ -50,59 +50,48 @@ class ConfigProvider
         ];
     }
 
-
     public function getRoutes()
     {
         return [
             [
-                'path' => '/api/midia/audio/list[/{page:\d+}]',
-                'middleware' => Action\AudioRestAction::class,
-                'name' => 'QuasarUser.midia.audio.pagination',
-                'allowed_methods' => ['GET']
-            ], [
                 'path' => '/api/midia/audio[/{id:\d+}]',
                 'middleware' => Action\AudioRestAction::class,
                 'name' => 'QuasarUser.midia.audio',
-                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
-            ], [
-                'path' => '/api/midia/image/list[/{page:\d+}]',
-                'middleware' => Action\ImageRestAction::class,
-                'name' => 'QuasarUser.midia.image.pagination',
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+            ],
+            [
+                'path' => '/api/midia/audio/page[/{page:\d+}]',
+                'middleware' => Action\AudioRestAction::class,
+                'name' => 'QuasarUser.midia.audio.pagination',
                 'allowed_methods' => ['GET']
-            ], [
+            ],
+            [
                 'path' => '/api/midia/image[/{id:\d+}]',
                 'middleware' => Action\ImageRestAction::class,
                 'name' => 'QuasarUser.midia.image',
-                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
-            ], [
-                'path' => '/api/midia/video/list[/{page:\d+}]',
-                'middleware' => Action\VideoRestAction::class,
-                'name' => 'QuasarUser.midia.video.pagination',
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+            ],
+            [
+                'path' => '/api/midia/image/page[/{page:\d+}]',
+                'middleware' => Action\ImageRestAction::class,
+                'name' => 'QuasarUser.midia.image.pagination',
                 'allowed_methods' => ['GET']
-            ], [
+            ],
+            [
                 'path' => '/api/midia/video[/{id:\d+}]',
                 'middleware' => Action\VideoRestAction::class,
                 'name' => 'QuasarUser.midia.video',
-                'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE']
-            ]
+                'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+            ],
+            [
+                'path' => '/api/midia/video/page[/{page:\d+}]',
+                'middleware' => Action\VideoRestAction::class,
+                'name' => 'QuasarUser.midia.video.pagination',
+                'allowed_methods' => ['GET']
+            ],
+
         ];
     }
-
-//    /**
-//     * Returns the templates configuration
-//     *
-//     * @return array
-//     */
-//    public function getTemplates()
-//    {
-//        return [
-//            'paths' => [
-//                'app' => [__DIR__ . '/../templates/app'],
-//                'error' => [__DIR__ . '/../templates/error'],
-//                'layout' => [__DIR__ . '/../templates/layout'],
-//            ],
-//        ];
-//    }
 
     /**
      * Returns the doctrine configuration

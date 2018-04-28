@@ -173,7 +173,9 @@ abstract class AbstractService implements ServiceInterface
     }
 
     /**
+     * @param $id
      * @return ServiceResultInterface
+     * @throws \Doctrine\ORM\ORMException
      */
     public function delete($id): ServiceResultInterface
     {

@@ -18,7 +18,7 @@ class RequestUtils
      * @param ServerRequestInterface $request
      * @return array|null|object
      */
-    public static function extract(ServerRequestInterface $request)
+    public static function extract(ServerRequestInterface $request): array
     {
         $data = [];
         $ct = $request->getHeader('Content-Type');
@@ -43,6 +43,24 @@ class RequestUtils
         return $data;
     }
 
+
+    /**
+     * /**
+     * Extract information from $request and return the correct array based on content-type in request headers;
+     * @param ServerRequestInterface $request
+     * @param array $keys Array of keys in $_FILES
+     */
+    public static function extractWithFile(ServerRequestInterface $request, array $keys)
+    {
+        $data = self::extract($request);
+        foreach($keys as $key){
+            if (isset($_FILES[$key])) {
+                $data[$key] = $_FILES[$key];
+            }
+        }
+        return $data;
+    }
+
     /**
      * @param $data
      * @return bool
@@ -52,7 +70,8 @@ class RequestUtils
         return isset($data[RequestUtils::ERROR]);
     }
 
-    public static function getMessage($data){
+    public static function getMessage($data)
+    {
         return (self::check($data)) ? $data[RequestUtils::ERROR][RequestUtils::MESSAGE] : '';
     }
 }

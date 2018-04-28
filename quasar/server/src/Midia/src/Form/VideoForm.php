@@ -15,7 +15,7 @@ class VideoForm extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setHydrator(new Hydrator\ClassMethods());
-        $this->setObject(new Video());
+//        $this->setObject(new Video());
 
         $this->initImageForm();
         $this->initImageFile();

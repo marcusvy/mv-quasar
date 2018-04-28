@@ -15,7 +15,7 @@ class AudioForm extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setHydrator(new Hydrator\ClassMethods());
-        $this->setObject(new Audio());
+//        $this->setObject(new Audio());
 
         $this->initAudioForm();
         $this->initAudioFile();
