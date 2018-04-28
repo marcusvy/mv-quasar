@@ -3,9 +3,7 @@
 namespace Midia\Action;
 
 use Core\Action\AbstractRestAction;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
-use Zend\Diactoros\Response\JsonResponse;
+
 
 /**
  * Class AbstractMidiaRestAction
