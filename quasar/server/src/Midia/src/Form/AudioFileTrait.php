@@ -25,7 +25,7 @@ trait AudioFileTrait
 
         return [
             'file' => [
-                'required' => false,
+                'required' => true,
                 'filters' => [
                     (new Filter\File\RenameUpload())
                         ->setTarget($target)
