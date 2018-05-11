@@ -40,7 +40,7 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories' => [
-                Action\DoctrineAction::class => Action\DoctrineActionFactory::class,
+                Action\DoctrineAction::class => Doctrine\Factory\DefaultFactory::class,
                 Config\ServerInfo::class => Config\ServerInfoFactory::class,
                 Cors\CorsMiddleware::class => Cors\CorsMiddlewareFactory::class,
                 Mail\MailServiceInterface::class => Mail\MailServiceFactory::class,

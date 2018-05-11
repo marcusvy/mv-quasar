@@ -4,7 +4,8 @@ namespace Console\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
-use Log\Entity\Logger;
+use Log\Model\Entity\Logger;
+use Log\Model\Repository\LoggerRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -43,19 +44,35 @@ class ViewLogsCommand extends Command
             $io->title('Logs');
 
             if (!is_null($this->entityManager)) {
+                /** @var LoggerRepository $repo */
                 $repo = $this->entityManager->getRepository(Logger::class);
-                $query = $repo->createQueryBuilder('l')->getQuery();
-                $list = $query->getResult(Query::HYDRATE_ARRAY);
+                $result = $repo->createQueryBuilder('l')
+                    ->select(['l.time', 'l.level', 'l.channel', 'l.message'])
+                    ->getQuery()
+                    ->getResult(Query::HYDRATE_ARRAY);
+
+
+                $list = array_map(function ($item) {
+                    return array_map(function ($log) {
+                        if($log instanceof \DateTime){
+                            return $log->format('d/m/Y H:i:s');
+                        }
+                        return $log;
+                    }, $item);
+                }, $result);
+
 
                 $io->section('Total de Usuários');
                 $io->block(count($list));
                 $io->section('Listagem');
-                $io->block(print_r($list, true));
+                $io->table(['time', 'level', 'channel', 'message'], $list);
+
             } else {
                 $io->error("Quasar:: Doctrine not connected");
             }
         } else {
             $io->error("Quasar:: Console not enabled");
         }
+
     }
 }

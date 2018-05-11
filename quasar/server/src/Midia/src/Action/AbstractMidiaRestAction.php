@@ -3,7 +3,6 @@
 namespace Midia\Action;
 
 use Core\Action\AbstractRestAction;
-use Zend\Filter;
 
 /**
  * Class AbstractMidiaRestAction

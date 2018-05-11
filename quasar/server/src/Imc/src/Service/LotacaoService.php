@@ -2,7 +2,6 @@
 
 namespace Imc\Service;
 
-use Doctrine\ORM\EntityManager;
 use Core\Service\AbstractService;
 use Imc\Entity\Lotacao;
 

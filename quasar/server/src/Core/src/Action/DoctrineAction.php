@@ -3,6 +3,7 @@
 namespace Core\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\RequestHandlerInterface as DelegateInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,7 +22,7 @@ class DoctrineAction implements MiddlewareInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : \Psr\Http\Message\ResponseInterface
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : ResponseInterface
     {
         $installed = !is_null($this->entityManager);
         return new JsonResponse(['installed' => $installed]);
