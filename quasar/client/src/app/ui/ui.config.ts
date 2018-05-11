@@ -1,7 +1,7 @@
 /**
  * Vendor
  */
-import * as WebFont from 'webfontloader';
+// import * as WebFont from 'webfontloader';
 
 export class MvUiConfig {
 
@@ -9,10 +9,10 @@ export class MvUiConfig {
    * WebFont Configuration
    */
   configFont(families: string[] = ['Roboto:300,400']) {
-    WebFont.load({
-      google: {
-        families: families
-      }
-    });
+    // WebFont.load({
+    //   google: {
+    //     families: families
+    //   }
+    // });
   }
 }
