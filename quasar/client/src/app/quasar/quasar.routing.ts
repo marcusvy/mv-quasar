@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: '', component: QuasarComponent, children: [
       { path: '', redirectTo: '/quasar/manager', pathMatch: 'full' },
-      { path: 'auth', loadChildren: 'app/quasar-auth/auth.module#MvQuasarAuthModule' },
+      { path: 'auth', loadChildren: '../quasar-auth/auth.module#MvQuasarAuthModule' },
     ]
   },
   {
@@ -18,9 +18,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent, pathMatch: 'full' },
-      { path: 'config', loadChildren: 'app/quasar-config/config.module#MvQuasarConfigModule' },
-      { path: 'midia', loadChildren: 'app/quasar-midia/midia.module#MvQuasarMidiaModule' },
-      { path: 'user', loadChildren: 'app/quasar-user/user.module#MvQuasarUserModule' },
+      { path: 'config', loadChildren: '../quasar-config/config.module#MvQuasarConfigModule' },
+      { path: 'midia', loadChildren: '../quasar-midia/midia.module#MvQuasarMidiaModule' },
+      { path: 'user', loadChildren: '../quasar-user/user.module#MvQuasarUserModule' },
     ]
   },
 ];

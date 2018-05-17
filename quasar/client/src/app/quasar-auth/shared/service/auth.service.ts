@@ -7,7 +7,7 @@ import { QuasarConfigService } from '../../../quasar/shared/service/quasar-confi
  * @todo intercept all errors
  */
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
 
   private _token = 'profile';

@@ -1,18 +1,13 @@
 :host {
+  box-sizing: border-box;
   display: flex;
-  height: 100vh;
-  width: 100vw;
-  align-items: center;
+  flex: 1;
   justify-content: center;
+  align-items: center;
   background-color: #eeeeee;
   background-image: url('/assets/img/background/quasar.jpg');
 }
 
-mv-card {
-  max-width: 30rem;
+.login-card {
+  min-width: 300px;
 }
-
-img {
-  max-width: 200px;
-}
-

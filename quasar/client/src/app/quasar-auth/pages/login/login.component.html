@@ -1,32 +1,45 @@
-<mv-row class="login-header is-align-middle">
-  <mv-col class="is-align-center">
-    <h1 class="login-title">Login</h1>
-  </mv-col>
-</mv-row>
-<form mvForm [formGroup]="form">
-  <mv-row>
-    <mv-col>
-      <!-- Usuário -->
-      <mv-control>
-        <label for="input-user">Usuário</label>
-        <input id="input-user" type="text" name="identity" formControlName="identity" />
-      </mv-control>
+<h1 class="mat-h1">Login</h1>
 
-      <!-- Senha -->
-      <mv-control>
-        <label for="input-senha">Senha</label>
-        <input id="input-senha" type="password" name="credential" formControlName="credential" />
-      </mv-control>
+<form [formGroup]="form" class="mat-typography">
+    <div>
+        <mat-form-field fxFlexFill>
+            <input matInput
+                   formControlName="identity"
+                   placeholder="Usuário"
+                   autofocus>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field fxFlexFill>
+            <input type="password" matInput
+                   formControlName="credential"
+                   placeholder="Senha">
+        </mat-form-field>
+    </div>
 
-      <p class="is-align-center" *ngIf="showMessage()">{{message}}</p>
-    </mv-col>
-  </mv-row>
-  <mv-row class="is-align-middle">
-    <mv-col>
-      <a [routerLink]="['.','signin']">Quero me cadastrar</a>
-    </mv-col>
-    <mv-col class="is-align-end no-flex">
-      <button mv-btn type="button" class="is-raised" [disabled]="form.invalid" (click)="login()">Entrar</button>
-    </mv-col>
-  </mv-row>
+    <p fxLayoutAlign="center" color="danger" *ngIf="showMessage()">
+        {{message}}
+    </p>
+
+    <div fxLayout>
+        <div fxFlex fxLayoutAlign="center">
+            <button mat-raised-button color="primary"
+                    [disabled]="form.invalid"
+                    (click)="login()">
+                Entrar
+            </button>
+        </div>
+    </div>
+
 </form>
+
+<div fxLayout class="actions">
+    <div fxFlex fxLayoutAlign="center">
+        <a mat-button [routerLink]="['.','signin']" tabindex="4">
+            Não tenho cadastro
+        </a>
+    </div>
+</div>
+
+
+<!-- @todo (server-status) : Create a component: snackbar when server error with HttpProvider  -->

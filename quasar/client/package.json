@@ -1,5 +1,5 @@
 {
-  "name": "ng6sass",
+  "name": "mvquasar",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,9 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "quasar:serve": "ng serve -pc proxy.conf.json",
+    "quasar:start": "ng serve --proxy-config=proxy.json --hmr",
     "quasar:build": "ng build --prod --aot --build-optimizer",
-    "quasar:live": "http-server dist/ng6sass -g"
+    "quasar:live": "http-server ../server/public/pwa -g"
   },
   "private": true,
   "dependencies": {

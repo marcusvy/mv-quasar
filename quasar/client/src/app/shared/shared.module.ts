@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatCheckboxModule,
   MatDatepickerModule,
@@ -32,6 +33,7 @@ import {
   MatSnackBarModule,
   MatTooltipModule
 } from '@angular/material';
+
 
 
 @NgModule({
@@ -69,7 +71,8 @@ import {
     MatBottomSheetModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FlexLayoutModule,
   ]
 })
 export class SharedModule { }
