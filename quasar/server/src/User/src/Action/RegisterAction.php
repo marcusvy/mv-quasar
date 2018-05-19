@@ -65,14 +65,18 @@ class RegisterAction implements MiddlewareInterface
         if (!is_null($this->form)) {
             $this->form->setData($data);
             if ($this->form->isValid()) {
-                $registerData = $this->form->getData();
+                $data = $this->form->getData();
 
                 try {
-                    $perfil = $this->perfilService->create(['name' => $registerData['name']])->getFirstResult();
+                    $perfil = $this->perfilService->create(['name' => $data['name']])->getFirstResult();
 
-                    $user = new User($registerData);
-                    $user->setPerfil($perfil);
-                    $user = $this->userService->create($user)->getFirstResult();
+                    $createUser = [
+                        'identity' => $data['identity'],
+                        'credential' => $data['credential'],
+                        'email' => $data['email'],
+                        'perfil' => $perfil
+                    ];
+                    $user = $this->userService->create($createUser)->getFirstResult();
 
                     if ($user instanceof User) {
                         if ($this->mail($user)) {
@@ -104,7 +108,7 @@ class RegisterAction implements MiddlewareInterface
      * @param User|null $user
      * @return bool
      */
-    private function mail(User $user=null)
+    private function mail(User $user = null)
     {
         if (!is_null($user) && $this->$this->mailService->isEnabled()) {
             $subject = sprintf('Quasar Platform::Registration-%s', $user->getEmail());

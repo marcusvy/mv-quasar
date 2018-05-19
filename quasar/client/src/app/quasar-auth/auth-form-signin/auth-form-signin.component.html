@@ -1,0 +1,47 @@
+<form class="mat-typography" [formGroup]="form" (submit)="signin()">
+    <div>
+        <!-- Nome -->
+        <mat-form-field fxFlexFill>
+            <input matInput formControlName="name" placeholder="Nome" autofocus mvInputMask="alpha">
+            <!-- <mv-control-errors [errors]="form.get('name').errors"></mv-control-errors> -->
+        </mat-form-field>
+    </div>
+    <div>
+        <!-- Usuário -->
+        <mat-form-field fxFlexFill>
+            <input matInput formControlName="identity" placeholder="Usuário" autofocus>
+            <!-- <mv-control-errors [errors]="form.get('name').errors"></mv-control-errors> -->
+        </mat-form-field>
+    </div>
+    <div>
+        <!-- E-mail -->
+        <mat-form-field fxFlexFill>
+            <input matInput formControlName="email" placeholder="E-mail">
+            <!-- <mv-control-errors [errors]="form.get('email').errors"></mv-control-errors> -->
+        </mat-form-field>
+    </div>
+    <div>
+        <!-- Senha -->
+        <mat-form-field fxFlexFill>
+            <input type="password" matInput formControlName="credential" placeholder="Senha">
+            <!-- <mv-control-errors [errors]="form.get('credential').errors"></mv-control-errors> -->
+        </mat-form-field>
+    </div>
+
+    <p fxLayoutAlign="center" color="danger" *ngIf="showMessage()">
+        {{message}}
+    </p>
+
+    <div fxLayout="column">
+        <div fxFlex fxLayoutAlign="center">
+            <mat-progress-spinner mode="indeterminate" *ngIf="loading"></mat-progress-spinner>
+        </div>
+        <div fxFlex fxLayoutAlign="center">
+            <button mat-raised-button color="primary" [disabled]="form.invalid" *ngIf="!send" (click)="login()">
+                Registrar
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- @todo (server-status) : Create a component: snackbar when server error with HttpProvider  -->

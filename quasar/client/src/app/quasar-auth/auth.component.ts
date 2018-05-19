@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatExpansionPanel } from '@angular/material';
 
 @Component({
   selector: 'mv-auth',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
+  @ViewChild('expansionPanelEntrar')
+  epEntrar: MatExpansionPanel;
+
   constructor() { }
 
   ngOnInit() {
+    this.epEntrar.open();
   }
 
 }

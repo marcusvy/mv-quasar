@@ -1,0 +1,32 @@
+<form [formGroup]="form" class="mat-typography">
+  <div>
+    <mat-form-field fxFlexFill>
+      <input matInput
+             formControlName="identity"
+             placeholder="Usuário"
+             autofocus>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field fxFlexFill>
+      <input type="password" matInput
+             formControlName="credential"
+             placeholder="Senha">
+    </mat-form-field>
+  </div>
+
+  <div fxLayout>
+    <div fxFlex>
+      <mat-slide-toggle>Lembrar</mat-slide-toggle>
+    </div>
+    <div fxFlex fxLayoutAlign="center">
+      <button mat-raised-button color="primary"
+              [disabled]="form.invalid"
+              (click)="login()">
+        Entrar
+      </button>
+    </div>
+  </div>
+</form>
+
+<!-- @todo (server-status) : Create a component: snackbar when server error with HttpProvider  -->

@@ -39,7 +39,7 @@ interface ServiceInterface
      * @param array $data
      * @return ServiceResultInterface
      */
-    public function create(array $data): ServiceResultInterface;
+    public function create($data): ServiceResultInterface;
 
     /**
      * Atualiza um registro de usuário

@@ -1,28 +1,38 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
-import {AuthService} from '../..';
+import {AuthService} from '..';
+import {MatSnackBar} from '@angular/material';
+import {Subscription} from 'rxjs';
 
 @Component({
-    selector: 'mv-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    selector: 'mv-auth-form-login',
+    templateUrl: './auth-form-login.component.html',
+    styleUrls: ['./auth-form-login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class AuthFormLoginComponent implements OnInit, OnDestroy {
 
     form: FormGroup;
     message = '';
+    $sign: Subscription;
 
     constructor(
         private _fb: FormBuilder,
         private _service: AuthService,
         private _router: Router,
+        public snackBar: MatSnackBar
     ) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.createForm();
+    }
+
+    ngOnDestroy(): void {
+        if (this.$sign !== undefined) {
+            this.$sign.unsubscribe();
+        }
     }
 
     createForm() {
@@ -30,10 +40,6 @@ export class LoginComponent implements OnInit {
             identity: ['', Validators.compose([Validators.required])],
             credential: ['', Validators.compose([Validators.required])],
         });
-    }
-
-    back() {
-        this._router.navigate(['/']);
     }
 
     login() {
@@ -45,7 +51,9 @@ export class LoginComponent implements OnInit {
                         this._service.storeToken(res['token']);
                         this._router.navigateByUrl('/quasar');
                     } else {
-                        this.message = 'Usuário ou Senha inválidos';
+                        this.snackBar.open('Usuário ou Senha inválidos', '', {
+                            duration: 3000,
+                        });
                     }
                 });
         }
@@ -54,4 +62,5 @@ export class LoginComponent implements OnInit {
     showMessage() {
         return this.message.length > 0;
     }
+
 }

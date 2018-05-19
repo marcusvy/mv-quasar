@@ -131,7 +131,7 @@ class User extends AbstractEntity
             ->setActivationKey($this->generateActivationKey());
 
         if (isset($options['perfil'])) {
-            $options['perfil'] = (is_array($options['perfil'])) ? new Perfil($options['perfil']) : null;
+            $options['perfil'] = (is_array($options['perfil'])) ? new Perfil($options['perfil']) : $options['perfil'];
         }
         parent::__construct($options);
     }

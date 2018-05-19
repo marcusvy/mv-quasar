@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "quasar:start": "ng serve --proxy-config=proxy.json --hmr",
+    "quasar:start": "ng serve --proxy-config=proxy.json",
     "quasar:build": "ng build --prod --aot --build-optimizer",
     "quasar:live": "http-server ../server/public/pwa -g"
   },

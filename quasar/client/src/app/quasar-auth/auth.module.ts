@@ -6,10 +6,10 @@ import { MvQuasarAuthRoutingModule } from './auth.routing';
 
 import { AuthComponent } from './auth.component';
 import { AuthProfileMenuComponent } from './auth-profile-menu/auth-profile-menu.component';
-import { LoginComponent } from './pages/login/login.component';
-import { SigninComponent } from './pages/signin/signin.component';
 import { ActivateComponent } from './pages/activate/activate.component';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { AuthFormLoginComponent } from './auth-form-login/auth-form-login.component';
+import { AuthFormSigninComponent } from './auth-form-signin/auth-form-signin.component';
 
 @NgModule({
   imports: [
@@ -19,10 +19,10 @@ import { AuthGuard } from './shared/guard/auth.guard';
   ],
   declarations: [
     AuthProfileMenuComponent,
-    LoginComponent,
-    SigninComponent,
     ActivateComponent,
-    AuthComponent
+    AuthComponent,
+    AuthFormLoginComponent,
+    AuthFormSigninComponent
   ],
   exports: [
     AuthProfileMenuComponent,
