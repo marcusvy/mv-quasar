@@ -2,6 +2,7 @@
     "material-icon-theme.folders.associations": {
         "client": "node",
         "server": "php",
-        "data": "temp"
+        "data": "temp",
+        "do": "scripts"
     }
 }

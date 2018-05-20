@@ -14,7 +14,6 @@ services:
       MYSQL_DATABASE: mvinicius
       MYSQL_USER: root
       MYSQL_PASSWORD: mvinicius
-    
 
   api:
     container_name: im-quasar-api
@@ -34,6 +33,12 @@ services:
     restart: always
     environment:
       APP_ENV: 'dev'
+  
+  # ng:
+  #   image: johnpapa/angular-cli
+  #   build: docker/angular-cli
+  #   environment:
+  #     NODE_ENV: production
 
 volumes:
     database:

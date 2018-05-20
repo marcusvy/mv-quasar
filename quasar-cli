@@ -1,0 +1,159 @@
+#!/bin/sh
+function Main()
+{
+    case $1 in
+        'shell') CmdQuasar $@; ;;
+        'docker:down') CmdDockerDown; ;;
+        'docker:up') CmdDockerUp; ;;
+        'start') CmdStart; ;;
+        'client:start') CmdNode 'yarn' 'start'; ;;
+        'client:build') CmdNode 'yarn' 'build'; ;;
+        'client:live') CmdNode 'yarn' 'live'; ;;
+        'client:test') CmdNode 'yarn' 'test'; ;;
+        'client:lint') CmdNode 'yarn' 'lint'; ;;
+        'client:e2e') CmdNode 'yarn' 'e2e'; ;;
+        'server') CmdServerBash $@; ;;
+        'server:development-disable') CmdComposer 'run' 'development-disable'; ;;
+        'server:development-enable') CmdComposer 'run' 'development-enable'; ;;
+        'server:development-status') CmdComposer 'run' 'development-status'; ;;
+        'server:check')  CmdComposer run 'check'; ;;
+        'server:analyze') CmdComposer run 'analyze'; ;;
+        'server:clear-config-cache') CmdComposer run 'clear-config-cache'; ;;
+        'server:cs-check') CmdComposer run 'cs-check'; ;;
+        'server:cs-fix') CmdComposer run 'cs-fix'; ;;
+        'server:test') CmdComposer run 'test'; ;;
+        'server:test-coverage') CmdComposer run 'test-coverage'; ;;
+        'code') CmdCode ; ;;
+        'node') CmdNode $@; ;;
+        'ng') CmdNg $@;;
+        'composer') CmdComposer $@; ;;
+        'doctrine') CmdDoctrine $@; ;;
+        'expressive') CmdExpressive $@; ;;
+        *) Help ;;
+    esac
+}
+
+# Text-Editor
+CmdCode()
+{
+    code .
+}
+
+# Docker
+CmdDockerDown()
+{
+    docker-compose down
+}
+
+CmdDockerUp()
+{
+    docker-compose up -d
+}
+
+# Server Starters
+CmdStart()
+{
+    CmdDockerUp
+    CmdNode start -o
+}
+
+#Tools
+CmdComposer()
+{
+    shift
+    docker-compose exec api composer $@
+}
+
+CmdNode()
+{
+    shift
+    cd quasar/client; 
+    yarn $@;
+}
+
+CmdNg()
+{
+    CmdNode ng $@
+}
+
+CmdQuasar()
+{
+    shift
+    docker-compose exec api php bin/quasar $@
+}
+
+CmdServer()
+{
+    shift;
+    echo "$@"
+    if [ "$1" = "--list" ]; 
+    then
+        docker-compose exec api ls -l vendor/bin
+    else
+        docker-compose exec api vendor/bin/$@
+    fi
+}
+
+CmdServerBash()
+{
+    shift
+    docker-compose exec api $@
+}
+
+CmdExpressive()
+{
+    shift
+    CmdComposer run 'expressive' $@;
+}
+
+CmdDoctrine()
+{
+    CmdServer doctrine $@
+}
+
+
+
+
+Help()
+{
+    echo ""
+    echo "Quasar Shell Commands"
+    echo "----------------------"
+    echo "  help     :   Open this message"
+    echo "  shell    :   Execute Quasar Platform Cli"
+    echo ""
+    echo "Docker"
+    echo "  start    :   Start servers"
+    echo "  docker:down :   Stop the docker containers"
+    echo "  docker:up   :   Start the docker containers"
+    echo ""
+    echo "Development Tools"
+    echo "  code     :   Open text editor "
+    echo "  composer :   Composer Cli"
+    echo "  expressive:  Expressive Cli"
+    echo "  doctrine :   Doctrine Cli"
+    echo "  ng       :   Angular Cli"
+    echo "  node     :   Yarn commands and quasar/client/package.json scripts"
+    echo ""
+    echo "Client"
+    echo "  client:start :   Do 'start' client command"
+    echo "  client:build :   Do 'build' client command"
+    echo "  client:live  :   Do 'live 'client command"
+    echo "  client:lint  :   Do 'lint 'client lint"
+    echo "  client:test  :   Do 'test 'client test"
+    echo "  client:e2e   :   Do 'e2e' client test"
+    echo ""
+    echo "Server"
+    echo "  server   :   Execute commands in server api container"
+    echo "  server:development-disable :   Execute 'development-disable' server command"
+    echo "  server:development-enable  :   Execute 'development-enable' server command"
+    echo "  server:development-status  :   Execute 'development-status' server command"
+    echo "  server:check               :   Execute 'check' server command"
+    echo "  server:analyze             :   Execute 'analyze' server command"
+    echo "  server:clear-config-cache  :   Execute 'clear-config-cache' server command"
+    echo "  server:cs-check            :   Execute 'cs-check' server command"
+    echo "  server:cs-fix              :   Execute 'cs-fix' server command"
+    echo "  server:test                :   Execute 'test' server command"
+    echo "  server:test-coverage       :   Execute 'test-coverage' server command"
+}
+Main $@

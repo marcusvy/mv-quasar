@@ -3,14 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --proxy-config=proxy.json",
+    "build": "ng build --prod --aot --build-optimizer",
+    "live": "http-server ../server/public/pwa -g",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "quasar:start": "ng serve --proxy-config=proxy.json",
-    "quasar:build": "ng build --prod --aot --build-optimizer",
-    "quasar:live": "http-server ../server/public/pwa -g"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

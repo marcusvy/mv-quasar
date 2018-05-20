@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$1" = "--help" ]; 
+then
+    tools/server ls vendor/bin
+else
+    docker-compose exec api vendor/bin/$@
+fi
