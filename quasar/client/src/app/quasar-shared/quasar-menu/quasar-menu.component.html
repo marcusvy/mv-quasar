@@ -1,17 +1,27 @@
-<mat-accordion>
-  <mat-expansion-panel>
+<mat-accordion displayMode="flat">
+  <mat-expansion-panel *ngFor="let menu of menu$ | async"
+    [hideToggle]="true">
     <mat-expansion-panel-header>
-      Geral
+      {{menu?.header}}
     </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <a mat-list-item routerLink="/">Dashboard</a>
-      <a mat-list-item routerLink="/config">Configurações</a>
-    </ng-template>
+    <ng-container *ngIf="menu.children.length > 0">
+      <ng-template matExpansionPanelContent>
+        <ng-container *ngFor="let item of menu.children">
+          <a mat-list-item [title]="item?.description"
+            [routerLink]="item.router"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact : true }">
+            {{item.label}}
+          </a>
+        </ng-container>
+      </ng-template>
+    </ng-container>
   </mat-expansion-panel>
 </mat-accordion>
 
-
-<a mat-list-item routerLink="/user">Link 2</a>
-<a mat-list-item href="#">Configurações</a>
-<a mat-list-item href="#">Mídia</a>
+<a mat-list-item routerLink="/about"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{ exact : true }">
+  Sobre
+</a>
 <a mat-list-item href="#">Sair</a>

@@ -1,19 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { QuasarMenu, QuasarMenuItem } from '../../lib';
+import { Component } from '@angular/core';
+import { QuasarMenu, } from '../../lib';
+import { QUASAR_MENU_DATASOURCE } from './quasar-menu.datasource';
+import { Observable, of as observableOf } from 'rxjs';
 
 @Component({
   selector: 'mv-quasar-menu',
   templateUrl: './quasar-menu.component.html',
   styleUrls: ['./quasar-menu.component.scss']
 })
-export class QuasarMenuComponent implements OnInit {
+export class QuasarMenuComponent {
 
-  menu:QuasarMenu = [
-
-  ]
-  constructor() { }
-
-  ngOnInit() {
-  }
+  menu$: Observable<QuasarMenu[]> = observableOf(QUASAR_MENU_DATASOURCE);
 
 }

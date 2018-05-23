@@ -1,6 +1,7 @@
 export interface QuasarMenuItem {
-  label?: string;
-  router?: string|string[];
-  isActive?: boolean;
-  open?:boolean;
+  label: string;
+  router?: string;
+  active?: Boolean;
+  open?: Boolean;
+  description: string;
 }

@@ -41,6 +41,8 @@ import {
 import { QuasarShellComponent } from './quasar-shell/quasar-shell.component';
 import { QuasarDashboardComponent } from './quasar-dashboard/quasar-dashboard.component';
 import { QuasarMenuComponent } from './quasar-menu/quasar-menu.component';
+import { AppRoutingModule } from '../app-routing.module';
+import { QuasarAboutComponent } from './quasar-about/quasar-about.component';
 
 const ACTIVE_MATERIAL_COMPONENTS = [
   MatCheckboxModule,
@@ -78,6 +80,7 @@ const ACTIVE_MATERIAL_COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
+    AppRoutingModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -97,6 +100,7 @@ const ACTIVE_MATERIAL_COMPONENTS = [
     QuasarShellComponent,
     QuasarDashboardComponent,
     QuasarMenuComponent,
+    QuasarAboutComponent,
   ],
   exports: [
     ...ACTIVE_MATERIAL_COMPONENTS,
