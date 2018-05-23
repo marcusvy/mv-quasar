@@ -2,7 +2,7 @@ version: '3'
 services:
 
   db:
-    container_name: im-quasar-db
+    container_name: mv-quasar-db
     image: mysql:5.7
     ports:
       - "3306:3306"
@@ -16,7 +16,7 @@ services:
       MYSQL_PASSWORD: mvinicius
 
   api:
-    container_name: im-quasar-api
+    container_name: mv-quasar-api
     build: docker/php
     ports:
       - 8000:80
@@ -35,11 +35,21 @@ services:
       APP_ENV: 'dev'
   
   # ng:
+  #   container_name: mv-quasar-ng
   #   image: johnpapa/angular-cli
   #   build: docker/angular-cli
+  #   ports:
+  #     - 8001:4200
+  #   links: 
+  #     - api
+  #   volumes:
+  #     - ./quasar/client/:/home/node/app
+  #   working_dir: /home/node/app
   #   environment:
   #     NODE_ENV: production
+  #   command: ["yarn", "start"]
 
 volumes:
     database:
     server:
+    # client:

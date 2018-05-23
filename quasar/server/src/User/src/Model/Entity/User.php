@@ -124,7 +124,7 @@ class User extends AbstractEntity
     public function __construct($options = [])
     {
         $this->perfil = new Perfil();
-        $this->role = new Role();
+        $this->role = new Role(['id'=>0]);
         $this->setCreatedat(new \DateTime('now'))
             ->setUpdatedat(new \DateTime('now'))
             ->setSalt($this->generateSalt())
