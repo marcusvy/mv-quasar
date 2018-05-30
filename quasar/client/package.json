@@ -31,6 +31,7 @@
     "hammerjs": "^2.0.8",
     "http-server": "^0.11.1",
     "intl": "^1.2.5",
+    "memo-decorator": "^1.0.2",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.1.0",
     "vanilla-masker": "^1.2.0",

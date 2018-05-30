@@ -1,94 +1,105 @@
 <div fxLayout class="container">
-  <h1 class="mat-h1">Dashboard</h1>
+    <h1 class="mat-h1">Dashboard</h1>
 </div>
-<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="15px" role="list" class="container" fxLayoutWrap="wrap">
-  <!-- Sistema -->
-  <mat-card fxFlex fxFlex.gt-xs="33%">
-    <mat-card-header>
-      <mat-card-title>Sistema</mat-card-title>
-      <mat-card-subtitle>Operações do servidor</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="dashboard-card-content">
-      <mat-list>
-        <mat-list-item>
-          <h3 matLine>Modo de Operação</h3>
-          <p matLine>Produção</p>
-        </mat-list-item>
-        <mat-list-item>
-          <h3 matLine>Estatísticas</h3>
-          <p matLine>Habilitada</p>
-          <button mat-button>Ver</button>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
+<div class="container">
 
-  <!-- Usuários -->
-  <mat-card fxFlex fxFlex.gt-xs="33%">
-    <mat-card-header>
-      <mat-card-title>
-        Usuários
-        <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item>Criar</button>
-        </mat-menu>
-      </mat-card-title>
-      <mat-card-subtitle>Gerencimento de permissões</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="dashboard-card-content">
-      <mat-list>
-        <mat-list-item>
-          <h3 matLine>Online</h3>
-          <p matLine>300</p>
-        </mat-list-item>
-        <mat-list-item>
-          <h3 matLine>Ativos</h3>
-          <p matLine>450</p>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
+    <div fxLayout="column" fxLayout.gt-sm="row wrap" fxLayoutGap="15px grid" role="list">
 
-  <!-- Monitoramento -->
-  <mat-card fxFlex="1 1 100%" fxFlex.gt-xs="33%">
-    <mat-card-header>
-      <mat-card-title>Monitoramento</mat-card-title>
-      <mat-card-subtitle>Logs e erros</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="dashboard-card-content">
-      <mat-list>
-        <mat-list-item>
-          <h3 matLine>Erros</h3>
-          <p matLine>0 erros até o momento</p>
-        </mat-list-item>
-        <mat-list-item>
-          <h3 matLine>Log do sistema</h3>
-          <p matLine>Habilitado</p>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
+        <!-- Sistema -->
+        <div fxFlex fxFlex.gt-sm="33%">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Sistema</mat-card-title>
+                    <mat-card-subtitle>Operações do servidor</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                    <mat-list>
+                        <mat-list-item>
+                            <h3 matLine>Modo de Operação</h3>
+                            <p matLine>Produção</p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine>Estatísticas</h3>
+                            <p matLine>Habilitada</p>
+                            <button mat-button>Ver</button>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
 
 
+        <!-- Usuários -->
+        <div fxFlex fxFlex.gt-sm="33%">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        Usuários
+                        <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu" xPosition="before">
+                            <button mat-menu-item>Criar</button>
+                        </mat-menu>
+                    </mat-card-title>
+                    <mat-card-subtitle>Gerencimento de permissões</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                    <mat-list>
+                        <mat-list-item>
+                            <h3 matLine>Online</h3>
+                            <p matLine>300</p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine>Ativos</h3>
+                            <p matLine>450</p>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
 
-  <mat-card fxFlex="1 1 100%" fxFlex.gt-xs="33%">
-    <mat-card-header>
-      <mat-card-title>Monitoramento</mat-card-title>
-      <mat-card-subtitle>Logs e erros</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="dashboard-card-content">
-      <mat-list>
-        <mat-list-item>
-          <h3 matLine>Erros</h3>
-          <p matLine>0 erros até o momento</p>
-        </mat-list-item>
-        <mat-list-item>
-          <h3 matLine>Log do sistema</h3>
-          <p matLine>Habilitado</p>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
+        <!-- Monitoramento -->
+        <div fxFlex fxFlex.gt-sm="33%">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Monitoramento</mat-card-title>
+                    <mat-card-subtitle>Logs e erros</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                    <mat-list>
+                        <mat-list-item>
+                            <h3 matLine>Erros</h3>
+                            <p matLine>0 erros até o momento</p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine>Log do sistema</h3>
+                            <p matLine>Habilitado</p>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div fxFlex fxFlex.gt-sm="33%">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Monitoramento</mat-card-title>
+                    <mat-card-subtitle>Logs e erros</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                    <mat-list>
+                        <mat-list-item>
+                            <h3 matLine>Erros</h3>
+                            <p matLine>0 erros até o momento</p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine>Log do sistema</h3>
+                            <p matLine>Habilitado</p>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 </div>

@@ -66,6 +66,7 @@ class AuthenticationAction implements MiddlewareInterface
                 ]);
             }
         }
+
         return new JsonResponse([
             'success' => false
         ]);

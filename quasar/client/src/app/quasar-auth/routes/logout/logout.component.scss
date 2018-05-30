@@ -1,0 +1,14 @@
+:host {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  height: inherit;
+  justify-content: center;
+  align-items: center;
+  background-color: #eeeeee;
+  background-image: url('/assets/img/background/quasar.jpg');
+}
+
+.login-card {
+  min-width: 300px;
+}

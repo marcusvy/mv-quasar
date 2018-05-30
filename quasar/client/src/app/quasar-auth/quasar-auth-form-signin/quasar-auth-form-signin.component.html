@@ -1,0 +1,34 @@
+<form class="mat-typography" [formGroup]="form">
+  <div>
+    <!-- Nome -->
+    <mat-form-field fxFlexFill>
+      <input matInput formControlName="name" placeholder="Nome" autofocus mvInputMask="alpha">
+      <mat-error *ngIf="form.get('name').invalid">{{form.get('name').errors | quasarServerFormError}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <!-- Usuário -->
+    <mat-form-field fxFlexFill>
+      <input matInput formControlName="identity" placeholder="Usuário">
+      <mat-error *ngIf="form.get('identity').invalid">{{form.get('identity').errors | quasarServerFormError}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <!-- E-mail -->
+    <mat-form-field fxFlexFill>
+      <input matInput formControlName="email" placeholder="E-mail">
+      <mat-error *ngIf="form.get('email').invalid">{{form.get('email').errors | quasarServerFormError}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <!-- Senha -->
+    <mat-form-field fxFlexFill>
+      <input type="password" matInput formControlName="credential" placeholder="Senha">
+      <mat-error *ngIf="form.get('credential').invalid">{{form.get('credential').errors | quasarServerFormError}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <button mat-raised-button color="primary" [disabled]="form.invalid" *ngIf="!send" (click)="signin()">
+    Registrar
+  </button>
+</form>

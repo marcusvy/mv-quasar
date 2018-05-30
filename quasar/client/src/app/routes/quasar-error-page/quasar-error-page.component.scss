@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  height: inherit;
+  background-image: url("/assets/img/background/quasar.jpg");
+  background-size: cover;
+}
+.quasar-error-page__message {
+
+  h1 {
+    color: #3f51b5;
+  }
+}

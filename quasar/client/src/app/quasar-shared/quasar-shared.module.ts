@@ -1,112 +1,97 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
 import {
-  MatCheckboxModule,
-  MatDatepickerModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatRadioModule,
-  MatSelectModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatMenuModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatCardModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatListModule,
-  MatStepperModule,
-  MatTabsModule,
-  MatTreeModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
   MatButtonModule,
   MatButtonToggleModule,
-  MatBadgeModule,
+  MatCardModule,
+  MatCheckboxModule,
   MatChipsModule,
-  MatIconModule,
-  MatProgressSpinnerModule,
-  MatProgressBarModule,
-  MatBottomSheetModule,
+  MatDatepickerModule,
   MatDialogModule,
-  MatSnackBarModule,
-  MatTooltipModule,
-  MatTableModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
   MatPaginatorModule,
-  MatSortModule
-} from '@angular/material';
-
-import { QuasarShellComponent } from './quasar-shell/quasar-shell.component';
-import { QuasarDashboardComponent } from './quasar-dashboard/quasar-dashboard.component';
-import { QuasarMenuComponent } from './quasar-menu/quasar-menu.component';
-import { AppRoutingModule } from '../app-routing.module';
-import { QuasarAboutComponent } from './quasar-about/quasar-about.component';
-
-const ACTIVE_MATERIAL_COMPONENTS = [
-  MatCheckboxModule,
-  MatDatepickerModule,
-  MatFormFieldModule,
-  MatInputModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule,
+  MatSidenavModule,
   MatSliderModule,
   MatSlideToggleModule,
-  MatMenuModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatCardModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatListModule,
-  MatStepperModule,
-  MatTabsModule,
-  MatTreeModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatBadgeModule,
-  MatChipsModule,
-  MatIconModule,
-  MatProgressSpinnerModule,
-  MatProgressBarModule,
-  MatBottomSheetModule,
-  MatDialogModule,
   MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
   MatTooltipModule,
-];
+  MatTreeModule
+} from '@angular/material';
+import { QuasarApiService } from './quasar-api.service';
+import { SHARED_API_DATASOURCE } from '../config/shared.api.datasource';
+import { QuasarServerFormErrorPipe } from './pipe/quasar-server-form-error.pipe';
+import { QuasarTypewriterPipe } from './pipe/quasar-typewriter.pipe';
+
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AppRoutingModule,
+  exports: [
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatGridListModule,
-    MatCardModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
     MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatListModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatTreeModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatBadgeModule,
+    MatChipsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatBottomSheetModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatTooltipModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatExpansionModule,
-    // FlexLayoutModule,
+    QuasarServerFormErrorPipe,
+    QuasarTypewriterPipe,
   ],
-  declarations: [
-    QuasarShellComponent,
-    QuasarDashboardComponent,
-    QuasarMenuComponent,
-    QuasarAboutComponent,
+  providers: [
+    QuasarApiService,
+    QuasarServerFormErrorPipe,
+    QuasarTypewriterPipe,
+    { provide: "ApiDataSource", useValue: SHARED_API_DATASOURCE, multi: true }
   ],
-  exports: [
-    ...ACTIVE_MATERIAL_COMPONENTS,
-    QuasarShellComponent,
-    QuasarDashboardComponent,
-    QuasarMenuComponent,
-  ],
+  declarations: [QuasarServerFormErrorPipe, QuasarTypewriterPipe]
 })
-export class QuasarSharedModule { }
+export class QuasarSharedModule {}

@@ -1,0 +1,29 @@
+<mat-card class="login-card" tabindex="-1">
+  <mat-card-title-group>
+    <img mat-card-sm-image src="/assets/img/mv-quasar-logo-color.png" alt="">
+    <mat-card-title>MV•Quasar</mat-card-title>
+    <mat-card-subtitle>Administração</mat-card-subtitle>
+  </mat-card-title-group>
+  <mat-card-content>
+    <!-- <router-outlet></router-outlet> -->
+    <mat-accordion>
+      <mat-expansion-panel #expansionPanelEntrar>
+        <mat-expansion-panel-header>
+          Entrar
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <mv-quasar-auth-form-login (onLogin)="onLogin($event)"></mv-quasar-auth-form-login>
+        </ng-template>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Registrar
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <mv-quasar-auth-form-signin (onSignin)="onSignin($event)"></mv-quasar-auth-form-signin>
+        </ng-template>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>
