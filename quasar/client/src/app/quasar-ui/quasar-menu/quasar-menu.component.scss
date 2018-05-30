@@ -1,0 +1,9 @@
+:host /deep/ .mat-expansion-panel-body {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.active, .active:hover {
+  color: #3f51b5;
+  background-color: #eee;
+}
