@@ -1,0 +1,65 @@
+<div class="container" fxLayout="column">
+  <!-- Hero -->
+  <div class="quasar-hero">
+    <!-- <img src="/assets/img/mv-quasar-logo-badge.png" alt=""> -->
+    <img class="quasar-logo" src="/assets/img/mv-quasar-logo-color.png" alt="">
+  </div>
+
+  <div class="quasar-accordion">
+    <mat-accordion fxFlex displayMode="flat">
+      <mat-expansion-panel #epanelPesquisa>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Pesquisa
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <router-outlet></router-outlet>
+
+        <mat-tab-group [dynamicHeight]="true">
+          <mat-tab label="Administração">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam provident deleniti reprehenderit eligendi beatae.
+              Dolor vel atque molestias impedit veniam repellendus distinctio reiciendis, blanditiis officiis accusantium
+              asperiores, earum, repellat non.</p>
+          </mat-tab>
+          <mat-tab label="Design">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam provident deleniti reprehenderit eligendi beatae. Dolor
+              vel atque molestias impedit veniam repellendus distinctio reiciendis, blanditiis officiis accusantium asperiores, earum,
+              repellat non.</p>
+          </mat-tab>
+          <mat-tab label="Tecnologia">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam provident deleniti reprehenderit eligendi beatae. Dolor
+              vel atque molestias impedit veniam repellendus distinctio reiciendis, blanditiis officiis accusantium asperiores, earum,
+              repellat non.</p>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Sobre
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        content here
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Produtos
+          </mat-panel-title>
+          <mat-panel-description>
+            Conheça nossa loja virtual
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <mat-toolbar class="quasar-flat">
+    <mat-toolbar-row>
+      <span fxFlex></span>
+      <p>Quasar Consultoria - 2013 - 2018 - <button mat-button routerLink="/quasar/auth">Entrar</button></p>
+      <span fxFlex></span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
