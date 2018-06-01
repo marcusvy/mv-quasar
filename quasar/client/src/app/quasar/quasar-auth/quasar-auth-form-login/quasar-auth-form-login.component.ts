@@ -1,12 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
-import { FormErrorHydrator } from "../../lib";
+import { FormErrorHydrator, AuthFormLoginValue } from "../../lib";
 
-interface LoginFormValues {
-  identity?: string;
-  credential?: string;
-}
+
 
 @Component({
   selector: "mv-quasar-auth-form-login",
@@ -15,7 +12,7 @@ interface LoginFormValues {
 })
 export class QuasarAuthFormLoginComponent implements OnInit {
   form: FormGroup;
-  @Output() onLogin: EventEmitter<LoginFormValues> = new EventEmitter();
+  @Output() onLogin: EventEmitter<AuthFormLoginValue> = new EventEmitter();
 
   constructor(private _fb: FormBuilder) {}
 

@@ -3,14 +3,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { AuthService } from "../auth.service";
 import { Router } from "@angular/router";
-import { FormErrorHydrator } from "../../lib";
+import { FormErrorHydrator, AuthFormSigninValue } from "../../lib";
 
-interface FormSigninValue {
-  name?: string;
-  identity?: string;
-  email?: string;
-  credential?: string;
-}
 
 @Component({
   selector: "mv-quasar-auth-form-signin",
@@ -19,7 +13,7 @@ interface FormSigninValue {
 })
 export class QuasarAuthFormSigninComponent implements OnInit {
   form: FormGroup;
-  @Output() onSignin: EventEmitter<FormSigninValue> = new EventEmitter();
+  @Output() onSignin: EventEmitter<AuthFormSigninValue> = new EventEmitter();
 
   constructor(private _fb: FormBuilder) {}
 

@@ -104,7 +104,7 @@ class UserService extends AbstractService implements UserServiceInterface
                 $data['salt'] = $user->getSalt();
                 $data['activationKey'] = $user->getActivationKey();
                 return parent::update($user->getId(), $data);
-            }else{
+            } else {
                 throw new EntityNotFoundException('User not found');
             }
         } catch (\Exception $e) {
@@ -117,8 +117,10 @@ class UserService extends AbstractService implements UserServiceInterface
         if (!is_null($identity) && !is_null($key)) {
             try {
                 /** @var User $user */
+                /** @var UserRepository $repo */
                 $repo = $this->getEntityManger()->getRepository($this->entity);
-                $result = $repo->findByIdentity($identity);
+                // $result = $repo->findByIdentity($identity);
+                $result = $repo->checkUserForActivation($identity, $key);
                 if (count($result) > 0) {
                     $user = array_shift($result);
                     if (($user instanceof User)) {

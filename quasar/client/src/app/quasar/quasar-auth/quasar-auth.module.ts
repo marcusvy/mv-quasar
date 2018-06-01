@@ -12,6 +12,7 @@ import { AUTH_API_DATASOURCE } from '../config/auth.api.datasource';
 import { AuthGuard } from './auth.guard';
 import { LogoutComponent } from './routes/logout/logout.component';
 import { QuasarAuthComponent } from './quasar-auth.component';
+import { QuasarAuthFormActivationComponent } from './quasar-auth-form-activation/quasar-auth-form-activation.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { QuasarAuthComponent } from './quasar-auth.component';
     QuasarAuthFormLoginComponent,
     QuasarAuthFormSigninComponent,
     LogoutComponent,
-    QuasarAuthComponent
+    QuasarAuthComponent,
+    QuasarAuthFormActivationComponent
   ],
   providers: [
     AuthService,

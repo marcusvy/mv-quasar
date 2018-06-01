@@ -47,8 +47,25 @@ class UserRepository extends AbstractEntityRepository implements UserRepositoryI
     public function checkEmailExists($email): array
     {
         $entity = $this->findOneBy(['email' => $email]);
-        if($entity instanceof User){
+        if ($entity instanceof User) {
             return [$entity];
+        }
+        return [];
+    }
+
+    /**
+     * Activate a user with the identity and correct activation_code
+     *
+     * @param string $identity
+     * @param string $key
+     * @return array
+     */
+    public function checkUserForActivation($identity, $key):array
+    {
+        /** #var User $user */
+        $user = $this->findOneBy(['identity' => $identity, 'activationKey' => $key]);
+        if (($user instanceof User)) {
+            return [$user];
         }
         return [];
     }

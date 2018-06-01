@@ -5,9 +5,9 @@
     <mat-card-subtitle>Administração</mat-card-subtitle>
   </mat-card-title-group>
   <mat-card-content>
-    <!-- <router-outlet></router-outlet> -->
     <mat-accordion>
-      <mat-expansion-panel #expansionPanelEntrar>
+      <!-- Entrar -->
+      <mat-expansion-panel #epEntrar>
         <mat-expansion-panel-header>
           Entrar
         </mat-expansion-panel-header>
@@ -15,12 +15,23 @@
           <mv-quasar-auth-form-login (onLogin)="onLogin($event)"></mv-quasar-auth-form-login>
         </ng-template>
       </mat-expansion-panel>
+      <!-- Registrar -->
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           Registrar
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
           <mv-quasar-auth-form-signin (onSignin)="onSignin($event)"></mv-quasar-auth-form-signin>
+        </ng-template>
+      </mat-expansion-panel>
+
+      <!-- Ativação -->
+      <mat-expansion-panel #epActivation>
+        <mat-expansion-panel-header>
+          Ativar
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <mv-quasar-auth-form-activation (onActivate)="onActivate($event)"></mv-quasar-auth-form-activation>
         </ng-template>
       </mat-expansion-panel>
 

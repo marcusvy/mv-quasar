@@ -9,6 +9,7 @@ import { HttpClient } from "@angular/common/http";
 import { QuasarApiService } from "../quasar-shared/quasar-api.service";
 import { Observable, BehaviorSubject, of as observableOf } from "rxjs";
 import { tap } from "rxjs/operators";
+import { AuthFormSigninValue } from "../lib";
 
 @Injectable({
   providedIn: "root"
@@ -23,7 +24,7 @@ export class AuthService {
 
   checkToken(): boolean {
     let token = this.decryptToken();
-    return (token !== null && this.checkTokenIntegrity(token));
+    return token !== null && this.checkTokenIntegrity(token);
   }
 
   checkTokenIntegrity(token: Object) {
@@ -56,7 +57,7 @@ export class AuthService {
 
   decryptToken() {
     const token = localStorage.getItem(this._token);
-    if(token){
+    if (token) {
       return JSON.parse(atob(token));
     }
     return {};
@@ -86,7 +87,7 @@ export class AuthService {
       );
   }
 
-  signin(data) {
+  signin(data: AuthFormSigninValue) {
     return this._http.post(this._api.url("auth", "signin"), data);
   }
 

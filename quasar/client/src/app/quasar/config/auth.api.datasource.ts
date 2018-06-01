@@ -7,6 +7,6 @@ export const AUTH_API_DATASOURCE: ApiDataSource = {
     { name: 'signin', url: '/api/user/register' },
   ],
   generators: [
-    { name: 'activate', callback: (credential, key) => `/api/user/activate/for/${credential}/by/${key}` }
+    { name: 'activate', callback: (identity, key) => `/api/user/activate/for/${identity}/by/${key}` }
   ]
 };

@@ -128,7 +128,7 @@ class ConfigProvider
                 'allowed_methods' => ['GET','POST','PUT','PATCH']
             ],
             [
-                'path' => '/api/user/activate/for/{credential}/by/{key}',
+                'path' => '/api/user/activate/for/{identity}/by/{key}',
                 'middleware' => Action\ActivationAction::class,
                 'name' => 'QuasarUser.user.activation',
                 'allowed_methods' => ['GET']

@@ -36,16 +36,18 @@ class ActivationAction implements MiddlewareInterface
     public function process(
         ServerRequestInterface $request,
         DelegateInterface $delegate
-    ): \Psr\Http\Message\ResponseInterface {
-        $credential = $request->getAttribute('credential');
+    ) : \Psr\Http\Message\ResponseInterface {
+        $identity = $request->getAttribute('identity');
         $key = $request->getAttribute('key');
 
 //        @todo add form to sanitize
-        if (!is_null($credential) && !is_null($key)) {
-            if ($this->service->activate($credential, $key)) {
+        if (!is_null($identity) && !is_null($key)) {
+            
+            if ($this->service->activate($identity, $key)) {
                 $this->mail($this->service->getIdentity());
                 return new JsonResponse([
-                    'success' => true
+                    'success' => true,
+                    'message' => 'Parabéns! Usuário Ativado',
                 ]);
             }
         }
