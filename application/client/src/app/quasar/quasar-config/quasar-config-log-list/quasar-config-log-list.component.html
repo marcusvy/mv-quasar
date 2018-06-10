@@ -1,0 +1,36 @@
+<div class="container">
+  <h2 class="mat-title">Monitoramento</h2>
+</div>
+
+<mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+
+  <!-- Time -->
+  <ng-container matColumnDef="time">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Time</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.time.date | date}}</mat-cell>
+  </ng-container>
+
+  <!-- Channel -->
+  <ng-container matColumnDef="channel">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Channel</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.channel}}</mat-cell>
+  </ng-container>
+
+  <!-- Level -->
+  <ng-container matColumnDef="level">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Level</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.level}}</mat-cell>
+  </ng-container>
+
+  <!-- Message -->
+  <ng-container matColumnDef="message">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Message</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.message}}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator #paginator [length]="dataSource.data$.getValue()" [pageIndex]="0" [pageSize]="50" [pageSizeOptions]="[25, 50, 100, 250]">
+</mat-paginator>

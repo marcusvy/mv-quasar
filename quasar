@@ -1,0 +1,173 @@
+#!/bin/sh
+
+# Quasar Cli Tool
+
+function Main()
+{
+    case $1 in
+        'shell') CmdQuasar $@; ;;
+        'bash') CmdBash; ;;
+        'start') CmdStart; ;;
+        'up') CmdDockerUp; ;;
+        'down') CmdDockerDown; ;;
+        'code') CmdCode ; ;;
+        'composer') CmdComposer $@; ;;
+        'expressive') CmdExpressive $@; ;;
+        'doctrine') CmdDoctrine $@; ;;
+        'node') CmdNode $@; ;;
+        'ng') CmdNg $@;;
+        'ng:start') CmdNode 'yarn' 'start'; ;;
+        'ng:build') CmdNode 'yarn' 'build'; ;;
+        'ng:live') CmdNode 'yarn' 'live'; ;;
+        'ng:test') CmdNode 'yarn' 'test'; ;;
+        'ng:lint') CmdNode 'yarn' 'lint'; ;;
+        'ng:e2e') CmdNode 'yarn' 'e2e'; ;;
+        'devmode') CmdComposer 'run' 'development-status'; ;;
+        'devmode:on') CmdComposer 'run' 'development-enable'; ;;
+        'devmode:off') CmdComposer 'run' 'development-disable'; ;;
+        'server') CmdServerBash $@; ;;
+        'php:check')  CmdComposer run 'check'; ;;
+        'php:analyze') CmdComposer run 'analyze'; ;;
+        'php:clear') CmdComposer run 'clear-config-cache'; ;;
+        'php:cs-check') CmdComposer run 'cs-check'; ;;
+        'php:cs-fix') CmdComposer run 'cs-fix'; ;;
+        'php:test') CmdComposer run 'test'; ;;
+        'php:coverage') CmdComposer run 'test-coverage'; ;;
+        'install') CmdInstall; ;;
+        *) Help ;;
+    esac
+}
+
+Help()
+{
+    echo ""
+    echo "Quasar Shell Commands"
+    echo "----------------------"
+    echo "  help     :   Open this message"
+    echo "  shell    :   Execute Quasar Platform Cli"
+    echo "  bash     :   Execute server bash shell"
+    echo ""
+    echo "Docker"
+    echo "  start    :   Start servers"
+    echo "  up       :   Start the docker containers"
+    echo "  down     :   Stop the docker containers"
+    echo ""
+    echo "Development Tools"
+    echo "  code     :   Open text editor "
+    echo "  composer :   Composer Cli"
+    echo "  expressive:  Expressive Cli"
+    echo "  doctrine :   Doctrine Cli"
+    echo "  ng       :   Angular Cli"
+    echo "  node     :   Yarn commands and quasar/client/package.json scripts"
+    echo ""
+    echo "Client"
+    echo "  ng:start :   Do 'start' client command"
+    echo "  ng:build :   Do 'build' client command"
+    echo "  ng:live  :   Do 'live 'client command"
+    echo "  ng:lint  :   Do 'lint 'client lint"
+    echo "  ng:test  :   Do 'test 'client test"
+    echo "  ng:e2e   :   Do 'e2e' client test"
+    echo ""
+    echo "Server"
+    echo "  server      :   Execute commands in server api container"
+    echo "  devmode     :   Execute 'development-status' server command"
+    echo "  devmode:on  :   Execute 'development-enable' server command"
+    echo "  devmode:off :   Execute 'development-disable' server command"
+    echo "  php:check   :   Execute 'check' server command"
+    echo "  php:analyze :   Execute 'analyze' server command"
+    echo "  php:clear   :   Execute 'clear-config-cache' server command"
+    echo "  php:cs-check:   Execute 'cs-check' server command"
+    echo "  php:cs-fix  :   Execute 'cs-fix' server command"
+    echo "  php:test    :   Execute 'test' server command"
+    echo "  php:coverage:   Execute 'test-coverage' server command"
+}
+
+#Install
+CmdInstall()
+{
+    echo "Installing"
+}
+
+# Text-Editor
+CmdCode()
+{
+    code .
+}
+
+# Docker
+CmdDockerDown()
+{
+    docker-compose down
+}
+
+CmdDockerUp()
+{
+    docker-compose up -d
+}
+
+# Server Starters
+CmdStart()
+{
+    CmdDockerUp
+    CmdNode run start
+}
+
+#Tools
+CmdComposer()
+{
+    shift
+    docker-compose exec api composer $@
+}
+
+CmdNode()
+{
+    shift
+    cd quasar/client;
+    yarn $@;
+}
+
+CmdNg()
+{
+    CmdNode ng $@
+}
+
+CmdQuasar()
+{
+    shift
+    docker-compose exec api php bin/quasar $@
+}
+
+CmdServer()
+{
+    shift;
+    if [ "$1" = "--list" ]; 
+    then
+        docker-compose exec api ls -l vendor/bin
+    else
+        docker-compose exec api vendor/bin/$@
+    fi
+}
+
+CmdServerBash()
+{
+    shift
+    docker-compose exec api $@
+}
+
+CmdBash()
+{
+    docker-compose exec api sh
+}
+
+CmdExpressive()
+{
+    shift
+    CmdComposer run 'expressive' $@;
+}
+
+CmdDoctrine()
+{
+    CmdServer doctrine $@
+}
+
+Main $@

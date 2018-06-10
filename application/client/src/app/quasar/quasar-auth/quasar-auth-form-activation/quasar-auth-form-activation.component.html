@@ -1,0 +1,30 @@
+<form class="mat-typography" [formGroup]="form">
+
+  <div>
+    <!-- Usuário -->
+    <mat-form-field fxFlexFill>
+      <input matInput formControlName="identity" placeholder="Usuário">
+      <mat-error *ngIf="form.get('identity').invalid">{{form.get('identity').errors | quasarServerFormError}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <!-- Código -->
+    <mat-form-field fxFlexFill>
+      <input matInput formControlName="activation" placeholder="Chave de Ativação">
+      <mat-error *ngIf="form.get('activation').invalid">{{form.get('activation').errors | quasarServerFormError}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout>
+    <!-- <div fxFlex>
+        <mat-slide-toggle>Lembrar</mat-slide-toggle>
+      </div> -->
+    <div fxFlex fxLayoutAlign="end">
+      <button mat-raised-button color="primary" [disabled]="form.invalid" *ngIf="!send" (click)="activate()">
+        Registrar
+      </button>
+    </div>
+  </div>
+
+</form>

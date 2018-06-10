@@ -1,0 +1,23 @@
+<mat-accordion displayMode="flat">
+  <mat-expansion-panel *ngFor="let menu of menu$ | async">
+    <mat-expansion-panel-header>
+      {{menu?.header}}
+    </mat-expansion-panel-header>
+    <ng-container *ngIf="menu.children.length > 0">
+      <ng-template matExpansionPanelContent="">
+        <ng-container *ngFor="let item of menu.children">
+          <a mat-list-item [title]="item?.description"
+            [routerLink]="item.router"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact : true }">
+            {{item.label}}
+          </a>
+        </ng-container>
+      </ng-template>
+    </ng-container>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<a mat-list-item routerLink="/quasar/perfil" title="Alteração de dados pessoais">Conta</a>
+<a mat-list-item routerLink="/quasar/admin/about">Sobre</a>
+<a mat-list-item routerLink="/quasar/auth/logout">Sair</a>

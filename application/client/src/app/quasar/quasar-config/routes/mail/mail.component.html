@@ -1,0 +1,40 @@
+<div class="container">
+  <h2 class="mat-title">Correio</h2>
+</div>
+
+<form [formGroup]="form">
+<mat-list>
+  <!-- Formulário -->
+  <h2 matSubheader>Configurações do Servidor</h2>
+  <mat-list-item>
+    <h3 matLine>Host</h3>
+    <p matLine>mail.mviniciusconsultoria.com.br</p>
+  </mat-list-item>
+  <mat-list-item>
+    <h3 matLine>Usuário</h3>
+    <p matLine>dev@mviniciusconsultoria.com.br</p>
+  </mat-list-item>
+  <mat-list-item>
+    <h3 matLine>Método</h3>
+    <p matLine>SMTP</p>
+  </mat-list-item>
+  <mat-list-item>
+    <h3 matLine>Adaptador</h3>
+    <p matLine>Zend Mail</p>
+  </mat-list-item>
+
+  <mat-divider></mat-divider>
+
+  <!-- Teste -->
+  <h2 matSubheader>Conexão</h2>
+  <mat-list-item>
+    <h3 matLine>Teste conexão e envio</h3>
+    <div matLine>
+      <mat-form-field fxFlexFill>
+        <input matInput formControlName="mail" placeholder="E-mail para teste">
+      </mat-form-field>
+    </div>
+    <button mat-raised-button>Testar</button>
+  </mat-list-item>
+</mat-list>
+</form>

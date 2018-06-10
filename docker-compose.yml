@@ -7,7 +7,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "./quasar/database/mysql:/var/lib/mysql"
+      - "./application/database/mysql:/var/lib/mysql"
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: mvinicius
@@ -21,7 +21,7 @@ services:
     ports:
       - 8000:80
     volumes:
-      - ./quasar/server/:/var/www/quasar/
+      - ./application/server/:/var/www/quasar/
       - ./docker/php/php.ini:/etc/php/7.2/php.ini
       - ./docker/apache/httpd.conf:/etc/apache2/httpd.conf
       - ./docker/apache/conf.d/quasar.conf:/etc/apache2/conf.d/quasar.conf
