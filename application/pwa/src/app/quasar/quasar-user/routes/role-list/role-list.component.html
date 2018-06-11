@@ -6,8 +6,16 @@
 
     <!-- Id Column -->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Ações">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="after">
+          <button mat-menu-item>Editar</button>
+          <button mat-menu-item>Remove</button>
+        </mat-menu>
+      </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
@@ -20,6 +28,6 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5,25, 50, 100, 250]">
+  <mat-paginator #paginator [length]="dataSource.data$.getValue()" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5,25, 50, 100, 250]">
   </mat-paginator>
 </div>

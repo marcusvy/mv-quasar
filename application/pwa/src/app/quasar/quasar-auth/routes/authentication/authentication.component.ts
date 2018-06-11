@@ -50,9 +50,8 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
   }
 
   onLogin($event: { identity: string; credential: string }) {
-    const formData = $event;
     this._login$$ = this._service
-      .authenticate(formData.identity, formData.credential)
+      .authenticate($event.identity, $event.credential)
       .subscribe(res => {
         if (res["form"]) {
           this.formLogin.hydrateErrors(res["form"]);

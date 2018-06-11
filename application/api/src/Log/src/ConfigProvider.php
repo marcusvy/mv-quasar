@@ -57,7 +57,7 @@ class ConfigProvider
                 'name' => 'QuasarLogInstall',
                 'allowed_methods' => ['GET']
             ], [
-                'path' => '/api/logger/list[/{page:\d+}]',
+                'path' => '/api/logger/page[/{page:\d+}]',
                 'middleware' => Action\LoggerRestAction::class,
                 'name' => 'logger.pagination',
                 'allowed_methods' => ['GET']

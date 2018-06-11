@@ -48,6 +48,8 @@ import { QuasarRoutingModule } from "../quasar.routing";
 import { RouterModule } from "@angular/router";
 import { QuasarApiDatasourceService } from "./quasar-api-datasource.service";
 import { QuasarLogService } from "./service/quasar-log.service";
+import { QuasarUserService } from "./service/quasar-user.service";
+import { QuasarUserRoleService } from "./service/quasar-user-role.service";
 
 @NgModule({
   exports: [
@@ -105,6 +107,8 @@ import { QuasarLogService } from "./service/quasar-log.service";
     QuasarApiService,
     QuasarApiDatasourceService,
     QuasarLogService,
+    QuasarUserService,
+    QuasarUserRoleService,
     QuasarServerFormErrorPipe,
     QuasarTypewriterPipe,
     QuasarServerStatusService,
