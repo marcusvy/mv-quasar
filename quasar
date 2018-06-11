@@ -10,6 +10,7 @@ function Main()
         'start') CmdStart; ;;
         'up') CmdDockerUp; ;;
         'down') CmdDockerDown; ;;
+        'restart') CmdDockerRestart; ;;
         'code') CmdCode ; ;;
         'composer') CmdComposer $@; ;;
         'expressive') CmdExpressive $@; ;;
@@ -49,8 +50,9 @@ Help()
     echo ""
     echo "Docker"
     echo "  start    :   Start servers"
-    echo "  up       :   Start the docker containers"
-    echo "  down     :   Stop the docker containers"
+    echo "  up       :   Start docker containers"
+    echo "  down     :   Stop docker containers"
+    echo "  restart  :   Restart docker containers"
     echo ""
     echo "Development Tools"
     echo "  code     :   Open text editor "
@@ -105,6 +107,12 @@ CmdDockerUp()
     docker-compose up -d
 }
 
+CmdDockerRestart()
+{
+    CmdDockerDown
+    CmdDockerUp
+}
+
 # Server Starters
 CmdStart()
 {
@@ -122,7 +130,7 @@ CmdComposer()
 CmdNode()
 {
     shift
-    cd application/client;
+    cd application/pwa;
     yarn $@;
 }
 
