@@ -50,6 +50,8 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
   }
 
   onLogin($event: { identity: string; credential: string }) {
+    const project = "";
+
     this._login$$ = this._service
       .authenticate($event.identity, $event.credential)
       .subscribe(res => {

@@ -6,10 +6,24 @@
   "configurations": [
     {
       "type": "chrome",
+      "request": "attach",
+      "name": "Attach to Chrome",
+      "port": 9222,
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome",
       "url": "http://localhost:4200",
+      "port": 9222,
       "webRoot": "${workspaceFolder}/application/pwd"
     }
   ],
+  "compounds": [
+    {
+      "name": "Debug Angular",
+      "configurations": ["Launch Chrome", "Attach to Chrome"]
+    }
+  ]
 }
